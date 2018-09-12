@@ -72,5 +72,14 @@ class LoginView {
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
 	}
+
+	// Return true if the user has pressed 'Send'
+	public function isFieldNotEmpty () {
+		if (isset($_GET[$this->inputfield])) {
+			if ($_GET[$this->inputfield] != "") {
+				return true;
+			}   
+		}
+	}
 	
 }
