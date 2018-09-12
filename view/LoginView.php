@@ -24,6 +24,9 @@ class LoginView {
 		
 		$response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
+
+		$this->usernameExists();
+
 		return $response;
 	}
 
@@ -74,10 +77,14 @@ class LoginView {
 	}
 
 	// Return true if the user has pressed 'Send'
-	public function isFieldNotEmpty () {
-		if (isset($_GET[$this->inputfield])) {
-			if ($_GET[$this->inputfield] != "") {
-				return true;
+	private function usernameExists () {
+		if (isset($_POST[self::$name])) {
+			if ($_POST[self::$name] == "") {
+				self::$messageId
+			}
+
+			if ($_POST[self::$name] != "") {
+				echo $_POST[self::$name];
 			}   
 		}
 	}
