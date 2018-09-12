@@ -1,5 +1,3 @@
-1. Setup a LAMP Stack
-2. Solve tasks incrementally
-3. Push to publi server and do unit tests
+1. Fix clock response
 
-Server IP:
+Server IP: http://159.89.2.45/
