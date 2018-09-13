@@ -2,6 +2,7 @@
 
 	function calculateDate() {
 
+		date_default_timezone_set("Europe/Stockholm");
 		$currentTime 		= getdate();
 		$weekDay			= $currentTime["weekday"];
 		$mday 				= $currentTime["mday"];

@@ -80,13 +80,13 @@ class LoginView {
 	private function usernameExists () {
 		if (isset($_POST[self::$name])) {
 			if ($_POST[self::$name] == "") {
-				self::$messageId
+				// self::$messageId;
 			}
-
-			if ($_POST[self::$name] != "") {
-				echo $_POST[self::$name];
-			}   
 		}
-	}
+
+			// if ($_POST[self::$name] != "") {
+			// 	echo $_POST[self::$name];
+			// }   
+		}
 	
 }
