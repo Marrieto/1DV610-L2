@@ -29,12 +29,7 @@ class LoginView {
 			}
 			if (!$this->usernameExist()) {
 				$message = "Username is missing";
-			} else {
-				// self::$name = self::returnUsername();
 			}
-			// if (isset($_POST[self::$name]) ) {
-			// 	self::$name = $_POST[self::$name];
-			// }
 		}
 		// Check if there's a username and password
 		
@@ -87,13 +82,11 @@ class LoginView {
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function usernameExist () {
-		// return (isset($_POST[self::$name]) && !empty($_POST[self::$name]));
-		return (isset($_POST[self::$name]));
+		return (isset($_POST[self::$name]) && !empty($_POST[self::$name]));
 	}
 
 	private function passwordExist () {
-		 return (!empty($_POST[self::$password]));
-		// return isset($_POST[self::$password]);
+		 return (isset($_POST[self::$password]) && !empty($_POST[self::$password]));
 	}
 
 	private function returnUsername () {
@@ -103,7 +96,6 @@ class LoginView {
 	private function returnUsernameIfExist () {
 		// echo 'scvenasd';
 		if ($this->usernameExist()) {
-			echo 'username finnes';
 			return $this->returnUsername();
 		} else {
 			 return '';
