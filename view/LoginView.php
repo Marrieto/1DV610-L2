@@ -25,11 +25,16 @@ class LoginView {
 		// Check if 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if (!$this->passwordExist()) {
-				$message = "Password is missing";
+				$message = "Password is missing ";
 			}
 			if (!$this->usernameExist()) {
 				$message = "Username is missing";
+			} else {
+				// self::$name = self::returnUsername();
 			}
+			// if (isset($_POST[self::$name]) ) {
+			// 	self::$name = $_POST[self::$name];
+			// }
 		}
 		// Check if there's a username and password
 		
@@ -66,7 +71,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->returnUsernameIfExist() . '" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -82,8 +87,8 @@ class LoginView {
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function usernameExist () {
-		return (!empty($_POST[self::$name]));
-		// return isset($_POST[self::$name]);
+		// return (isset($_POST[self::$name]) && !empty($_POST[self::$name]));
+		return (isset($_POST[self::$name]));
 	}
 
 	private function passwordExist () {
@@ -91,19 +96,20 @@ class LoginView {
 		// return isset($_POST[self::$password]);
 	}
 
-	// getRequestPassword TODO
+	private function returnUsername () {
+		return $_POST[self::$name];
+	}
 
-	// Return true if the user has pressed 'Send'
-	// private function usernameExists () {
-	// 	if (isset($_POST[self::$name])) {
-	// 		if ($_POST[self::$name] == "") {
-	// 			// self::$messageId;
-	// 		}
-	// 	}
+	private function returnUsernameIfExist () {
+		// echo 'scvenasd';
+		if ($this->usernameExist()) {
+			echo 'username finnes';
+			return $this->returnUsername();
+		} else {
+			 return '';
+			}
+	}
 
-	// 		// if ($_POST[self::$name] != "") {
-	// 		// 	echo $_POST[self::$name];
-	// 		// }   
-	// 	}
+
 	
 }
