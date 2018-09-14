@@ -25,10 +25,10 @@ class LoginView {
 		// Check if 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if (!$this->passwordExist()) {
-				$message = "Enter a password!";
+				$message = "Password is missing";
 			}
 			if (!$this->usernameExist()) {
-				$message = "Enter a username!";
+				$message = "Username is missing";
 			}
 		}
 		// Check if there's a username and password
