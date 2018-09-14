@@ -21,11 +21,20 @@ class LoginView {
 	 */
 	public function response() {
 		$message = '';
+
+		// Check if 
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			if (!$this->passwordExist()) {
+				$message = "Enter a password!";
+			}
+			if (!$this->usernameExist()) {
+				$message = "Enter a username!";
+			}
+		}
+		// Check if there's a username and password
 		
 		$response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
-
-		$this->usernameExists();
 
 		return $response;
 	}
@@ -72,23 +81,29 @@ class LoginView {
 	}
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
-	private function getRequestUserName() {
-		//RETURN REQUEST VARIABLE: USERNAME
+	private function usernameExist () {
+		return (!empty($_POST[self::$name]));
+		// return isset($_POST[self::$name]);
+	}
+
+	private function passwordExist () {
+		 return (!empty($_POST[self::$password]));
+		// return isset($_POST[self::$password]);
 	}
 
 	// getRequestPassword TODO
 
 	// Return true if the user has pressed 'Send'
-	private function usernameExists () {
-		if (isset($_POST[self::$name])) {
-			if ($_POST[self::$name] == "") {
-				// self::$messageId;
-			}
-		}
+	// private function usernameExists () {
+	// 	if (isset($_POST[self::$name])) {
+	// 		if ($_POST[self::$name] == "") {
+	// 			// self::$messageId;
+	// 		}
+	// 	}
 
-			// if ($_POST[self::$name] != "") {
-			// 	echo $_POST[self::$name];
-			// }   
-		}
+	// 		// if ($_POST[self::$name] != "") {
+	// 		// 	echo $_POST[self::$name];
+	// 		// }   
+	// 	}
 	
 }
