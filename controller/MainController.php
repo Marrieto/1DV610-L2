@@ -6,12 +6,14 @@ class MainController {
     private static $DateTimeView;
     private static $LoginView;
     private static $LayoutView;
+    private static $LoginModel;
 
-    public function __construct ($v, $dtv, $lv) {
-        self::$LoginView    = $v;
-        self::$DateTimeView = $dtv;
-        self::$LayoutView   = $lv;
-        self::$LoginController = new LoginController(self::$LoginView, self::$DateTimeView, self::$LayoutView);
+    public function __construct ($v, $dtv, $lv, $lm) {
+        self::$LoginView        = $v;
+        self::$DateTimeView     = $dtv;
+        self::$LayoutView       = $lv;
+        self::$LoginModel       = $lm;
+        self::$LoginController  = new LoginController(self::$LoginView, self::$DateTimeView, self::$LayoutView, self::$LoginModel);
     }
 
     public function render() {
@@ -24,8 +26,8 @@ class MainController {
     // private function ChooseView () {
     // }
 
-    private function checkIfLoggedIn () {
-        // if ( isset($_POST['LoginView::Login']))
-    }
+    // private function checkIfLoggedIn () {
+    //     if ( isset($_POST['LoginView::Login']))
+    // }
 
 }

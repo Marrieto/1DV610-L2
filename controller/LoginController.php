@@ -5,14 +5,19 @@ class LoginController {
   private static $DateTimeView;
   private static $LoginView;
   private static $LayoutView;
+  private static $LoginModel;
 
-  public function __construct ($v, $dtv, $lv) {
+  public function __construct ($v, $dtv, $lv, $lm) {
     self::$LoginView    = $v;
     self::$DateTimeView = $dtv;
     self::$LayoutView   = $lv;
+    self::$LoginModel   = $lm;
   }
 
   public function render () {
+    // Testa om inloggad
+    // Sätt meddelande via lv->setmsg;
+    // self::$LayoutView->setMessage('Benis');
     self::$LayoutView->render(false, self::$LoginView, self::$DateTimeView);
   }
 

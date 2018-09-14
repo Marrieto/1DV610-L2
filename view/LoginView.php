@@ -8,9 +8,7 @@ class LoginView {
 	private static $cookieName = 'LoginView::CookieName';
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
-	private static $messageId = 'LoginView::Message';
-
-	
+	private static $messageId = 'LoginView::Message';	
 
 	/**
 	 * Create HTTP response
@@ -19,18 +17,35 @@ class LoginView {
 	 *
 	 * @return  void BUT writes to standard output and cookies!
 	 */
-	public function response() {
+	public function response($isLoggedIn) {
 		$message = '';
 
-		// Check if 
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			if (!$this->passwordExist()) {
-				$message = "Password is missing ";
+		// if ($_SESSION[isLoggedIn] != true) {
+		// 	// Do login stuff
+		// } else {
+		// 	// Do logout stuff
+		// 	// $this->generateLogoutButtonHTML($message)
+		// }
+
+		if (!$isLoggedIn) {
+			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				if (!$this->usernameExist()) {
+					$message = "Username is missing";
+				} 
+				if (!$this->passwordExist()) {
+					$message = "Password is missing ";
+				} else if ( $this->usernameExist() && $this->passwordExist() ) {
+					// Check DB if correct
+					// 		If not -> Display wrong name or password
+					// 		If was -> generateLogoutButton
+				}
 			}
-			if (!$this->usernameExist()) {
-				$message = "Username is missing";
-			}
+		} else {
+			
 		}
+
+		// Check if there was a POST
+
 		// Check if there's a username and password
 		
 		$response = $this->generateLoginFormHTML($message);
@@ -94,7 +109,6 @@ class LoginView {
 	}
 
 	private function returnUsernameIfExist () {
-		// echo 'scvenasd';
 		if ($this->usernameExist()) {
 			return $this->returnUsername();
 		} else {
