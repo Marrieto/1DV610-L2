@@ -76,6 +76,8 @@ class LoginView {
 		//RETURN REQUEST VARIABLE: USERNAME
 	}
 
+	// getRequestPassword TODO
+
 	// Return true if the user has pressed 'Send'
 	private function usernameExists () {
 		if (isset($_POST[self::$name])) {
