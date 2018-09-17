@@ -17,7 +17,27 @@ class LoginController {
   public function login () {
     // Ask view if someone wants to log in
     $credentials = self::$LoginView->getCredentials();
-    $this->printCredentials($credentials);
+    // $this->printCredentials($c redentials);
+    $response = new StatusMessage();
+    $response->setMessageState(false);
+    //AretheInputscorrect? If so, ask the database, otherwise print out the error 
+    
+
+    if ($this->checkIfThereWasAPOST()) {
+      $response = $credentials->validateCredentialFormat();
+      if ($response->getMessageState()) 
+      {
+        // echo 'Great, now ask db if it was correct!';
+        self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
+      } else {         
+        self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
+      }
+    } else { 
+      // If there's no POST, just print out the page without any messages
+      self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
+    }
+
+
     // Check if username and password is present
     // -> Ask the model to try to log in
     //    -> if succesful, return true
@@ -25,20 +45,18 @@ class LoginController {
     //        !-> if not, output 'wrong password or username'
     //    !-> if username/pass is missing, output accordingly
 
-    // self::$LayoutView->setMessage('Benis');
-    self::$LayoutView->render(false, self::$LoginView, self::$DateTimeView);
+
   }
 
-  // Kolla om en post till 'login' sker ifrån main controller, isåfall -> skapa en 
-  // sekvens av operationer definerat här i controllern.
-  
-  // Kolla om username finns
-
-  // TESTFUNKTION
+  // TESTFUNKTION, WILL BE DELETED
   private function printCredentials (Credentials $credentials) {
     echo $credentials->getUsername();
     echo $credentials->getPassword();
     echo $credentials->getKeepLoggedIn();
   }
-	
+  // TESTFUNKTION, WILL BE DELETED
+  private function checkIfThereWasAPOST () 
+  {
+    return $_SERVER['REQUEST_METHOD'] == 'POST';
+  }
 }
