@@ -28,6 +28,7 @@ class LoginController {
       if ($response->getMessageState()) 
       {
         // echo 'Great, now ask db if it was correct!';
+        // $successfulLogin = self::LoginModel->validateCredentials($credentials)
         self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
       } else {         
         self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
