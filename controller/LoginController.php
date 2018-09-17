@@ -14,9 +14,17 @@ class LoginController {
     self::$LoginModel   = $lm;
   }
 
-  public function render () {
-    // Testa om inloggad
-    // Sätt meddelande via lv->setmsg;
+  public function login () {
+    // Ask view if someone wants to log in
+    $credentials = self::$LoginView->getCredentials();
+    $this->printCredentials($credentials);
+    // Check if username and password is present
+    // -> Ask the model to try to log in
+    //    -> if succesful, return true
+    //        -> set session to loggedIn
+    //        !-> if not, output 'wrong password or username'
+    //    !-> if username/pass is missing, output accordingly
+
     // self::$LayoutView->setMessage('Benis');
     self::$LayoutView->render(false, self::$LoginView, self::$DateTimeView);
   }
@@ -25,5 +33,12 @@ class LoginController {
   // sekvens av operationer definerat här i controllern.
   
   // Kolla om username finns
+
+  // TESTFUNKTION
+  private function printCredentials (Credentials $credentials) {
+    echo $credentials->getUsername();
+    echo $credentials->getPassword();
+    echo $credentials->getKeepLoggedIn();
+  }
 	
 }

@@ -17,9 +17,8 @@ class MainController {
     }
 
     public function render() {
-        // Should be handled differently, choose between the different controllers, not only layoutview
-        // self::$LayoutView->render(false, self::$LoginView, self::$DateTimeView);
-        self::$LoginController->render();
+        // Runs the code for the login functionality
+        self::$LoginController->login();
     }
 
     // Choose view depending on how the POST looks like, choose between the loginview m.m.

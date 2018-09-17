@@ -7,6 +7,7 @@ require_once('view/LayoutView.php');
 require_once('controller/LoginController.php');
 require_once('controller/MainController.php');
 require_once('model/LoginModel.php');
+require_once('model/Credentials.php');
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);

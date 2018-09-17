@@ -94,7 +94,15 @@ class LoginView {
 			</form>
 		';
 	}
-	
+	// Ny strategi - Hämta pw och username i ett credentials-objekt, utvärdera i controllern
+	public function getCredentials () {
+		$username = $this->returnUsernameIfExist();
+		$password = $this->returnPasswordIfExist();
+		$keepLoggedIn = false;
+
+		return new Credentials($username, $password, $keepLoggedIn);
+	}
+
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function usernameExist () {
 		return (isset($_POST[self::$name]) && !empty($_POST[self::$name]));
@@ -108,9 +116,21 @@ class LoginView {
 		return $_POST[self::$name];
 	}
 
+	private function returnPassword () {
+		return $_POST[self::$password];
+	}
+
 	private function returnUsernameIfExist () {
 		if ($this->usernameExist()) {
 			return $this->returnUsername();
+		} else {
+			 return '';
+			}
+	}
+
+	private function returnPasswordIfExist () {
+		if ($this->passwordExist()) {
+			return $this->returnPassword();
 		} else {
 			 return '';
 			}
