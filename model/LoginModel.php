@@ -22,6 +22,17 @@ class LoginModel {
     return $response;
   }
 
+  public function login () {
+    $_SESSION["login"] = true;
+  }
+
+  public function logout () {
+    session_destroy();
+  }
+
+  public function checkIfLoggedIn () {
+    return isset($_SESSION["login"])  && $_SESSION["login"] == true;
+  }
 
   /*
   TODO: Replace with DB-query

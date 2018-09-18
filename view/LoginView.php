@@ -71,7 +71,7 @@ class LoginView {
 	public function getCredentials () {
 		$username = $this->returnUsernameIfExist();
 		$password = $this->returnPasswordIfExist();
-		$keepLoggedIn = false;
+		$keepLoggedIn = $this->returnKeepLoggedInIfExist();
 
 		return new Credentials($username, $password, $keepLoggedIn);
 	}
@@ -81,16 +81,8 @@ class LoginView {
 		return (isset($_POST[self::$name]) && !empty($_POST[self::$name]));
 	}
 
-	private function passwordExist () {
-		 return (isset($_POST[self::$password]) && !empty($_POST[self::$password]));
-	}
-
 	private function returnUsername () {
 		return $_POST[self::$name];
-	}
-
-	private function returnPassword () {
-		return $_POST[self::$password];
 	}
 
 	private function returnUsernameIfExist () {
@@ -100,6 +92,32 @@ class LoginView {
 			 return '';
 			}
 	}
+
+	private function keepLoggedInExist() {
+		return (isset($_POST[self::$keep]) && !empty($_POST[self::$keep]));
+	}
+
+	private function returnKeepLoggedInIfExist() {
+		if ($this->keepLoggedInExist()) {
+			if ($_POST[self::$keep] == true ) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	private function passwordExist () {
+		 return (isset($_POST[self::$password]) && !empty($_POST[self::$password]));
+	}
+
+	private function returnPassword () {
+		return $_POST[self::$password];
+	}
+
+
 
 	private function returnPasswordIfExist () {
 		if ($this->passwordExist()) {

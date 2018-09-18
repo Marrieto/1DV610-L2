@@ -22,6 +22,8 @@ class LoginController {
     $response->setMessageState(false);
     //AretheInputscorrect? If so, ask the database, otherwise print out the error 
     
+    //Check if user already logged in
+    $response->setMessageState(self::$LoginModel->checkIfLoggedIn());
 
     if ($this->checkIfThereWasAPOST()) {
       $response = $credentials->validateCredentialFormat();
@@ -29,6 +31,12 @@ class LoginController {
       {
         // Query the db to see if it was correct
         $replyFromDB = self::$LoginModel->validateCredentials($credentials);
+
+        // If the user wants to stay logged in and the authorization was right, set session
+        // TODO: Cookie, depending on checked box?s
+        if ($credentials->getKeepLoggedIn() && $replyFromDB->getMessageState()) {
+          self::$LoginModel->login();
+        }
         // ----------------------------------------------
         // TODO: Set cookies and session here accordingly
         // ----------------------------------------------
