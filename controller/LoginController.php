@@ -27,9 +27,13 @@ class LoginController {
       $response = $credentials->validateCredentialFormat();
       if ($response->getMessageState()) 
       {
-        // echo 'Great, now ask db if it was correct!';
-        // $successfulLogin = self::LoginModel->validateCredentials($credentials)
-        self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
+        // Query the db to see if it was correct
+        $replyFromDB = self::$LoginModel->validateCredentials($credentials);
+        // ----------------------------------------------
+        // TODO: Set cookies and session here accordingly
+        // ----------------------------------------------
+
+        self::$LayoutView->render($replyFromDB, self::$LoginView, self::$DateTimeView);
       } else {         
         self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
       }
