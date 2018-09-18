@@ -21,12 +21,4 @@ class MainController {
         self::$LoginController->login();
     }
 
-    // Choose view depending on how the POST looks like, choose between the loginview m.m.
-    // private function ChooseView () {
-    // }
-
-    // private function checkIfLoggedIn () {
-    //     if ( isset($_POST['LoginView::Login']))
-    // }
-
 }

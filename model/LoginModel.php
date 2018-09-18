@@ -31,7 +31,8 @@ class LoginModel {
   }
 
   public function checkIfLoggedIn () {
-    return isset($_SESSION["login"])  && $_SESSION["login"] == true;
+    // echo "LOGGED IN\n";
+    return (isset($_SESSION["login"]) && $_SESSION["login"] == true);
   }
 
   /*
@@ -39,8 +40,10 @@ class LoginModel {
   */
   private function queryUsername ($queryString) {
     if ($queryString == "Admin") {
+      //echo "\nCORRECT USERNAME";
       return true;
     } else {
+      //echo "\n WRONG USERNAME";
       return false;
     }
   }
@@ -49,9 +52,11 @@ class LoginModel {
   TODO: Replace with DB-query
   */
   private function queryPassword ($queryString) {
-    if ($queryString == "Password") {
+    if ($queryString == "Pass") {
+      // echo "\n CORRECT PASS";
       return true;
     } else {
+      // echo "\n WRONG PASS";
       return false;
     }
   }

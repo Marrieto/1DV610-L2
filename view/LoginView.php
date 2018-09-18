@@ -21,7 +21,12 @@ class LoginView {
 
 
 		// TODO: If msg->getmessagestatus() == true { geberatelogoutbtn } else generateloginform
-		$response = $this->generateLoginFormHTML($msg->getMessageString());
+		if ($msg->getMessageState()) {
+			$response = $this->generateLogoutButtonHTML($msg->getMessageString());
+		} else {
+			$response = $this->generateLoginFormHTML($msg->getMessageString());
+		}
+		
 		//$response .= $this->generateLogoutButtonHTML($message);
 
 		return $response;
@@ -67,13 +72,21 @@ class LoginView {
 			</form>
 		';
 	}
-	// Ny strategi - Hämta pw och username i ett credentials-objekt, utvärdera i controllern
+
 	public function getCredentials () {
 		$username = $this->returnUsernameIfExist();
 		$password = $this->returnPasswordIfExist();
 		$keepLoggedIn = $this->returnKeepLoggedInIfExist();
 
 		return new Credentials($username, $password, $keepLoggedIn);
+	}
+
+	public function wantToLogin () {
+		return isset($_POST["login"]) == true;
+	}
+
+	public function wantToLogout () {
+		return isset($_POST["logout"]) == true;
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
@@ -116,8 +129,6 @@ class LoginView {
 	private function returnPassword () {
 		return $_POST[self::$password];
 	}
-
-
 
 	private function returnPasswordIfExist () {
 		if ($this->passwordExist()) {

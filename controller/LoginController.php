@@ -12,18 +12,23 @@ class LoginController {
     self::$DateTimeView = $dtv;
     self::$LayoutView   = $lv;
     self::$LoginModel   = $lm;
+    session_start();
   }
 
   public function login () {
     // Ask view if someone wants to log in
     $credentials = self::$LoginView->getCredentials();
-    // $this->printCredentials($c redentials);
     $response = new StatusMessage();
     $response->setMessageState(false);
     //AretheInputscorrect? If so, ask the database, otherwise print out the error 
     
     //Check if user already logged in
-    $response->setMessageState(self::$LoginModel->checkIfLoggedIn());
+    if (self::$LoginModel->checkIfLoggedIn()) {
+      // echo "should be logged in";
+      $response->setMessageState(true);
+      $response->setMessageString("");
+    }
+    
 
     if ($this->checkIfThereWasAPOST()) {
       $response = $credentials->validateCredentialFormat();
@@ -42,22 +47,14 @@ class LoginController {
         // ----------------------------------------------
 
         self::$LayoutView->render($replyFromDB, self::$LoginView, self::$DateTimeView);
-      } else {         
+      } else {     
         self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
       }
     } else { 
+      //echo "there was no post";
       // If there's no POST, just print out the page without any messages
       self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
     }
-
-
-    // Check if username and password is present
-    // -> Ask the model to try to log in
-    //    -> if succesful, return true
-    //        -> set session to loggedIn
-    //        !-> if not, output 'wrong password or username'
-    //    !-> if username/pass is missing, output accordingly
-
 
   }
 
