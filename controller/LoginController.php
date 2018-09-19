@@ -50,28 +50,30 @@ class LoginController {
           if ($replyFromDB->getMessageState()) {
             if (!self::$LoginModel->checkIfLoggedIn()) {
               self::$LoginModel->login();
-              $replyFromDB->setMessageString('Welcome');
+              // $replyFromDB->setMessageString('Welcome');
+              $response->setMessageString('Welcome');
             }
           }
           // ----------------------------------------------
           // TODO: Set cookies and session here accordingly
           // $credentials->getKeepLoggedIn()
           // ----------------------------------------------
-  
-          self::$LayoutView->render($replyFromDB, self::$LoginView, self::$DateTimeView);
-        } else {     
-          self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
         }
+          // self::$LayoutView->render($replyFromDB, self::$LoginView, self::$DateTimeView);
+        // } else {     
+        //   self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
+        // }
       }
 
       // HANDLE LOGOUT
-      if (self::$LoginView->userWantLogout())
+      if (self::$LoginView->userWantLogout() && self::$LoginModel->checkIfLoggedIn())
       {
         self::$LoginModel->logout();
         $response->setMessageState(false);
         $response->setMessageString("Bye bye!");
-        self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
       }
+
+      self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
 
     } else { 
       //echo "there was no post";
