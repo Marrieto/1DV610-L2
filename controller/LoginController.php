@@ -21,13 +21,11 @@ class LoginController {
     $response->setMessageState(false);
     //AretheInputscorrect? If so, ask the database, otherwise print out the error 
     
-    //Check if user already logged in
+    //Check if user already logged in - Check session and cookies
     if (self::$LoginModel->checkIfLoggedIn()) {
       // echo 'User was logged in..';
       $response->setMessageState(true);
       $response->setMessageString("");
-    } else {
-      // echo 'Checked if logged in returns false';
     }
     
 
@@ -41,57 +39,49 @@ class LoginController {
         if ($response->getMessageState()) 
         {
           // Query the db to see if it was correct
-          // $replyFromDB = self::$LoginModel->validateCredentials($credentials);
           $response = self::$LoginModel->validateCredentials($credentials);
   
-          // If the user wants to stay logged in and the authorization was right, set session
-          // TODO: Cookie, depending on checked box?s
-
           // USER WANT TO LOG IN, WITH RIGHT CREDENTIALS
-          // if ($replyFromDB->getMessageState()) {
           if ($response->getMessageState()) {
             if (!self::$LoginModel->checkIfLoggedIn()) {
               self::$LoginModel->login();
-              // $replyFromDB->setMessageString('Welcome');
               $response->setMessageString('Welcome');
             }
           }
           // ----------------------------------------------
+          // TODO: Cookie, depending on checked box?s
           // TODO: Set cookies and session here accordingly
           // $credentials->getKeepLoggedIn()
           // ----------------------------------------------
-        
-          // self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
-        } else {     
-          // self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
         }
-      }
 
-      // HANDLE LOGOUT
-      if (self::$LoginView->userWantLogout() && self::$LoginModel->checkIfLoggedIn())
+      self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
+        // HANDLE LOGOUT && self::$LoginModel->checkIfLoggedIn())
+    } else if (self::$LoginView->userWantLogout())
+    {
+      // Only log out with 'Bye bye!' if the user was logged in
+      if (self::$LoginModel->checkIfLoggedIn())
       {
         self::$LoginModel->logout();
         $response->setMessageState(false);
         $response->setMessageString("Bye bye!");
       }
-
       self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
-
-    } else { 
-      //echo "there was no post";
-      // If there's no POST, just print out the page without any messages
-      self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
-    }
-
+    } 
+  } else {
+    self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
   }
 
-  // private function userWantLogin () {
-  //   return self::$LoginView->
-  // }
+}
 
-  // private function userWantLogout () {
-  //   return isset ($_POST['logout']);
-  // }
+  private function userWantLogin () {
+    return isset ($_POST['login']);
+    // return self::$LoginView->
+  }
+
+  private function userWantLogout () {
+    return isset ($_POST['logout']);
+  }
 
   // TESTFUNKTION, WILL BE DELETED
   private function printCredentials (Credentials $credentials) {
