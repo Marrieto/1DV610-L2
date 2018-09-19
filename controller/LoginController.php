@@ -58,11 +58,11 @@ class LoginController {
           // TODO: Set cookies and session here accordingly
           // $credentials->getKeepLoggedIn()
           // ----------------------------------------------
+        
+          // self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
+        } else {     
+          // self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
         }
-          // self::$LayoutView->render($replyFromDB, self::$LoginView, self::$DateTimeView);
-        // } else {     
-        //   self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
-        // }
       }
 
       // HANDLE LOGOUT
