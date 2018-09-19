@@ -17,15 +17,23 @@ class LoginController {
   public function login () {
     // Ask view if someone wants to log in
     $credentials = self::$LoginView->getCredentials();
+    $this->printCredentials($credentials);
     $response = new StatusMessage();
     $response->setMessageState(false);
     //AretheInputscorrect? If so, ask the database, otherwise print out the error 
     
-    //Check if user already logged in - Check session and cookies
-    if (self::$LoginModel->checkIfLoggedIn()) {
+    //Check if user already logged in - Checking session and cookies
+    if (self::$LoginModel->checkIfLoggedInBySession()) {
       // echo 'User was logged in..';
       $response->setMessageState(true);
       $response->setMessageString("");
+    }
+
+    // Check if there's a cookie set!
+    else if (self::$LoginModel->checkIfLoggedInByCookies())
+    {
+      // Create a session using login()
+      // If cookies are false, set message to "Wrong information in cookies"
     }
     
 
@@ -39,7 +47,7 @@ class LoginController {
         if ($response->getMessageState()) 
         {
           // Query the db to see if it was correct
-          $response = self::$LoginModel->validateCredentials($credentials);
+          $response = self::$LoginModel->validateCredentialsToDB($credentials);
   
           // USER WANT TO LOG IN, WITH RIGHT CREDENTIALS
           if ($response->getMessageState()) {
@@ -83,13 +91,15 @@ class LoginController {
     return isset ($_POST['logout']);
   }
 
-  // TESTFUNKTION, WILL BE DELETED
+  // TESTFUNKTION, WILL BE DELETED WHEN FINISHED
   private function printCredentials (Credentials $credentials) {
     echo $credentials->getUsername();
     echo $credentials->getPassword();
     echo $credentials->getKeepLoggedIn();
+    echo $credentials->getCookieName();
+    echo $credentials->getCookiePassword();
   }
-  // TESTFUNKTION, WILL BE DELETED
+  // TESTFUNKTION, WILL BE DELETED WHEN FINISHED
   private function checkIfPOST () 
   {
     return $_SERVER['REQUEST_METHOD'] == 'POST';

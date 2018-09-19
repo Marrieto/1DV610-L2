@@ -74,11 +74,13 @@ class LoginView {
 	}
 
 	public function getCredentials () {
-		$username = $this->returnUsernameIfExist();
-		$password = $this->returnPasswordIfExist();
-		$keepLoggedIn = $this->returnKeepLoggedInIfExist();
+		$username 			= $this->returnUsernameIfExist();
+		$password 			= $this->returnPasswordIfExist();
+		$keepLoggedIn 	= $this->returnKeepLoggedInIfExist();
+		$cookieName			= $this->returnCookieNameIfExist();
+		$cookiePassword	= $this->returnCookiePasswordIfExist();
 
-		return new Credentials($username, $password, $keepLoggedIn);
+		return new Credentials($username, $password, $keepLoggedIn, $cookieName, $cookiePassword);
 	}
 
 	public function userWantLogin () {
@@ -105,6 +107,40 @@ class LoginView {
 			 return '';
 			}
 	}
+
+	private function cookieNameExist() {
+		return isset($_COOKIE[self::$cookieName]);
+	}
+
+	private function returnCookieName() {
+		return $_COOKIE[self::$cookieName];
+	}
+
+	private function returnCookieNameIfExist() {
+		if ($this->cookieNameExist()) {
+			return $this->returnCookieName();
+		} else {
+			return "";
+		}
+	}
+
+	private function cookiePasswordExist() {
+		return isset($_COOKIE[self::$cookiePassword]);
+	}
+
+	private function returncookiePassword() {
+		return $_COOKIE[self::$cookiePassword];
+	}
+
+	private function returncookiePasswordIfExist() {
+		if ($this->cookiePasswordExist()) {
+			return $this->returncookiePassword();
+		} else {
+			return "";
+		}
+	}
+
+
 
 	private function keepLoggedInExist() {
 		return (isset($_POST[self::$keep]) && !empty($_POST[self::$keep]));

@@ -5,14 +5,18 @@
 */
 class Credentials {
 
-  private static $username      = "";
-  private static $password      = "";
-  private static $keepLoggedIn  = false;
+  private static $username        = "";
+  private static $password        = "";
+  private static $cookieName      = "";
+  private static $cookiePassword  = "";
+  private static $keepLoggedIn    = false;
 
-  public function __construct ($username, $password, $keepLoggedIn) 
+  public function __construct ($username, $password, $keepLoggedIn, $cookieName, $cookiePassword) 
   {
     self::$username = $username;
     self::$password = $password;
+    self::$cookieName = $cookieName;
+    self::$cookiePassword = $cookiePassword;
     self::$keepLoggedIn = $keepLoggedIn;
   }
 
@@ -27,6 +31,14 @@ class Credentials {
   public function getKeepLoggedIn () 
   {
     return self::$keepLoggedIn;
+  }
+  public function getCookieName ()
+  {
+    return self::$cookieName;
+  }
+  public function getCookiePassword ()
+  {
+    return self::$cookiePassword;
   }
 
   // Checks if the credential object is having the right format
