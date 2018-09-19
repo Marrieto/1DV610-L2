@@ -69,6 +69,7 @@ class LoginController {
       {
         self::$LoginModel->logout();
         $response->setMessageState(false);
+        $response->setMessageString("Bye bye!");
         self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
       }
 
