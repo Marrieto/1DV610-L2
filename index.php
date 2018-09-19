@@ -14,6 +14,8 @@ require_once('model/StatusMessage.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
+session_start();
+
 //CREATE OBJECTS OF THE VIEWS
 $v      = new LoginView();
 $dtv    = new DateTimeView();

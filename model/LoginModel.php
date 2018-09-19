@@ -12,7 +12,7 @@ class LoginModel {
     if ($this->queryUsername($creds->getUsername()) & $this->queryPassword($creds->getPassword()))
     {
       $response->setMessageState(true);
-      $response->setMessageString("Welcome");
+      $response->setMessageString("");
       return $response;
     }
 
@@ -23,18 +23,22 @@ class LoginModel {
   }
 
   public function login () {
-    $_SESSION["login"] = true;
+    $_SESSION["loggedin"] = 'true';
   }
 
   public function logout () {
     session_destroy();
   }
 
-  public function checkIfLoggedIn () {
-    // echo "LOGGED IN\n";
-    return (isset($_SESSION["login"]) && $_SESSION["login"] == true);
+  public function checkIfLoggedIn() {
+    return isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == 'true';
   }
 
+  public function echoLoggedIn () {
+    // if ($_SESSION['loggedin'] == true) {
+    //   echo 'also true..';
+    // }
+  }
   /*
   TODO: Replace with DB-query
   */

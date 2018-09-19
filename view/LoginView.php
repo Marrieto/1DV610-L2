@@ -81,12 +81,12 @@ class LoginView {
 		return new Credentials($username, $password, $keepLoggedIn);
 	}
 
-	public function wantToLogin () {
-		return isset($_POST["login"]) == true;
+	public function userWantLogin () {
+		return isset($_POST[self::$login]);
 	}
 
-	public function wantToLogout () {
-		return isset($_POST["logout"]) == true;
+	public function userWantLogout () {
+		return isset($_POST[self::$logout]);
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
