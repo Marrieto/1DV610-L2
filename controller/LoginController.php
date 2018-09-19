@@ -41,13 +41,15 @@ class LoginController {
         if ($response->getMessageState()) 
         {
           // Query the db to see if it was correct
-          $replyFromDB = self::$LoginModel->validateCredentials($credentials);
+          // $replyFromDB = self::$LoginModel->validateCredentials($credentials);
+          $response = self::$LoginModel->validateCredentials($credentials);
   
           // If the user wants to stay logged in and the authorization was right, set session
           // TODO: Cookie, depending on checked box?s
 
           // USER WANT TO LOG IN, WITH RIGHT CREDENTIALS
-          if ($replyFromDB->getMessageState()) {
+          // if ($replyFromDB->getMessageState()) {
+          if ($response->getMessageState()) {
             if (!self::$LoginModel->checkIfLoggedIn()) {
               self::$LoginModel->login();
               // $replyFromDB->setMessageString('Welcome');
