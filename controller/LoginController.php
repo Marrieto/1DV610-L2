@@ -30,11 +30,11 @@ class LoginController {
     }
 
     // Check if there's a cookie set!
-    else if (self::$LoginModel->checkIfLoggedInByCookies())
-    {
-      // Create a session using login()
-      // If cookies are false, set message to "Wrong information in cookies"
-    }
+    // else if (self::$LoginModel->checkIfLoggedInByCookies())
+    // {
+    //   // Create a session using login()
+    //   // If cookies are false, set message to "Wrong information in cookies"
+    // }
     
 
     if ($this->checkIfPOST()) {

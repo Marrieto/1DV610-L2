@@ -14,7 +14,8 @@ class LoginModel {
       $response->setMessageState(true);
       $response->setMessageString("");
       return $response;
-    } else if ($this->check)
+    }
+    // } else if ($this->check)
 
     $response->setMessageState(false);
     $response->setMessageString("Wrong name or password");
