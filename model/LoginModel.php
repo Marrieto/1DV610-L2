@@ -35,7 +35,7 @@ class LoginModel {
     return isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == 'true';
   }
 
-  public function checkIfLoggedInByCookies ($cookiePassword)
+  public function checkIfLoggedInByCookies ()
   {
     // Query the database for a match of the "password"/randomstring
     //  If a match                          ## If string == "supersecret"

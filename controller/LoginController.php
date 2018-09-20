@@ -17,7 +17,7 @@ class LoginController {
   public function login () {
     // Ask view if someone wants to log in
     $credentials = self::$LoginView->getCredentials();
-    $this->printCredentials($credentials);
+    // $this->printCredentials($credentials);
     $response = new StatusMessage();
     $response->setMessageState(false);
     //AretheInputscorrect? If so, ask the database, otherwise print out the error 
