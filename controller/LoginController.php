@@ -79,8 +79,7 @@ class LoginController {
   } else {
     self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
   }
-
-}
+  }
 
   private function userWantLogin () {
     return isset ($_POST['login']);

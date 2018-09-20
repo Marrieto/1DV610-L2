@@ -4,7 +4,9 @@
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
 require_once('view/LayoutView.php');
+require_once('view/RegisterView.php');
 require_once('controller/LoginController.php');
+require_once('controller/RegisterController.php');
 require_once('controller/MainController.php');
 require_once('model/LoginModel.php');
 require_once('model/Credentials.php');
@@ -21,6 +23,7 @@ $v      = new LoginView();
 $dtv    = new DateTimeView();
 $lv     = new LayoutView();
 $lm     = new LoginModel();
-$mc     = new MainController($v, $dtv, $lv, $lm);
+$rv     = new RegisterView();
+$mc     = new MainController($v, $dtv, $lv, $lm, $rv);
 
 $mc->render();

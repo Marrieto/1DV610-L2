@@ -13,7 +13,7 @@ class LayoutView {
         <body>
           <h1>Assignment 2</h1>
           ' . $this->renderIsLoggedIn($msg->getMessageState()) . '
-          
+          <a href="?register">Register a new user</a>
           <div class="container">
               ' . $v->response($msg) . '
               
@@ -24,6 +24,12 @@ class LayoutView {
     ';
   }
   
+	public function userWantToRegister () {
+		if (isset($_GET['register'])) {
+			return true;
+		}	else return false;
+	}
+
   private function renderIsLoggedIn($isLoggedIn) {
     if ($isLoggedIn) {
       return '<h2>Logged in</h2>';
