@@ -5,7 +5,7 @@
 */
 
   
- function ValidateRegisterInputFormat(Credentials $credentials)
+ function ValidateRegisterInputFormat(Credentials $credentials): StatusMessage
  {
    $response = new StatusMessage();
 
