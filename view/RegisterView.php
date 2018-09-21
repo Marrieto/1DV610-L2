@@ -1,14 +1,21 @@
 <?php
 
 class RegisterView {
-	private static $login = 'LoginView::Login';
-	private static $logout = 'LoginView::Logout';
-	private static $name = 'LoginView::UserName';
-	private static $password = 'LoginView::Password';
-	private static $cookieName = 'LoginView::CookieName';
-	private static $cookiePassword = 'LoginView::CookiePassword';
-	private static $keep = 'LoginView::KeepMeLoggedIn';
-	private static $messageId = 'LoginView::Message';	
+
+  // private static $login = 'LoginView::Login';
+	// private static $logout = 'LoginView::Logout';
+	// private static $name = 'LoginView::UserName';
+	// private static $password = 'LoginView::Password';
+	// private static $cookieName = 'LoginView::CookieName';
+	// private static $cookiePassword = 'LoginView::CookiePassword';
+	// private static $keep = 'LoginView::KeepMeLoggedIn';
+  // private static $messageId = 'LoginView::Message';	
+  
+  private static $username = 'RegisterView::UserName';
+  private static $password = 'RegisterView::Password';
+  private static $passwordRepeat = 'RegisterView::PasswordRepeat';
+  private static $messageId = 'RegisterView::Message';
+
 
 	/**
 	 * Create HTTP response
@@ -34,15 +41,15 @@ class RegisterView {
           <form action='?register' method='post' enctype='multipart/form-data'>
             <fieldset>
             <legend>Register a new user - Write username and password</legend>
-              <p id='RegisterView::Message'></p>
-              <label for='RegisterView::UserName' >Username :</label>
-              <input type='text' size='20' name='RegisterView::UserName' id='RegisterView::UserName' value='' />
+              <p id='" . self::$messageId . "'>" . $message->getMessageString() . "</p>
+              <label for='" . self::$username . "' >Username :</label>
+              <input type='text' size='20' name='" . self::$username . "' id='" . self::$username . "' value='' />
               <br/>
-              <label for='RegisterView::Password' >Password  :</label>
-              <input type='password' size='20' name='RegisterView::Password' id='RegisterView::Password' value='' />
+              <label for='" . self::$password . "' >Password  :</label>
+              <input type='password' size='20' name='" . self::$password . "' id='" . self::$password . "' value='' />
               <br/>
-              <label for='RegisterView::PasswordRepeat' >Repeat password  :</label>
-              <input type='password' size='20' name='RegisterView::PasswordRepeat' id='RegisterView::PasswordRepeat' value='' />
+              <label for='" . self::$passwordRepeat . "' >Repeat password  :</label>
+              <input type='password' size='20' name='" . self::$passwordRepeat . "' id='" . self::$passwordRepeat . "' value='' />
               <br/>
               <input id='submit' type='submit' name='DoRegistration'  value='Register' />
               <br/>
@@ -59,7 +66,7 @@ class RegisterView {
     if (isset($_POST['DoRegistration'])) {
       return true;
     } else {
-      echo "false";
+      return false;
     }
   }
 

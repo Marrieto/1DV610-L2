@@ -83,7 +83,7 @@ class LoginView {
 		return new Credentials($username, $password, $keepLoggedIn, $cookieName, $cookiePassword);
 	}
 
-	public function userWantLogin () {
+	public function userWantLogin (): bool {
 		return isset($_POST[self::$login]);
 	}
 

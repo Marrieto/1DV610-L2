@@ -12,9 +12,10 @@ class RegisterController {
     self::$LoginModel   = $lm;
   }
 
-  public function register () {
+  public function register ($messageString) {
     $statusMessage = new StatusMessage();
     $statusMessage->setMessageState(self::$LoginModel->checkIfLoggedInBySession());
+    $statusMessage->setMessageString($messageString);
 
 
     self::$RegisterView->render($statusMessage, self::$DateTimeView);
