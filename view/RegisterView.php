@@ -45,13 +45,13 @@ class RegisterView {
             <legend>Register a new user - Write username and password</legend>
               <p id='" . self::$messageId . "'>" . $message->getMessageString() . "</p>
               <label for='" . self::$username . "' >Username :</label>
-              <input type='text' size='20' name='" . self::$username . "' id='" . self::$username . "' value='' />
+              <input type='text' size='20' name='" . self::$username . "' id='" . self::$username . "' value='" . self::returnUsernameIfExist() . "' />
               <br/>
               <label for='" . self::$password . "' >Password  :</label>
-              <input type='password' size='20' name='" . self::$password . "' id='" . self::$password . "' value='' />
+              <input type='password' size='20' name='" . self::$password . "' id='" . self::$password . "' value='" . self::returnPasswordIfExist() . "' />
               <br/>
               <label for='" . self::$passwordRepeat . "' >Repeat password  :</label>
-              <input type='password' size='20' name='" . self::$passwordRepeat . "' id='" . self::$passwordRepeat . "' value='' />
+              <input type='password' size='20' name='" . self::$passwordRepeat . "' id='" . self::$passwordRepeat . "' value='" . self::returnPasswordRepeatIfExist() . "' />
               <br/>
               <input id='submit' type='submit' name='" . self::$register . "'  value='Register' />
               <br/>
