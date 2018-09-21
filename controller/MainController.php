@@ -26,9 +26,7 @@ class MainController {
         $triedToRegister = self::$RegisterView->userTriedToRegister();
         if ($triedToRegister)
         {
-            // $username       = 
-            // $password       = 
-            // $passwordRepeat = 
+            $credentials = self::$RegisterView->getCredentials();
             // Check if the register succeded
             // $validRegistration = Model\ValidateRegisterInput();
             //  if not          -> render register with message

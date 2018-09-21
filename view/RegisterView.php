@@ -70,8 +70,40 @@ class RegisterView {
     }
   }
 
+  public function getCredentials () 
+  {
+    $username       = $this->returnUsernameIfExist();
+    $password       = $this->returnPasswordIfExist();
+    $passwordRepeat = $this->returnPasswordRepeatIfExist();
+    return new Credentials($username, $password, false, "", "", $passwordRepeat); 
+  }
+
   private function userIsLoggedIn($isLoggedIn) {
     return $isLoggedIn == true ? "Logged in" : "Not logged in";
+  }
+
+  private function returnUsernameIfExist () {
+    if ((isset($_POST[self::$username]) && !empty($_POST[self::$username])))
+    {
+      return $_POST[self::$username];
+    } else {
+      return "";}
+  }
+
+  private function returnPasswordIfExist () {
+    if ((isset($_POST[self::$password]) && !empty($_POST[self::$password])))
+    {
+      return $_POST[self::$password];
+    } else {
+      return "";}
+  }
+
+  private function returnPasswordRepeatIfExist () {
+    if ((isset($_POST[self::$passwordRepeat]) && !empty($_POST[self::$passwordRepeat])))
+    {
+      return $_POST[self::$passwordRepeat];
+    } else {
+      return "";}
   }
 
 }
