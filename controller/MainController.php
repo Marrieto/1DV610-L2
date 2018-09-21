@@ -27,22 +27,24 @@ class MainController {
         if ($triedToRegister)
         {
             $credentials = self::$RegisterView->getCredentials();
-            $validRegistration = ValidateRegisterInputFormat($credentials);
+            $validRegistrationResponse = ValidateRegisterInputFormat($credentials);
             // Also check the db if it already exist
 
-            if ($validRegistration->getMessageState())
+            if ($validRegistrationResponse->getMessageState())
             {
                 // TODO: RENDER THE LOGINVIEW INSTEAD
-                self::$RegisterController->register($validRegistration);
+                // self::$RegisterController->register($validRegistration);
+                self::$LoginController->login($validRegistrationResponse->getMessageString());
+                //echo 'helo';
             } else {
-                self::$RegisterController->register($validRegistration);
+                self::$RegisterController->register($validRegistrationResponse);
             }
             
         } else if (self::$LayoutView->userWantToRegister())
         {
             self::$RegisterController->register(new StatusMessage());
         } else {
-            self::$LoginController->login();
+            self::$LoginController->login("");
         }
     }
 

@@ -14,7 +14,7 @@ class LoginController {
     self::$LoginModel   = $lm;
   }
 
-  public function login () {
+  public function login ($messageFromMainController) {
     // Ask view if someone wants to log in
     $credentials = self::$LoginView->getCredentials();
     // $this->printCredentials($credentials);
@@ -28,6 +28,8 @@ class LoginController {
       $response->setMessageState(true);
       $response->setMessageString("");
     }
+
+    // Check if 
 
     // Check if there's a cookie set!
     // else if (self::$LoginModel->checkIfLoggedInByCookies())
@@ -74,6 +76,9 @@ class LoginController {
         $response->setMessageState(false);
         $response->setMessageString("Bye bye!");
       }
+      self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
+    } else {
+      $response->setMessageString($messageFromMainController);
       self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
     } 
   } else {
