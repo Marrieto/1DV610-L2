@@ -28,7 +28,9 @@ class MainController {
         {
             $credentials = self::$RegisterView->getCredentials();
 
-            $validRegistration = ValidateRegisterInput($credentials);
+            $validRegistration = ValidateRegisterInputFormat($credentials);
+
+            // Also check the db if it already exist
 
             if ($validRegistration->getMessageState())
             {
