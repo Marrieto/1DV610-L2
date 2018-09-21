@@ -47,7 +47,7 @@ class RegisterView {
               <input id='submit' type='submit' name='DoRegistration'  value='Register' />
               <br/>
             </fieldset>
-          </form><p>" . $dtv->show() . "</p>    </div>
+          </form>" . $dtv->show() . "    </div>
        </body>
     </html>
     ";
