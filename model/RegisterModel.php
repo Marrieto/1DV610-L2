@@ -35,7 +35,7 @@
     $response->setMessageState(false);
     $response->setMessageString("Username has too few characters, at least 3 characters. Password has too few characters, at least 6 characters.");
    }
-   if (!usesValidCharacters($username))
+   if (usesValidCharacters($username))
    {
     $response->setMessageState(false);
     $response->setMessageString("Username contains invalid characters.");
