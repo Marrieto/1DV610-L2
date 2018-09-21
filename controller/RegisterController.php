@@ -15,7 +15,7 @@ class RegisterController {
   public function register ($messageString) {
     $statusMessage = new StatusMessage();
     $statusMessage->setMessageState(self::$LoginModel->checkIfLoggedInBySession());
-    $statusMessage->setMessageString($messageString);
+    $statusMessage->setMessageString($messageString->getMessageString());
 
 
     self::$RegisterView->render($statusMessage, self::$DateTimeView);

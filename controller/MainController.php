@@ -27,11 +27,17 @@ class MainController {
         if ($triedToRegister)
         {
             $credentials = self::$RegisterView->getCredentials();
-            // Check if the register succeded
-            // $validRegistration = Model\ValidateRegisterInput();
-            //  if not          -> render register with message
-            //  if successful   -> render login with message 
-            self::$RegisterController->register("You POSTed in the wrong neighbourhood!");
+
+            $validRegistration = ValidateRegisterInput($credentials);
+
+            if ($validRegistration->getMessageState())
+            {
+                $validRegistration->setMessageString("Success!");
+                self::$RegisterController->register($validRegistration);
+            } else {
+                self::$RegisterController->register($validRegistration);
+            }
+            
         } else if (self::$LayoutView->userWantToRegister())
         {
             self::$RegisterController->register("");

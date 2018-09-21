@@ -75,7 +75,8 @@ class RegisterView {
     $username       = $this->returnUsernameIfExist();
     $password       = $this->returnPasswordIfExist();
     $passwordRepeat = $this->returnPasswordRepeatIfExist();
-    return new Credentials($username, $password, false, "", "", $passwordRepeat); 
+    $credentials = new Credentials($username, $password, false, "", "", $passwordRepeat);
+    return  $credentials;
   }
 
   private function userIsLoggedIn($isLoggedIn) {

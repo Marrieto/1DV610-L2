@@ -4,17 +4,15 @@
 * Handle all the data that has  something to do with the login
 */
 
-namespace Model {
   
- function ValidateRegisterInput(string $username, string $password, string $passwordRepeat)
+ function ValidateRegisterInput(Credentials $credentials)
  {
    $response = new StatusMessage();
 
-   $response->setMessageState(false);
+   $response->setMessageState(true);
    $response->setMessageString("Registration failed..");
 
    return $response;
  }
 
-}
 
