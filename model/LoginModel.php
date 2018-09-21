@@ -75,7 +75,7 @@ class LoginModel {
   TODO: Replace with DB-query
   */
   private function queryPassword ($queryString) {
-    if ($queryString == "Pass") {
+    if ($queryString == "Password") {
       // echo "\n CORRECT PASS";
       return true;
     } else {

@@ -26,6 +26,8 @@ class RegisterView {
 	 */
 	public function render(StatusMessage $message, $dtv) {
 
+    // TODO: Kolla om man ska köra en generate registerForm?
+
     $response = "
     <!DOCTYPE html>
     <html>
