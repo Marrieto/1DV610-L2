@@ -41,8 +41,6 @@
     $response->setMessageString("Username contains invalid characters.");
    }
 
-   $response->setMessageString("Passwords do not match.");
-
     // Check if passwords match
     // Check if password has too few letters
     // Check if username has too few letters

@@ -86,7 +86,8 @@ class RegisterView {
   }
 
   private function returnUsernameIfExist () {
-    if ((isset($_POST[self::$username]) && !empty($_POST[self::$username])))
+    // if ((isset($_POST[self::$username]) && !empty($_POST[self::$username])))
+    if ((isset($_POST[self::$username])))
     {
       return $_POST[self::$username];
     } else {
@@ -94,7 +95,8 @@ class RegisterView {
   }
 
   private function returnPasswordIfExist () {
-    if ((isset($_POST[self::$password]) && !empty($_POST[self::$password])))
+    // if ((isset($_POST[self::$password]) && !empty($_POST[self::$password])))
+    if ((isset($_POST[self::$password])))
     {
       return $_POST[self::$password];
     } else {
@@ -102,7 +104,8 @@ class RegisterView {
   }
 
   private function returnPasswordRepeatIfExist () {
-    if ((isset($_POST[self::$passwordRepeat]) && !empty($_POST[self::$passwordRepeat])))
+    // if ((isset($_POST[self::$passwordRepeat]) && !empty($_POST[self::$passwordRepeat])))
+    if ((isset($_POST[self::$passwordRepeat])))
     {
       return $_POST[self::$passwordRepeat];
     } else {
