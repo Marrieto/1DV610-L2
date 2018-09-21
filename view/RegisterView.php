@@ -90,7 +90,11 @@ class RegisterView {
     // if ((isset($_POST[self::$username]) && !empty($_POST[self::$username])))
     if ((isset($_POST[self::$username])))
     {
-      return $_POST[self::$username];
+      // Replace < and > if needed
+      $illegalCharacters = array("<", ">");
+      $sanitizedString = str_replace($illegalCharacters, "", $_POST[self::$username]);
+      // return $_POST[self::$username];
+      return $sanitizedString;
     } else {
       return "";}
   }
