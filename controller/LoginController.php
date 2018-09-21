@@ -14,7 +14,7 @@ class LoginController {
     self::$LoginModel   = $lm;
   }
 
-  public function login ($messageFromMainController) {
+  public function login ($credentialsFromMainController) {
     // Ask view if someone wants to log in
     $credentials = self::$LoginView->getCredentials();
     // $this->printCredentials($credentials);
@@ -78,7 +78,7 @@ class LoginController {
       }
       self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
     } else {
-      $response->setMessageString($messageFromMainController);
+      $response->setMessageString($credentialsFromMainController);
       self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
     } 
   } else {

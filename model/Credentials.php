@@ -10,9 +10,10 @@ class Credentials {
   private static $passwordRepeat  = "";
   private static $cookieName      = "";
   private static $cookiePassword  = "";
+  private static $statusMessage   = "";
   private static $keepLoggedIn    = false;
 
-  public function __construct ($username, $password, $keepLoggedIn, $cookieName, $cookiePassword, $passwordRepeat) 
+  public function __construct ($username, $password, $keepLoggedIn, $cookieName, $cookiePassword, $passwordRepeat, $statusMessage) 
   {
     self::$username         = $username;
     self::$password         = $password;
@@ -20,6 +21,7 @@ class Credentials {
     self::$cookieName       = $cookieName;
     self::$cookiePassword   = $cookiePassword;
     self::$keepLoggedIn     = $keepLoggedIn;
+    self::$statusMessage    = $statusMessage;
   }
 
   public function getUsername  () 
@@ -45,6 +47,14 @@ class Credentials {
   public function getCookiePassword ()
   {
     return self::$cookiePassword;
+  }
+  public function getStatusMessage ()
+  {
+    return self::$statusMessage;
+  }
+  public function setStatusMessage ($message)
+  {
+    self::$statusMessage = $message;
   }
 
   // Checks if the credential object is having the right format

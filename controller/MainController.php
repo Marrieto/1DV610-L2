@@ -32,8 +32,10 @@ class MainController {
 
             if ($validRegistrationResponse->getMessageState())
             {
-                // TODO: RENDER THE LOGINVIEW INSTEAD
-                // self::$RegisterController->register($validRegistration);
+                // TEMPORARY SOLUTION, should rewrite and use only credentials+statusmessage object
+                $credentials->setStatusMessage($validRegistrationResponse->getMessageString());
+                // TEMPORARY SOLUTION
+
                 self::$LoginController->login($validRegistrationResponse->getMessageString());
                 //echo 'helo';
             } else {

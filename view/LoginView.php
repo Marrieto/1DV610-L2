@@ -80,7 +80,7 @@ class LoginView {
 		$cookieName			= $this->returnCookieNameIfExist();
 		$cookiePassword	= $this->returnCookiePasswordIfExist();
 
-		return new Credentials($username, $password, $keepLoggedIn, $cookieName, $cookiePassword, "");
+		return new Credentials($username, $password, $keepLoggedIn, $cookieName, $cookiePassword, "", "");
 	}
 
 	public function userWantLogin (): bool {
