@@ -45,7 +45,7 @@ class RegisterView {
             <legend>Register a new user - Write username and password</legend>
               <p id='" . self::$messageId . "'>" . $message->getMessageString() . "</p>
               <label for='" . self::$username . "' >Username :</label>
-              <input type='text' size='20' name='" . self::$username . "' id='" . self::$username . "' value='" . self::returnUsernameIfExist() . "' />
+              <input type='text' size='20' name='" . self::$username . "' id='" . self::$username . "' value='" . self::returnUsernameIfExistSanitized() . "' />
               <br/>
               <label for='" . self::$password . "' >Password  :</label>
               <input type='password' size='20' name='" . self::$password . "' id='" . self::$password . "' value='" . self::returnPasswordIfExist() . "' />
@@ -86,18 +86,24 @@ class RegisterView {
     return $isLoggedIn == true ? "Logged in" : "Not logged in";
   }
 
-  private function returnUsernameIfExist () {
+  private function returnUsernameIfExistSanitized () {
     // if ((isset($_POST[self::$username]) && !empty($_POST[self::$username])))
     if ((isset($_POST[self::$username])))
     {
-      // Replace < and > if needed
-      // $illegalCharacters = array("<", ">", "/");
-      // $sanitizedString = str_replace($illegalCharacters, "", $_POST[self::$username]);
-      // return $_POST[self::$username];
+
       $sanitizedString = strip_tags($_POST[self::$username]);
 
       return $sanitizedString;
       // return strip_tags($_POST[self::$username]);
+    } else {
+      return "";}
+  }
+
+  private function returnUsernameIfExist () {
+    // if ((isset($_POST[self::$username]) && !empty($_POST[self::$username])))
+    if ((isset($_POST[self::$username])))
+    {
+      return $_POST[self::$username];
     } else {
       return "";}
   }

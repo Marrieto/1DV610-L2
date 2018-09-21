@@ -35,7 +35,7 @@
     $response->setMessageState(false);
     $response->setMessageString("Username has too few characters, at least 3 characters. Password has too few characters, at least 6 characters.");
    }
-   if (usesInvalidCharacters($username))
+   if (!usesValidCharacters($username))
    {
     $response->setMessageState(false);
     $response->setMessageString("Username contains invalid characters.");
@@ -64,11 +64,13 @@ function passwordsMatch ($password1, $password2): bool {
 
 // Copied from https://stackoverflow.com/questions/1735972/php-fastest-way-to-check-for-invalid-characters-all-but-a-z-a-z-0-9
 // 21/09/18
-function usesInvalidCharacters ($word): bool {
-  // $sanitizedString = str_replace(array("<",">"), "", $word);
-  // $sanitizedString= strip_tags($word);
-  // return $sanitizedString == $word;
-  return !preg_match("[a-zA-Z0-9,.;:\-_'\s]", $word);
+function usesValidCharacters ($word): bool {
+  echo "non-sanitized: " . $word;
+  $sanitizedString = str_replace(array("<",">"), "", $word);
+  echo " sanitized: " . $sanitizedString;
+  
+  return $sanitizedString == $word;
+  // return preg_match("[a-zA-Z0-9,.;:\-_'\s]", $word);
   //return !preg_match('/[^A-Za-z0-9.#\\-$]/', $word);
 }
 
