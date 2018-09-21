@@ -12,14 +12,15 @@ class RegisterController {
     self::$LoginModel   = $lm;
   }
 
-  public function register ($messageString) {
+  public function register (StatusMessage $message) {
     $statusMessage = new StatusMessage();
+    // Checks if one's logged in
     $statusMessage->setMessageState(self::$LoginModel->checkIfLoggedInBySession());
     
     // echo $messageString->getMessageString();
     // $temp = $messageString->getMessageString();
 
-    $statusMessage->setMessageString($messageString->getMessageString());
+    $statusMessage->setMessageString($message->getMessageString());
     // $statusMessage->setMessageString($messageString->getMessageString());
     // echo $messageString->getMessageString();
 

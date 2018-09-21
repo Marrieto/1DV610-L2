@@ -32,7 +32,7 @@ class MainController {
 
             if ($validRegistration->getMessageState())
             {
-                $validRegistration->setMessageString("Success!");
+                // TODO: RENDER THE LOGINVIEW INSTEAD
                 self::$RegisterController->register($validRegistration);
             } else {
                 self::$RegisterController->register($validRegistration);
@@ -40,7 +40,7 @@ class MainController {
             
         } else if (self::$LayoutView->userWantToRegister())
         {
-            self::$RegisterController->register("");
+            self::$RegisterController->register(new StatusMessage());
         } else {
             self::$LoginController->login();
         }
