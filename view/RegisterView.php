@@ -53,7 +53,16 @@ class RegisterView {
     ";
 		echo $response;
   }
-  
+
+  public function userTriedToRegister()
+  {
+    if (isset($_POST['DoRegistration'])) {
+      return true;
+    } else {
+      echo "false";
+    }
+  }
+
   private function userIsLoggedIn($isLoggedIn) {
     return $isLoggedIn == true ? "Logged in" : "Not logged in";
   }

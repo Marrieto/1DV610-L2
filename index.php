@@ -9,6 +9,7 @@ require_once('controller/LoginController.php');
 require_once('controller/RegisterController.php');
 require_once('controller/MainController.php');
 require_once('model/LoginModel.php');
+require_once('model/RegisterModel.php');
 require_once('model/Credentials.php');
 require_once('model/StatusMessage.php');
 

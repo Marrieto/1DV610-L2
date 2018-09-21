@@ -21,8 +21,16 @@ class MainController {
     }
 
     public function render() {
-        // Runs the code for the login functionality
-        if (self::$LayoutView->userWantToRegister())
+
+        // Check if there was a POST to register
+        $triedToRegister = self::$RegisterView->userTriedToRegister();
+        if ($triedToRegister)
+        {
+            // Check if the register succeded
+            echo "henlo";
+            //  if not          -> render register with message
+            //  if successful   -> render login with message 
+        } else if (self::$LayoutView->userWantToRegister())
         {
             self::$RegisterController->register();
         } else {
