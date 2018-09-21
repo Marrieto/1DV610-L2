@@ -10,7 +10,7 @@ class RegisterView {
 	// private static $cookiePassword = 'LoginView::CookiePassword';
 	// private static $keep = 'LoginView::KeepMeLoggedIn';
   // private static $messageId = 'LoginView::Message';	
-  
+  private static $register = 'RegisterView::Register';
   private static $username = 'RegisterView::UserName';
   private static $password = 'RegisterView::Password';
   private static $passwordRepeat = 'RegisterView::PasswordRepeat';
@@ -53,7 +53,7 @@ class RegisterView {
               <label for='" . self::$passwordRepeat . "' >Repeat password  :</label>
               <input type='password' size='20' name='" . self::$passwordRepeat . "' id='" . self::$passwordRepeat . "' value='' />
               <br/>
-              <input id='submit' type='submit' name='DoRegistration'  value='Register' />
+              <input id='submit' type='submit' name='" . self::$register . "'  value='Register' />
               <br/>
             </fieldset>
           </form>" . $dtv->show() . "    </div>
@@ -65,7 +65,8 @@ class RegisterView {
 
   public function userTriedToRegister()
   {
-    if (isset($_POST['DoRegistration'])) {
+    // if (isset($_POST['DoRegistration'])) {
+    if (isset($_POST[self::$register])) {
       return true;
     } else {
       return false;
