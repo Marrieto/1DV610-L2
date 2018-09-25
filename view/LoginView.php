@@ -103,6 +103,8 @@ class LoginView {
 	private function returnUsernameIfExist () {
 		if ($this->usernameExist()) {
 			return $this->returnUsername();
+		} else if (isset($_SESSION['username'])) {
+			return $_SESSION['username'];
 		} else {
 			 return '';
 			}
@@ -169,6 +171,9 @@ class LoginView {
 	private function returnPasswordIfExist () {
 		if ($this->passwordExist()) {
 			return $this->returnPassword();
+		} else if (isset($_SESSION['password']))
+		{
+			return $_SESSION['password'];
 		} else {
 			 return '';
 			}

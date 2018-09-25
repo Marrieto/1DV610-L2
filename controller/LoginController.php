@@ -54,7 +54,8 @@ class LoginController {
           // USER WANT TO LOG IN, WITH RIGHT CREDENTIALS
           if ($response->getMessageState()) {
             if (!self::$LoginModel->checkIfLoggedIn()) {
-              self::$LoginModel->login();
+              // self::$LoginModel->login();
+              self::$LoginModel->login($credentials);
               $response->setMessageString('Welcome');
             }
           }
@@ -78,6 +79,7 @@ class LoginController {
       }
       self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
     } else {
+      // When one successfully register
       $response->setMessageString($credentialsFromMainController);
       self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
     } 

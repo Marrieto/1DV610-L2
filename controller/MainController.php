@@ -33,11 +33,19 @@ class MainController {
             if ($validRegistrationResponse->getMessageState())
             {
                 // TEMPORARY SOLUTION, should rewrite and use only credentials+statusmessage object
+                // TODO: Change login view to use a more general object with not only a message,
+                // but also credentials
                 $credentials->setStatusMessage($validRegistrationResponse->getMessageString());
+                // If credentials is true, then set session username and pass
+                if ($credentials->getStatusMessage())
+                {
+                    $_SESSION["username"] = $credentials->getUsername();
+                    $_SESSION["password"] = $credentials->getPassword();
+                }
                 // TEMPORARY SOLUTION
+                // echo $credentials->getStatusMessage();
 
                 self::$LoginController->login($validRegistrationResponse->getMessageString());
-                //echo 'helo';
             } else {
                 self::$RegisterController->register($validRegistrationResponse);
             }
