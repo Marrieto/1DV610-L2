@@ -25,8 +25,6 @@ class LoginModel {
 
   public function login (Credentials $credentials) {
     $_SESSION["loggedin"] = 'true';
-    $_SESSION["username"] = $credentials->getUsername();
-    $_SESSION["password"] = $credentials->getPassword();
   }
 
   public function logout () {
