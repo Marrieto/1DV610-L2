@@ -9,14 +9,18 @@ class MainController {
     private static $RegisterController;
     private static $LayoutView;
     private static $LoginModel;
+    private static $Database;
+    private $Config;
 
     public function __construct ($v, $dtv, $lv, $lm, $rv) {
-        self::$LoginView        = $v;
-        self::$DateTimeView     = $dtv;
-        self::$LayoutView       = $lv;
-        self::$LoginModel       = $lm;
-        self::$RegisterView     = $rv;
-        self::$LoginController  = new LoginController(self::$LoginView, self::$DateTimeView, self::$LayoutView, self::$LoginModel);
+        self::$LoginView            = $v;
+        self::$DateTimeView         = $dtv;
+        self::$LayoutView           = $lv;
+        self::$LoginModel           = $lm;
+        self::$RegisterView         = $rv;
+        $this->Config               = new Config();
+        self::$Database             = new Database($this->Config->DBUsername, $this->Config->DBPassword, $this->Config->DBPort, $this->Config->DBHost, $this->Config->DBName);
+        self::$LoginController      = new LoginController(self::$LoginView, self::$DateTimeView, self::$LayoutView, self::$LoginModel);
         self::$RegisterController   = new RegisterController(self::$RegisterView, self::$DateTimeView, self::$LoginModel);
     }
 
@@ -27,8 +31,10 @@ class MainController {
         if ($triedToRegister)
         {
             $credentials = self::$RegisterView->getCredentials();
+            // CHECK IF INPUT IS FORMATTED CORRECTLY
             $validRegistrationResponse = ValidateRegisterInputFormat($credentials);
-            // Also check the db if it already exist
+            // CHECK IF USER ALREADY EXIST
+            // $validRegistrationResponse = self::$Database->connect();
 
             if ($validRegistrationResponse->getMessageState())
             {

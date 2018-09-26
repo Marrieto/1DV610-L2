@@ -15,13 +15,34 @@ Class Database {
     $this->DBPort = $dbport;
     $this->DBHost = $dbhost;
     $this->DBName = $dbname;
+
+    $this->Connection = new mysqli($this->DBHost, $this->DBUsername, $this->DBPassword, $this->DBName, $this->DBPort);
+
+    $this->Connection->query("CREATE TABLE IF NOT EXISTS `Users` (
+      `id` int(11) NOT NULL auto_increment,   
+      `cookiestring` varchar(250) default '',       
+      `username` varchar(250)  NOT NULL,
+      `password` varchar(250)  NOT NULL,     
+    );");
+
   }
 
-  private function connect(): void
+  public function connect(): boolean
   {
-    $this->Connection = new mysqli($this->DBHost, $this->DBUsername, $this->DBPassword, $this->DBName, $this->DBPort);
-  }
+  //   echo "before";
+    
+
+  //   if (mysqli_connect_errno())
+  //   {
+  //     echo "Failed to connect to database: " . mysqli_connect_error();
+  //     return false;
+  //   }
+  //   // $this->Connection = new PDO("msql:host=$this->DBHost;dbname=$this->DBName", $this->DBUsername, $this->DBPassword);
+  //   echo "after";
+  //   return true;
+  // }
 
   
 
+}
 }
