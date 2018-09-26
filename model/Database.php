@@ -20,15 +20,7 @@ Class Database {
     self::$DBName     = "Users";
 
     self::$Config     = new Config;
-
-    // self::$DBUsername = self::$Config->getDBUsername;
-    // self::$DBPassword = self::$Config->getDBPassword;
-    // self::$DBPort     = self::$Config->getDBPort;
-    // self::$DBHost     = self::$Config->getDBHost;
-    // self::$DBName     = self::$Config->getDBName;
-
-    // $this->Connection = new mysqli($this->DBHost, $this->DBUsername, $this->DBPassword, $this->DBName, $this->DBPort);
-    
+  
     $this->connect();
   }
 
@@ -53,10 +45,6 @@ Class Database {
   // Run this once if there's no table
   private function initDB () 
   {
-    // TODO: REPLACE root/pass here from config
-    // echo self::$DBUsername;
-
-    // $this->Connection = mysqli_connect(self::$DBHost, self::$DBUsername, self::$DBPassword, self::$DBName);
     $this->Connection = mysqli_connect("localhost", "root", "Password", "Users");
     $this->Connection->query("CREATE TABLE IF NOT EXISTS `user` (   
       `cookiestring` varchar(250) default '',       
@@ -88,8 +76,8 @@ Class Database {
   public function checkIfUserExist (Credentials $credentials): bool
   {
     $this->initDB();
-    $response = $this->connect();
-    $username       = $credentials->getUsername();
+    $this->connect();
+    $username = $credentials->getUsername();
     $qry = "SELECT username FROM user WHERE username=?";
     
     $prepared = $this->Connection->prepare($qry);
@@ -109,6 +97,36 @@ Class Database {
     } else {
       return false;
     }
+  }
+
+  public function authenticate (Credentials $credentials): bool
+  {
+    $this->initDB();
+    $this->connect();
+    $username = $credentials->getUsername();
+    $password = $credentials->getPassword();
+    $qry = "SELECT username, password FROM user WHERE username=?";
+
+    $prepared = $this->Connection->prepare($qry);
+    $prepared->bind_param("s", $username);
+    $prepared->execute();
+    $prepared->bind_result($dbusername, $dbpassword);
+    $prepared->fetch();
+
+    // echo $dbpassword;
+    // echo "|";
+    // echo $password;
+    // echo "||";
+    // echo $dbusername;
+
+    // Check if the passwords match
+    if ( password_verify($password, $dbpassword) && $dbusername == $username )
+    {
+      return true;
+    } else {
+      return false;
+    }
+    
   }
 
 }

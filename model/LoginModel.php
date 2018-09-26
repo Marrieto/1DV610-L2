@@ -5,17 +5,31 @@
 */
 class LoginModel {
 
+  private static $db;
+
+  public function _construct ()
+  {
+    self::$db = new Database();
+  }
+
   public function validateCredentialsToDB (Credentials $creds)
   {
     $response = new StatusMessage;
+    $tempdb = new Database();
 
-    if ($this->queryUsername($creds->getUsername()) & $this->queryPassword($creds->getPassword()))
+    // TODO Replace this with database
+    if ($tempdb->authenticate($creds))
     {
       $response->setMessageState(true);
       $response->setMessageString("");
       return $response;
     }
-    // } else if ($this->check)
+    // if ($this->queryUsername($creds->getUsername()) & $this->queryPassword($creds->getPassword()))
+    // {
+    //   $response->setMessageState(true);
+    //   $response->setMessageString("");
+    //   return $response;
+    // }
 
     $response->setMessageState(false);
     $response->setMessageString("Wrong name or password");
@@ -61,27 +75,27 @@ class LoginModel {
   /*
   TODO: Replace with DB-query
   */
-  private function queryUsername ($queryString) {
-    if ($queryString == "Admin") {
-      //echo "\nCORRECT USERNAME";
-      return true;
-    } else {
-      //echo "\n WRONG USERNAME";
-      return false;
-    }
-  }
+  // private function queryUsername ($queryString) {
+  //   if ($queryString == "Admin") {
+  //     //echo "\nCORRECT USERNAME";
+  //     return true;
+  //   } else {
+  //     //echo "\n WRONG USERNAME";
+  //     return false;
+  //   }
+  // }
 
-  /*
-  TODO: Replace with DB-query
-  */
-  private function queryPassword ($queryString) {
-    if ($queryString == "Password") {
-      // echo "\n CORRECT PASS";
-      return true;
-    } else {
-      // echo "\n WRONG PASS";
-      return false;
-    }
-  }
+  // /*
+  // TODO: Replace with DB-query
+  // */
+  // private function queryPassword ($queryString) {
+  //   if ($queryString == "Password") {
+  //     // echo "\n CORRECT PASS";
+  //     return true;
+  //   } else {
+  //     // echo "\n WRONG PASS";
+  //     return false;
+  //   }
+  // }
 
 }
