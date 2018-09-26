@@ -8,17 +8,17 @@ class Credentials {
   private static $username        = "";
   private static $password        = "";
   private static $passwordRepeat  = "";
-  private static $cookieName      = "";
+  private static $cookieString      = "";
   private static $cookiePassword  = "";
   private static $statusMessage   = "";
   private static $keepLoggedIn    = false;
 
-  public function __construct ($username, $password, $keepLoggedIn, $cookieName, $cookiePassword, $passwordRepeat, $statusMessage) 
+  public function __construct ($username, $password, $keepLoggedIn, $cookieString, $cookiePassword, $passwordRepeat, $statusMessage) 
   {
     self::$username         = $username;
     self::$password         = $password;
     self::$passwordRepeat   = $passwordRepeat;
-    self::$cookieName       = $cookieName;
+    self::$cookieString      = $cookieString;
     self::$cookiePassword   = $cookiePassword;
     self::$keepLoggedIn     = $keepLoggedIn;
     self::$statusMessage    = $statusMessage;
@@ -40,9 +40,9 @@ class Credentials {
   {
     return self::$keepLoggedIn;
   }
-  public function getCookieName ()
+  public function getCookieString ()
   {
-    return self::$cookieName;
+    return self::$cookieString;
   }
   public function getCookiePassword ()
   {

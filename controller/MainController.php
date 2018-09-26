@@ -9,8 +9,8 @@ class MainController {
     private static $RegisterController;
     private static $LayoutView;
     private static $LoginModel;
-    private static $Database;
-    private $Config;
+    private $Database;
+    private static $Config;
 
     public function __construct ($v, $dtv, $lv, $lm, $rv) {
         self::$LoginView            = $v;
@@ -18,14 +18,15 @@ class MainController {
         self::$LayoutView           = $lv;
         self::$LoginModel           = $lm;
         self::$RegisterView         = $rv;
-        $this->Config               = new Config();
-        self::$Database             = new Database($this->Config->DBUsername, $this->Config->DBPassword, $this->Config->DBPort, $this->Config->DBHost, $this->Config->DBName);
+        self::$Config               = new Config();
+        $this->Database             = new Database(self::$Config);
+        // $this->Database             = new Database(self::$Config->DBUsername, self::$Config->DBPassword, self::$Config->DBPort, self::$Config->DBHost, self::$Config->DBName);
         self::$LoginController      = new LoginController(self::$LoginView, self::$DateTimeView, self::$LayoutView, self::$LoginModel);
         self::$RegisterController   = new RegisterController(self::$RegisterView, self::$DateTimeView, self::$LoginModel);
     }
 
     public function render() {
-
+        // echo self::$Config->getDBUsername();
         // Check if there was a POST to register
         $triedToRegister = self::$RegisterView->userTriedToRegister();
         if ($triedToRegister)
@@ -36,17 +37,21 @@ class MainController {
             // CHECK IF USER ALREADY EXIST
             // $validRegistrationResponse = self::$Database->connect();
 
+            // If username and password has correct input
             if ($validRegistrationResponse->getMessageState())
             {
-                // TEMPORARY SOLUTION, should rewrite and use only credentials+statusmessage object
-                // TODO: Change login view to use a more general object with not only a message,
-                // but also credentials
+                
                 $credentials->setStatusMessage($validRegistrationResponse->getMessageString());
                 // If credentials is true, then set session username and pass
+                // and save to database
                 if ($credentials->getStatusMessage())
                 {
                     $_SESSION["username"] = $credentials->getUsername();
                     $_SESSION["password"] = $credentials->getPassword();
+
+                    if (!$this->Database->addUser($credentials)){
+                        echo "Error saving user to database, cehck Database.php";
+                    }
                 }
                 // TEMPORARY SOLUTION
                 // echo $credentials->getStatusMessage();

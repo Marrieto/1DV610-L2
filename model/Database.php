@@ -2,45 +2,92 @@
 
 Class Database {
 
-  private $DBUsername;
-  private $DBPassword;
-  private $DBPort;
-  private $DBHost;
-  private $DBName;
+  private static $DBUsername;
+  private static $DBPassword;
+  private static $DBPort;
+  private static $DBHost;
+  private static $DBName;
+  private static $Config;
   private $Connection;
   
-  public function _construct ($username, $password, $dbport, $dbhost, $dbname) {
-    $this->DBUsername = $username;
-    $this->DBPassword = $password;
-    $this->DBPort = $dbport;
-    $this->DBHost = $dbhost;
-    $this->DBName = $dbname;
+  // public function _construct ($username, $password, $dbport, $dbhost, $dbname) {
+  public function _construct () {  
+    
+    self::$DBUsername = "root";
+    self::$DBPassword = "Password";
+    self::$DBPort     = "3306";
+    self::$DBHost     = "localhost";
+    self::$DBName     = "Users";
 
-    $this->Connection = new mysqli($this->DBHost, $this->DBUsername, $this->DBPassword, $this->DBName, $this->DBPort);
+    self::$Config     = new Config;
 
-    $this->Connection->query("CREATE TABLE IF NOT EXISTS `Users` (
-      `id` int(11) NOT NULL auto_increment,   
-      `cookiestring` varchar(250) default '',       
-      `username` varchar(250)  NOT NULL,
-      `password` varchar(250)  NOT NULL,     
-    );");
+    // self::$DBUsername = self::$Config->getDBUsername;
+    // self::$DBPassword = self::$Config->getDBPassword;
+    // self::$DBPort     = self::$Config->getDBPort;
+    // self::$DBHost     = self::$Config->getDBHost;
+    // self::$DBName     = self::$Config->getDBName;
 
+    // $this->Connection = new mysqli($this->DBHost, $this->DBUsername, $this->DBPassword, $this->DBName, $this->DBPort);
+    
+    $this->connect();
   }
 
-  public function addUser($username, $password, $cookiestring): bool
+  // TAKEN FROM https://www.w3schools.com/php/func_mysqli_connect.asp
+  private function connect(): bool
   {
-    $sanitizedUsername = mysqli_real_escape_string($username);
-    echo $sanitizedUsername;
+    $this->Connection = mysqli_connect("localhost", "root", "Password", "Users");
+    return $this->checkConnection();
+  }
 
+  private function checkConnection (): bool 
+  {
+    if (mysqli_connect_errno())
+    {
+      echo "Failed to connect to MYSQL: " . mysqli_connect_error();
+      return false;
+    } else {
+      return true;
+    }
+  }
 
-    $qry = "INSERT INTO Users (username, password, cookiestring) VALUES (" . $sanitizedUsername . ", " . $password . ", " . $cookiestring . ")";
+  // Run this once if there's no table
+  private function initDB () 
+  {
+    // TODO: REPLACE root/pass here from config
+    // echo self::$DBUsername;
 
+    // $this->Connection = mysqli_connect(self::$DBHost, self::$DBUsername, self::$DBPassword, self::$DBName);
+    $this->Connection = mysqli_connect("localhost", "root", "Password", "Users");
+    $this->Connection->query("CREATE TABLE IF NOT EXISTS `user` (   
+      `cookiestring` varchar(250) default '',       
+      `username` varchar(250)  NOT NULL,
+      `password` varchar(250)  NOT NULL     
+    );");
+  }
+
+  public function addUser(Credentials $credentials): bool
+  {
+    $this->initDB();
+    $response = $this->connect();
+
+    if ($response){
+      echo "Saved user to DB.";
+    } else {
+      echo $response;
+    }
+
+    $hashedPassword = password_hash($credentials->getPassword(), PASSWORD_BCRYPT);
+    
+    $qry = "INSERT INTO user (username, password, cookiestring)
+    VALUES ('" . $credentials->getUsername() . "', '" . $hashedPassword . "', '" . $credentials->getCookieString() . "')";
+    
     if ($this->Connection->query($qry) == TRUE)
     {
       return true;
     } else {
       return false;
     }
+    
 
   }
 
