@@ -34,7 +34,17 @@ class MainController {
             $credentials = self::$RegisterView->getCredentials();
             // CHECK IF INPUT IS FORMATTED CORRECTLY
             $validRegistrationResponse = ValidateRegisterInputFormat($credentials);
+
             // CHECK IF USER ALREADY EXIST
+            if ($validRegistrationResponse->getMessageState())
+            {
+                $response = $this->Database->checkIfUserExist($credentials);
+                if ($response)
+                {
+                    $validRegistrationResponse->setMessageString("Username already taken.");
+                    $validRegistrationResponse->setMessageState(false);
+                }
+            }
             // $validRegistrationResponse = self::$Database->connect();
 
             // If username and password has correct input
@@ -50,7 +60,7 @@ class MainController {
                     $_SESSION["password"] = $credentials->getPassword();
 
                     if (!$this->Database->addUser($credentials)){
-                        echo "Error saving user to database, cehck Database.php";
+                        echo "Error saving user to database, check Database.php";
                     }
                 }
                 // TEMPORARY SOLUTION

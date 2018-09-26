@@ -70,18 +70,12 @@ Class Database {
     $this->initDB();
     $response = $this->connect();
 
-    if ($response){
-      echo "Saved user to DB.";
-    } else {
-      echo $response;
-    }
-
     $hashedPassword = password_hash($credentials->getPassword(), PASSWORD_BCRYPT);
     
     $qry = "INSERT INTO user (username, password, cookiestring)
     VALUES ('" . $credentials->getUsername() . "', '" . $hashedPassword . "', '" . $credentials->getCookieString() . "')";
     
-    if ($this->Connection->query($qry) == TRUE)
+    if ($this->Connection->query($qry) == true && $response == true)
     {
       return true;
     } else {
@@ -91,5 +85,30 @@ Class Database {
 
   }
 
+  public function checkIfUserExist (Credentials $credentials): bool
+  {
+    $this->initDB();
+    $response = $this->connect();
+    $username       = $credentials->getUsername();
+    $qry = "SELECT username FROM user WHERE username=?";
+    
+    $prepared = $this->Connection->prepare($qry);
+
+    $prepared->bind_param("s", $username);
+    $prepared->execute();
+    $prepared->bind_result($result);
+    $prepared->fetch();
+
+    // $statement = $this->Connection->prepare($qry);
+    // $statement->bind_param('s', $username);
+    // $statement->fetch();
+
+    if ($result == $username)
+    {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }
