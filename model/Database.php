@@ -27,22 +27,22 @@ Class Database {
 
   }
 
-  public function connect(): boolean
+  public function addUser($username, $password, $cookiestring): bool
   {
-  //   echo "before";
-    
+    $sanitizedUsername = mysqli_real_escape_string($username);
+    echo $sanitizedUsername;
 
-  //   if (mysqli_connect_errno())
-  //   {
-  //     echo "Failed to connect to database: " . mysqli_connect_error();
-  //     return false;
-  //   }
-  //   // $this->Connection = new PDO("msql:host=$this->DBHost;dbname=$this->DBName", $this->DBUsername, $this->DBPassword);
-  //   echo "after";
-  //   return true;
-  // }
 
-  
+    $qry = "INSERT INTO Users (username, password, cookiestring) VALUES (" . $sanitizedUsername . ", " . $password . ", " . $cookiestring . ")";
 
-}
+    if ($this->Connection->query($qry) == TRUE)
+    {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+
+
 }
