@@ -41,7 +41,7 @@ class MainController {
                 $response = $this->Database->checkIfUserExist($credentials);
                 if ($response)
                 {
-                    $validRegistrationResponse->setMessageString("Username already taken.");
+                    $validRegistrationResponse->setMessageString("User exists, pick another username.");
                     $validRegistrationResponse->setMessageState(false);
                 }
             }
