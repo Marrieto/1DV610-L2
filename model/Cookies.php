@@ -2,22 +2,31 @@
 
 Class Cookies {
 
-  public function setCookie($username, $rndString)
+  public static function setCookie($cookiename, $value)
   {
-    setcookie($username, $rndString, 60*60);
+    // echo $cookiename;
+    // echo $value;
+    setcookie($cookiename, $value, 60*60);
   }
 
-  public function getCookie($username)
+  public static function getCookie($cookiename)
   {
-    if (isset($_COOKIE[$username]))
+    if (isset($_COOKIE[$cookiename]))
     {
-      return $_COOKIE[$username];
+      return $_COOKIE[$cookiename];
     }
   }
 
-  public function removeCookie($username)
+  public static function removeCookie($cookiename)
   {
-    setcookie($username, "", -1);
+    // echo $cookiename;
+    setcookie($cookiename, "null", -1);
+    unset($_COOKIE[$cookiename]);
+  }
+
+  public static function hasCookie($cookiename)
+  {
+    return isset($_COOKIE[$cookiename]);
   }
 
 }

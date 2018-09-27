@@ -29,8 +29,12 @@ class LoginController {
       $response->setMessageString("");
     }
 
-    // Check if 
-
+    // Check if not logged in by session
+    if (!$response->getMessageState() && self::$LoginModel->checkIfLoggedInByCookies($credentials)) {
+      $response->setMessageState(true);
+      $response->setMessageString("Welcome back with cookie");
+      self::$LoginModel->login($credentials);
+    }
     // Check if there's a cookie set!
     // else if (self::$LoginModel->checkIfLoggedInByCookies())
     // {
@@ -73,7 +77,7 @@ class LoginController {
       // Only log out with 'Bye bye!' if the user was logged in
       if (self::$LoginModel->checkIfLoggedIn())
       {
-        self::$LoginModel->logout();
+        self::$LoginModel->logout($credentials);
         $response->setMessageState(false);
         $response->setMessageString("Bye bye!");
       }
