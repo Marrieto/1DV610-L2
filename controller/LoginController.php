@@ -23,11 +23,11 @@ class LoginController {
     //AretheInputscorrect? If so, ask the database, otherwise print out the error 
     
     //Check if user already logged in - Checking session and cookies
-    if (self::$LoginModel->checkIfLoggedInBySession()) {
-      // echo 'User was logged in..';
-      $response->setMessageState(true);
-      $response->setMessageString("");
-    }
+    // if (self::$LoginModel->checkIfLoggedInBySession()) {
+    //   // echo 'User was logged in..';
+    //   $response->setMessageState(true);
+    //   $response->setMessageString("");
+    // }
 
     // Check if not logged in by session
     if (!$response->getMessageState() && self::$LoginModel->checkIfLoggedInByCookies($credentials)) {

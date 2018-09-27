@@ -62,12 +62,19 @@ class LoginModel {
     self::$cookies = new Cookies();
     // Return a statusmessage object, with outcome and message string if manipulated?
     $username = $credentials->getUsername();
+    $cookieusername = self::$cookieName;
     // $response = self::$cookies->getCookie(self::$cookieName);
-    $cookieUsername = self::$cookies->getCookie(self::$cookieName);
+    // $cookieUsername = self::$cookies->getCookie(self::$cookieName);
     // echo "username is: " . $username . "   -   ";
     // echo "cookieusUsername is:  " . $cookieUsername;
 
-    if ($username == $cookieUsername && $cookieUsername != ""){
+
+    //if (self::$cookies->hasCookie($cookieusername)){
+      // $temp = self::$cookies->getCookie($cookieusername);
+      // echo "Has cookie! Name is: " . $temp;
+    //}
+
+    if (self::$cookies->hasCookie($cookieusername)){
       return true;
     } else {
       return false;

@@ -6,7 +6,7 @@ Class Cookies {
   {
     // echo $cookiename;
     // echo $value;
-    setcookie($cookiename, $value, 60*60);
+    setcookie($cookiename, $value, (time() + 60*60*24));
   }
 
   public static function getCookie($cookiename)
@@ -20,7 +20,7 @@ Class Cookies {
   public static function removeCookie($cookiename)
   {
     // echo $cookiename;
-    setcookie($cookiename, "null", -1);
+    // setcookie($cookiename, "null", -1);
     unset($_COOKIE[$cookiename]);
   }
 
