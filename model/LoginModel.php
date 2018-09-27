@@ -38,11 +38,12 @@ class LoginModel {
 
   public function login (Credentials $credentials) {
     self::$cookies = new Cookies();
+    $_SESSION["loggedin"] = 'true';
     // TAKEN FROM https://stackoverflow.com/questions/19017694/one-line-php-random-string-generator 27/09/18
     // $rndStr = chr( mt_rand( 97 ,122 ) ) .substr( md5( time( ) ) ,1 );
     $username = $credentials->getUsername();
     self::$cookies->setCookie(self::$cookieName, $username);
-    $_SESSION["loggedin"] = 'true';
+    
   }
 
   public function logout (Credentials $credentials) {
