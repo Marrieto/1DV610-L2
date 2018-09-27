@@ -67,7 +67,7 @@ class LoginModel {
     // echo "username is: " . $username . "   -   ";
     // echo "cookieusUsername is:  " . $cookieUsername;
 
-    if ($username == $cookieUsername){
+    if ($username == $cookieUsername && $cookieUsername != ""){
       return true;
     } else {
       return false;
