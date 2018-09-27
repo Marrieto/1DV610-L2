@@ -24,12 +24,6 @@ class LoginModel {
       $response->setMessageString("");
       return $response;
     }
-    // if ($this->queryUsername($creds->getUsername()) & $this->queryPassword($creds->getPassword()))
-    // {
-    //   $response->setMessageState(true);
-    //   $response->setMessageString("");
-    //   return $response;
-    // }
 
     $response->setMessageState(false);
     $response->setMessageString("Wrong name or password");
@@ -67,35 +61,10 @@ class LoginModel {
     return isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == 'true';
   }
 
-  public function echoLoggedIn () {
-    // if ($_SESSION['loggedin'] == true) {
-    //   echo 'also true..';
-    // }
-  }
-  /*
-  TODO: Replace with DB-query
-  */
-  // private function queryUsername ($queryString) {
-  //   if ($queryString == "Admin") {
-  //     //echo "\nCORRECT USERNAME";
-  //     return true;
-  //   } else {
-  //     //echo "\n WRONG USERNAME";
-  //     return false;
-  //   }
-  // }
-
-  // /*
-  // TODO: Replace with DB-query
-  // */
-  // private function queryPassword ($queryString) {
-  //   if ($queryString == "Password") {
-  //     // echo "\n CORRECT PASS";
-  //     return true;
-  //   } else {
-  //     // echo "\n WRONG PASS";
-  //     return false;
-  //   }
+  // public function echoLoggedIn () {
+  //   // if ($_SESSION['loggedin'] == true) {
+  //   //   echo 'also true..';
+  //   // }
   // }
 
 }

@@ -113,12 +113,6 @@ Class Database {
     $prepared->bind_result($dbusername, $dbpassword);
     $prepared->fetch();
 
-    // echo $dbpassword;
-    // echo "|";
-    // echo $password;
-    // echo "||";
-    // echo $dbusername;
-
     // Check if the passwords match
     if ( password_verify($password, $dbpassword) && $dbusername == $username )
     {
