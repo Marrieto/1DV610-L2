@@ -20,7 +20,7 @@ Class Cookies {
   public static function removeCookie($cookiename)
   {
     // echo $cookiename;
-    // setcookie($cookiename, "null", -1);
+    setcookie($cookiename, "", -60);
     unset($_COOKIE[$cookiename]);
   }
 

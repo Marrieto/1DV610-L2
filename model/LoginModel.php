@@ -49,8 +49,8 @@ class LoginModel {
   public function logout (Credentials $credentials) {
     self::$cookies = new Cookies();
     // $username = $credentials->getUsername();
-    self::$cookies->removeCookie(self::$cookieName);
     session_destroy();
+    self::$cookies->removeCookie(self::$cookieName);
   }
 
   public function checkIfLoggedInBySession ()
@@ -63,11 +63,12 @@ class LoginModel {
     self::$cookies = new Cookies();
     // Return a statusmessage object, with outcome and message string if manipulated?
     $username = $credentials->getUsername();
-    $cookieusername = self::$cookieName;
+    $cookieName = self::$cookieName;
     // $response = self::$cookies->getCookie(self::$cookieName);
-    // $cookieUsername = self::$cookies->getCookie(self::$cookieName);
+    $cookieUsername = self::$cookies->getCookie($cookieName);
     // echo "username is: " . $username . "   -   ";
     // echo "cookieusUsername is:  " . $cookieUsername;
+    // echo "   -  cookieName: " . $cookieName;
 
 
     //if (self::$cookies->hasCookie($cookieusername)){
@@ -75,7 +76,8 @@ class LoginModel {
       // echo "Has cookie! Name is: " . $temp;
     //}
 
-    if (self::$cookies->hasCookie($cookieusername)){
+    if ($username == $cookieUsername && $username != ""){
+      // $_SESSION["loggedin"] = true;
       return true;
     } else {
       return false;
