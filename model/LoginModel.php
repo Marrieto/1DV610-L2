@@ -6,9 +6,11 @@
 class LoginModel {
 
   private static $db;
+  private static $cookies;
 
   public function _construct ()
   {
+    self::$cookies = new Cookies();
     self::$db = new Database();
   }
 

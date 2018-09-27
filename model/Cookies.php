@@ -2,16 +2,22 @@
 
 Class Cookies {
 
-  // public function _construct () {  
-    
-  // }
+  public function setCookie($username, $rndString)
+  {
+    setcookie($username, $rndString, 60*60);
+  }
 
-  // Set cookie string
+  public function getCookie($username)
+  {
+    if (isset($_COOKIE[$username]))
+    {
+      return $_COOKIE[$username];
+    }
+  }
 
-  // Check if logged in by cookies
-
-  // Get cookie string
-
-
+  public function removeCookie($username)
+  {
+    setcookie($username, "", -1);
+  }
 
 }
