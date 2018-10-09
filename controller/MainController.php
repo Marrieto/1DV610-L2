@@ -52,8 +52,10 @@ class MainController {
                 // and save to database
                 if ($credentials->getStatusMessage())
                 {
-                    $_SESSION["username"] = $credentials->getUsername();
-                    $_SESSION["password"] = $credentials->getPassword();
+                    // $_SESSION["username"] = $credentials->getUsername();
+                    // $_SESSION["password"] = $credentials->getPassword();
+                    self::$LoginView->setSessionUsername($credentials->getUsername());
+                    self::$LoginView->setSessionPassword($credentials->getPassword());
 
                     if (!$this->Database->addUser($credentials)){
                         echo "Error saving user to database, check Database.php";

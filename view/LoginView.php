@@ -68,6 +68,14 @@ class LoginView {
 		return isset($_POST[self::$logout]);
 	}
 
+	public function setSessionUsername (string $name) {
+		$_SESSION[self::$name] = $name;
+	}
+
+	public function setSessionPassword (string $password) {
+		$_SESSION[self::$password] = $password;
+	}
+
 	private function usernameExistInPOST () {
 		return isset($_POST[self::$name]);
 	}
