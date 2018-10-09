@@ -3,16 +3,16 @@
 class LoginModel
 {
 
-    private static $db;
-    private static $cookies;
+    private $db;
+    private $cookies;
 
-    private static $cookieName = "Loginview::CookieName";
-    private static $cookiePassword = "Loginview::CookieName";
+    private $cookieName = "Loginview::CookieName";
+    private $cookiePassword = "Loginview::CookieName";
 
     public function _construct()
     {
-        self::$cookies = new Cookies();
-        self::$db = new Database();
+        $this->cookies = new Cookies();
+        $this->db = new Database();
     }
 
     public function validateCredentialsToDB(Credentials $creds)
@@ -35,20 +35,21 @@ class LoginModel
 
     public function login(Credentials $credentials)
     {
-        self::$cookies = new Cookies();
+        $this->cookies = new Cookies();
         $_SESSION["loggedin"] = 'true';
         $username = $credentials->getUsername();
-        self::$cookies->setCookie(self::$cookieName, $username);
+        $this->cookies->setCookie($this->cookieName, $username);
 
     }
 
     public function logout(Credentials $credentials)
     {
-        self::$cookies = new Cookies();
+        $this->cookies = new Cookies();
         session_destroy();
-        self::$cookies->removeCookie(self::$cookieName);
+        $this->cookies->removeCookie($this->cookieName);
     }
 
+    // Should have it's own model, sessionmodel?
     public function checkIfLoggedInBySession()
     {
         return isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == 'true';
@@ -56,11 +57,11 @@ class LoginModel
 
     public function checkIfLoggedInByCookies(Credentials $credentials)
     {
-        self::$cookies = new Cookies();
+        $this->cookies = new Cookies();
         // Return a statusmessage object, with outcome and message string if manipulated?
         $username = $credentials->getUsername();
-        $cookieName = self::$cookieName;
-        $cookieUsername = self::$cookies->getCookie($cookieName);
+        $cookieName = $this->cookieName;
+        $cookieUsername = $this->cookies->getCookie($cookieName);
 
         if ($username == $cookieUsername && $username != "") {
             return true;

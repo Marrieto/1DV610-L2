@@ -25,6 +25,7 @@ class LayoutView
     ';
     }
 
+    // Replace with GET/POSTView, InputView? Inputs?
     public function userWantToRegister()
     {
         if (isset($_GET['register'])) {
