@@ -14,7 +14,7 @@ Class Database {
   public function _construct () {  
     
     self::$DBUsername = "root";
-    self::$DBPassword = "Password";
+    self::$DBPassword = "password";
     self::$DBPort     = "3306";
     self::$DBHost     = "localhost";
     self::$DBName     = "Users";
@@ -27,7 +27,7 @@ Class Database {
   // TAKEN FROM https://www.w3schools.com/php/func_mysqli_connect.asp
   private function connect(): bool
   {
-    $this->Connection = mysqli_connect("localhost", "root", "Password", "Users");
+    $this->Connection = mysqli_connect("localhost", "root", "password", "Users");
     return $this->checkConnection();
   }
 
@@ -44,7 +44,7 @@ Class Database {
 
   private function initDB () 
   {
-    $this->Connection = mysqli_connect("localhost", "root", "Password", "Users");
+    $this->Connection = mysqli_connect("localhost", "root", "password", "Users");
     $this->Connection->query("CREATE TABLE IF NOT EXISTS `user` (   
       `cookiestring` varchar(250) default '',       
       `username` varchar(250)  NOT NULL,
