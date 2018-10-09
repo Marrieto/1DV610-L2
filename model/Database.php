@@ -47,7 +47,7 @@ class Database
         $qry = "INSERT INTO user (username, password, cookiestring)
     VALUES ('" . $credentials->getUsername() . "', '" . $hashedPassword . "', '" . $credentials->getCookieString() . "')";
 
-        if ($this->Connection->query($qry) == true && $response == true) {
+        if ($this->Connection->query($qry) == true) {
             return true;
         } else {
             return false;
