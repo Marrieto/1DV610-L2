@@ -4,9 +4,7 @@ Class Cookies {
 
   public static function setCookie($cookiename, $value)
   {
-    // echo $cookiename;
-    // echo $value;
-    setcookie($cookiename, $value, (time() + 60*60*24));
+    setcookie($cookiename, $value, (time()+ 60 * 60 * 24));
   }
 
   public static function getCookie($cookiename)
@@ -19,8 +17,7 @@ Class Cookies {
 
   public static function removeCookie($cookiename)
   {
-    // echo $cookiename;
-    setcookie($cookiename, "", -60);
+    setcookie($cookiename, "", (time()+ 60 * 60 * 24 ));
     unset($_COOKIE[$cookiename]);
   }
 

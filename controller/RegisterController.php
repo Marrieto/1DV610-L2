@@ -22,22 +22,12 @@ class RegisterController {
 
   private function userWantLogin () {
     return isset ($_POST['login']);
-    // return self::$LoginView->
   }
 
   private function userWantLogout () {
     return isset ($_POST['logout']);
   }
 
-  // TESTFUNKTION, WILL BE DELETED WHEN FINISHED
-  private function printCredentials (Credentials $credentials) {
-    echo $credentials->getUsername();
-    echo $credentials->getPassword();
-    echo $credentials->getKeepLoggedIn();
-    echo $credentials->getCookieName();
-    echo $credentials->getCookiePassword();
-  }
-  // TESTFUNKTION, WILL BE DELETED WHEN FINISHED
   private function checkIfPOST () 
   {
     return $_SERVER['REQUEST_METHOD'] == 'POST';

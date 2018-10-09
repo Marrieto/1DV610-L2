@@ -20,19 +20,16 @@ class MainController {
         self::$RegisterView         = $rv;
         self::$Config               = new Config();
         $this->Database             = new Database(self::$Config);
-        // $this->Database             = new Database(self::$Config->DBUsername, self::$Config->DBPassword, self::$Config->DBPort, self::$Config->DBHost, self::$Config->DBName);
         self::$LoginController      = new LoginController(self::$LoginView, self::$DateTimeView, self::$LayoutView, self::$LoginModel);
         self::$RegisterController   = new RegisterController(self::$RegisterView, self::$DateTimeView, self::$LoginModel);
     }
 
     public function render() {
-        // echo self::$Config->getDBUsername();
         // Check if there was a POST to register
         $triedToRegister = self::$RegisterView->userTriedToRegister();
         if ($triedToRegister)
         {
             $credentials = self::$RegisterView->getCredentials();
-            // CHECK IF INPUT IS FORMATTED CORRECTLY
             $validRegistrationResponse = ValidateRegisterInputFormat($credentials);
 
             // CHECK IF USER ALREADY EXIST
@@ -45,7 +42,6 @@ class MainController {
                     $validRegistrationResponse->setMessageState(false);
                 }
             }
-            // $validRegistrationResponse = self::$Database->connect();
 
             // If username and password has correct input
             if ($validRegistrationResponse->getMessageState())
@@ -63,8 +59,6 @@ class MainController {
                         echo "Error saving user to database, check Database.php";
                     }
                 }
-                // TEMPORARY SOLUTION
-                // echo $credentials->getStatusMessage();
 
                 self::$LoginController->login($validRegistrationResponse->getMessageString());
             } else {

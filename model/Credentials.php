@@ -75,7 +75,6 @@ class Credentials {
       $returnMessage->setMessageString("Password is missing");
       return $returnMessage;
     } else {
-      // If both exists, return a successful state, no message needed
       $returnMessage->setMessageState(true);
       return $returnMessage;
     }
