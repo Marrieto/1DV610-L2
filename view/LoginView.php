@@ -68,22 +68,29 @@ class LoginView {
 		return isset($_POST[self::$logout]);
 	}
 
-	private function usernameExist () {
-		return (isset($_POST[self::$name]) && !empty($_POST[self::$name]));
+	private function usernameExistInPOST () {
+		return isset($_POST[self::$name]);
 	}
 
-	private function returnUsername () {
+	private function returnUsernameInPOST () {
 		return $_POST[self::$name];
+	}
+	private function usernameExistInSession () {
+		return isset($_SESSION[self::$name]);
+	}
+
+	private function returnUsernameInSession () {
+		return $_SESSION[self::$name];
 	}
 
 	private function returnUsernameIfExist () {
-		if ($this->usernameExist()) {
-			return $this->returnUsername();
-		} else if (isset($_SESSION['username'])) {
-			return $_SESSION['username'];
+		if ($this->usernameExistInPOST()) {
+			return $this->returnUsernameInPOST();
+		} else if ($this->usernameExistInSession()) {
+			return $this->returnUsernameInSession();
 		} else {
 			 return '';
-			}
+		}
 	}
 
 	private function cookieNameExist() {
