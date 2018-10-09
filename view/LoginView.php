@@ -149,6 +149,17 @@ class LoginView {
 		}
 	}
 
+	private function returnPasswordIfExist () {
+		if ($this->passwordExist()) 
+		{
+			return $this->returnPassword();
+		} 
+		else 
+		{
+			 return '';
+		}
+	}
+
 	private function passwordExist () {
 		 return (isset($_POST[self::$password]) && !empty($_POST[self::$password]));
 	}
@@ -157,16 +168,7 @@ class LoginView {
 		return $_POST[self::$password];
 	}
 
-	private function returnPasswordIfExist () {
-		if ($this->passwordExist()) {
-			return $this->returnPassword();
-		} else if (isset($_SESSION['password']))
-		{
-			return $_SESSION['password'];
-		} else {
-			 return '';
-			}
-	}
+
 
 
 	
