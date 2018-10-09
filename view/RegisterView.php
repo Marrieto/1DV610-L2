@@ -1,24 +1,25 @@
 <?php
 
-class RegisterView {
+class RegisterView
+{
 
-  private static $register = 'RegisterView::Register';
-  private static $username = 'RegisterView::UserName';
-  private static $password = 'RegisterView::Password';
-  private static $passwordRepeat = 'RegisterView::PasswordRepeat';
-  private static $messageId = 'RegisterView::Message';
+    private static $register = 'RegisterView::Register';
+    private static $username = 'RegisterView::UserName';
+    private static $password = 'RegisterView::Password';
+    private static $passwordRepeat = 'RegisterView::PasswordRepeat';
+    private static $messageId = 'RegisterView::Message';
 
+    /**
+     * Create HTTP response
+     *
+     * Should be called after a login attempt has been determined
+     *
+     * @return  void BUT writes to standard output and cookies!
+     */
+    public function render(StatusMessage $message, $dtv)
+    {
 
-	/**
-	 * Create HTTP response
-	 *
-	 * Should be called after a login attempt has been determined
-	 *
-	 * @return  void BUT writes to standard output and cookies!
-	 */
-	public function render(StatusMessage $message, $dtv) {
-
-    $response = "
+        $response = "
     <!DOCTYPE html>
     <html>
       <head>
@@ -28,7 +29,7 @@ class RegisterView {
       <body>
         <h1>Assignment 2</h1>
         <a href='?'>Back to login</a><h2>" . $this->userIsLoggedIn($message->getMessageState()) . "</h2>    <div class='container' >
-          
+
           <h2>Register new user</h2>
           <form action='?register' method='post' enctype='multipart/form-data'>
             <fieldset>
@@ -50,65 +51,63 @@ class RegisterView {
        </body>
     </html>
     ";
-		echo $response;
-  }
-
-  public function userTriedToRegister()
-  {
-    if (isset($_POST[self::$register])) {
-      return true;
-    } else {
-      return false;
+        echo $response;
     }
-  }
 
-  public function getCredentials () 
-  {
-    $username       = $this->returnUsernameIfExist();
-    $password       = $this->returnPasswordIfExist();
-    $passwordRepeat = $this->returnPasswordRepeatIfExist();
-    $credentials = new Credentials($username, $password, false, "", "", $passwordRepeat, "");
-    return  $credentials;
-  }
-
-  private function userIsLoggedIn($isLoggedIn) {
-    return $isLoggedIn == true ? "Logged in" : "Not logged in";
-  }
-
-  private function returnUsernameIfExistSanitized () {
-    if ((isset($_POST[self::$username])))
+    public function userTriedToRegister()
     {
-      $sanitizedString = strip_tags($_POST[self::$username]);
-      return $sanitizedString;
-    } else {
-      return "";}
-  }
+        if (isset($_POST[self::$register])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-  private function returnUsernameIfExist () {
-    if ((isset($_POST[self::$username])))
+    public function getCredentials()
     {
-      return $_POST[self::$username];
-    } else {
-      return "";}
-  }
+        $username = $this->returnUsernameIfExist();
+        $password = $this->returnPasswordIfExist();
+        $passwordRepeat = $this->returnPasswordRepeatIfExist();
+        $credentials = new Credentials($username, $password, false, "", "", $passwordRepeat, "");
+        return $credentials;
+    }
 
-  private function returnPasswordIfExist () {
-    if ((isset($_POST[self::$password])))
+    private function userIsLoggedIn($isLoggedIn)
     {
-      return $_POST[self::$password];
-    } else {
-      return "";}
-  }
+        return $isLoggedIn == true ? "Logged in" : "Not logged in";
+    }
 
-  private function returnPasswordRepeatIfExist () {
-    if ((isset($_POST[self::$passwordRepeat])))
+    private function returnUsernameIfExistSanitized()
     {
-      return $_POST[self::$passwordRepeat];
-    } else {
-      return "";}
-  }
+        if ((isset($_POST[self::$username]))) {
+            $sanitizedString = strip_tags($_POST[self::$username]);
+            return $sanitizedString;
+        } else {
+            return "";}
+    }
+
+    private function returnUsernameIfExist()
+    {
+        if ((isset($_POST[self::$username]))) {
+            return $_POST[self::$username];
+        } else {
+            return "";}
+    }
+
+    private function returnPasswordIfExist()
+    {
+        if ((isset($_POST[self::$password]))) {
+            return $_POST[self::$password];
+        } else {
+            return "";}
+    }
+
+    private function returnPasswordRepeatIfExist()
+    {
+        if ((isset($_POST[self::$passwordRepeat]))) {
+            return $_POST[self::$passwordRepeat];
+        } else {
+            return "";}
+    }
 
 }
-
-
-	
