@@ -1,25 +1,41 @@
 <?php
 
-// Display Errors?
+class Config {
 
-namespace Config {
-  public static function DBUsername () {
-    return "Username";
+  private $DBUsername;
+  private $DBPassword;
+  private $DBPort;
+  private $DBHost;
+  private $DBName;
+
+  public function _construct()
+  {
+    $this->DBUsername = "XXX";
+    $this->DBPassword = "XXX";
+    $this->DBPort = 0;
+    $this->DBHost = "XXX";
+    $this->DBName = "XXX";
   }
-  
-  public static function DBPassword () {
-    return "Password";
+
+  public function getDBUsername()
+  {
+    return $this->DBUsername;
   }
-  
-  public static function DBPort () {
-    return 3306;
+  public function getDBPassword()
+  {
+    return $this->DBUsername;
   }
-  
-  public static function DBHost () {
-    return 3306;
+  public function getDBPort()
+  {
+    return $this->DBPort;
   }
-  
-  public static function DBName () {
-    return "localhost";
+  public function getDBHost()
+  {
+    return $this->DBHost;
   }
+  public function getDBName()
+  {
+    return $this->DBName;
+  }
+
 }
