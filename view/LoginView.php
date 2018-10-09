@@ -2,14 +2,14 @@
 
 class LoginView
 {
-    private static $login = 'LoginView::Login';
-    private static $logout = 'LoginView::Logout';
-    private static $name = 'LoginView::UserName';
-    private static $password = 'LoginView::Password';
-    private static $cookieName = 'LoginView::CookieName';
-    private static $cookiePassword = 'LoginView::CookiePassword';
-    private static $keep = 'LoginView::KeepMeLoggedIn';
-    private static $messageId = 'LoginView::Message';
+    private $login = 'LoginView::Login';
+    private $logout = 'LoginView::Logout';
+    private $name = 'LoginView::UserName';
+    private $password = 'LoginView::Password';
+    private $cookieName = 'LoginView::CookieName';
+    private $cookiePassword = 'LoginView::CookiePassword';
+    private $keep = 'LoginView::KeepMeLoggedIn';
+    private $messageId = 'LoginView::Message';
 
     public function response(StatusMessage $msg)
     {
@@ -25,8 +25,8 @@ class LoginView
     {
         return '
 			<form  method="post" >
-				<p id="' . self::$messageId . '">' . $message . '</p>
-				<input type="submit" name="' . self::$logout . '" value="logout"/>
+				<p id="' . $this->messageId . '">' . $message . '</p>
+				<input type="submit" name="' . $this->logout . '" value="logout"/>
 			</form>
 		';
     }
@@ -37,18 +37,18 @@ class LoginView
 			<form method="post" >
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
-					<p id="' . self::$messageId . '">' . $message . '</p>
+					<p id="' . $this->messageId . '">' . $message . '</p>
 
-					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->returnUsernameIfExist() . '" />
+					<label for="' . $this->name . '">Username :</label>
+					<input type="text" id="' . $this->name . '" name="' . $this->name . '" value="' . $this->returnUsernameIfExist() . '" />
 
-					<label for="' . self::$password . '">Password :</label>
-					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
+					<label for="' . $this->password . '">Password :</label>
+					<input type="password" id="' . $this->password . '" name="' . $this->password . '" />
 
-					<label for="' . self::$keep . '">Keep me logged in  :</label>
-					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
+					<label for="' . $this->keep . '">Keep me logged in  :</label>
+					<input type="checkbox" id="' . $this->keep . '" name="' . $this->keep . '" />
 
-					<input type="submit" name="' . self::$login . '" value="login" />
+					<input type="submit" name="' . $this->login . '" value="login" />
 				</fieldset>
 			</form>
 		';
@@ -67,41 +67,41 @@ class LoginView
 
     public function userWantLogin(): bool
     {
-        return isset($_POST[self::$login]);
+        return isset($_POST[$this->login]);
     }
 
     public function userWantLogout()
     {
-        return isset($_POST[self::$logout]);
+        return isset($_POST[$this->logout]);
     }
 
     public function setSessionUsername(string $name)
     {
-        $_SESSION[self::$name] = $name;
+        $_SESSION[$this->name] = $name;
     }
 
     public function setSessionPassword(string $password)
     {
-        $_SESSION[self::$password] = $password;
+        $_SESSION[$this->password] = $password;
     }
 
     private function usernameExistInPOST()
     {
-        return isset($_POST[self::$name]);
+        return isset($_POST[$this->name]);
     }
 
     private function returnUsernameInPOST()
     {
-        return $_POST[self::$name];
+        return $_POST[$this->name];
     }
     private function usernameExistInSession()
     {
-        return isset($_SESSION[self::$name]);
+        return isset($_SESSION[$this->name]);
     }
 
     private function returnUsernameInSession()
     {
-        return $_SESSION[self::$name];
+        return $_SESSION[$this->name];
     }
 
     private function returnUsernameIfExist()
@@ -117,12 +117,12 @@ class LoginView
 
     private function cookieNameExist()
     {
-        return isset($_COOKIE[self::$cookieName]);
+        return isset($_COOKIE[$this->cookieName]);
     }
 
     private function returnCookieName()
     {
-        return $_COOKIE[self::$cookieName];
+        return $_COOKIE[$this->cookieName];
     }
 
     private function returnCookieNameIfExist()
@@ -136,12 +136,12 @@ class LoginView
 
     private function cookiePasswordExist()
     {
-        return isset($_COOKIE[self::$cookiePassword]);
+        return isset($_COOKIE[$this->cookiePassword]);
     }
 
     private function returncookiePassword()
     {
-        return $_COOKIE[self::$cookiePassword];
+        return $_COOKIE[$this->cookiePassword];
     }
 
     private function returncookiePasswordIfExist()
@@ -155,13 +155,13 @@ class LoginView
 
     private function keepLoggedInExist()
     {
-        return (isset($_POST[self::$keep]) && !empty($_POST[self::$keep]));
+        return (isset($_POST[$this->keep]) && !empty($_POST[$this->keep]));
     }
 
     private function returnKeepLoggedInIfExist()
     {
         if ($this->keepLoggedInExist()) {
-            if ($_POST[self::$keep] == true) {
+            if ($_POST[$this->keep] == true) {
                 return true;
             } else {
                 return false;
@@ -182,12 +182,12 @@ class LoginView
 
     private function passwordExist()
     {
-        return (isset($_POST[self::$password]) && !empty($_POST[self::$password]));
+        return (isset($_POST[$this->password]) && !empty($_POST[$this->password]));
     }
 
     private function returnPassword()
     {
-        return $_POST[self::$password];
+        return $_POST[$this->password];
     }
 
 }
