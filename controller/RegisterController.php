@@ -20,7 +20,7 @@ class RegisterController
         $statusMessage->setMessageState($this->LoginModel->checkIfLoggedInBySession());
         $statusMessage->setMessageString($message->getMessageString());
 
-        self::$RegisterView->render($statusMessage, self::$DateTimeView);
+        $this->RegisterView->render($statusMessage, $this->DateTimeView);
     }
 
     private function userWantLogin()
