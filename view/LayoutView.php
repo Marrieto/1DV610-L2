@@ -1,10 +1,11 @@
 <?php
 
+class LayoutView
+{
 
-class LayoutView {
-  
-  public function render(StatusMessage $msg, LoginView $v, DateTimeView $dtv) {
-    echo '<!DOCTYPE html>
+    public function render(StatusMessage $msg, LoginView $v, DateTimeView $dtv)
+    {
+        echo '<!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
@@ -16,26 +17,31 @@ class LayoutView {
           <a href="?register">Register a new user</a>
           <div class="container">
               ' . $v->response($msg) . '
-              
+
               ' . $dtv->show() . '
           </div>
          </body>
       </html>
     ';
-  }
-  
-	public function userWantToRegister () {
-		if (isset($_GET['register'])) {
-			return true;
-		}	else return false;
-	}
+    }
 
-  private function renderIsLoggedIn($isLoggedIn) {
-    if ($isLoggedIn) {
-      return '<h2>Logged in</h2>';
+    // Replace with GET/POSTView, InputView? Inputs?
+    public function userWantToRegister()
+    {
+        if (isset($_GET['register'])) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
-    else {
-      return '<h2>Not logged in</h2>';
+
+    private function renderIsLoggedIn($isLoggedIn)
+    {
+        if ($isLoggedIn) {
+            return '<h2>Logged in</h2>';
+        } else {
+            return '<h2>Not logged in</h2>';
+        }
     }
-  }
 }

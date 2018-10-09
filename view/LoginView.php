@@ -1,158 +1,193 @@
 <?php
 
-class LoginView {
-	private static $login = 'LoginView::Login';
-	private static $logout = 'LoginView::Logout';
-	private static $name = 'LoginView::UserName';
-	private static $password = 'LoginView::Password';
-	private static $cookieName = 'LoginView::CookieName';
-	private static $cookiePassword = 'LoginView::CookiePassword';
-	private static $keep = 'LoginView::KeepMeLoggedIn';
-	private static $messageId = 'LoginView::Message';	
+class LoginView
+{
+    private $login = 'LoginView::Login';
+    private $logout = 'LoginView::Logout';
+    private $name = 'LoginView::UserName';
+    private $password = 'LoginView::Password';
+    private $cookieName = 'LoginView::CookieName';
+    private $cookiePassword = 'LoginView::CookiePassword';
+    private $keep = 'LoginView::KeepMeLoggedIn';
+    private $messageId = 'LoginView::Message';
 
-	public function response(StatusMessage $msg) {
-		if ($msg->getMessageState()) {
-			$response = $this->generateLogoutButtonHTML($msg->getMessageString());
-		} else {
-			$response = $this->generateLoginFormHTML($msg->getMessageString());
-		}
-		return $response;
-	}
+    public function response(StatusMessage $msg)
+    {
+        if ($msg->getMessageState()) {
+            $response = $this->generateLogoutButtonHTML($msg->getMessageString());
+        } else {
+            $response = $this->generateLoginFormHTML($msg->getMessageString());
+        }
+        return $response;
+    }
 
-	private function generateLogoutButtonHTML($message) {
-		return '
+    private function generateLogoutButtonHTML($message)
+    {
+        return '
 			<form  method="post" >
-				<p id="' . self::$messageId . '">' . $message .'</p>
-				<input type="submit" name="' . self::$logout . '" value="logout"/>
+				<p id="' . $this->messageId . '">' . $message . '</p>
+				<input type="submit" name="' . $this->logout . '" value="logout"/>
 			</form>
 		';
-	}
-	
-	private function generateLoginFormHTML($message) {
-		return '
-			<form method="post" > 
+    }
+
+    private function generateLoginFormHTML($message)
+    {
+        return '
+			<form method="post" >
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
-					<p id="' . self::$messageId . '">' . $message . '</p>
-					
-					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->returnUsernameIfExist() . '" />
+					<p id="' . $this->messageId . '">' . $message . '</p>
 
-					<label for="' . self::$password . '">Password :</label>
-					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
+					<label for="' . $this->name . '">Username :</label>
+					<input type="text" id="' . $this->name . '" name="' . $this->name . '" value="' . $this->returnUsernameIfExist() . '" />
 
-					<label for="' . self::$keep . '">Keep me logged in  :</label>
-					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
-					
-					<input type="submit" name="' . self::$login . '" value="login" />
+					<label for="' . $this->password . '">Password :</label>
+					<input type="password" id="' . $this->password . '" name="' . $this->password . '" />
+
+					<label for="' . $this->keep . '">Keep me logged in  :</label>
+					<input type="checkbox" id="' . $this->keep . '" name="' . $this->keep . '" />
+
+					<input type="submit" name="' . $this->login . '" value="login" />
 				</fieldset>
 			</form>
 		';
-	}
+    }
 
-	public function getCredentials () {
-		$username 			= $this->returnUsernameIfExist();
-		$password 			= $this->returnPasswordIfExist();
-		$keepLoggedIn 	= $this->returnKeepLoggedInIfExist();
-		$cookieName			= $this->returnCookieNameIfExist();
-		$cookiePassword	= $this->returnCookiePasswordIfExist();
+    public function getCredentials()
+    {
+        $username = $this->returnUsernameIfExist();
+        $password = $this->returnPasswordIfExist();
+        $keepLoggedIn = $this->returnKeepLoggedInIfExist();
+        $cookieName = $this->returnCookieNameIfExist();
+        $cookiePassword = $this->returnCookiePasswordIfExist();
 
-		return new Credentials($username, $password, $keepLoggedIn, $cookieName, $cookiePassword, "", "");
-	}
+        return new Credentials($username, $password, $keepLoggedIn, $cookieName, $cookiePassword, "", "");
+    }
 
-	public function userWantLogin (): bool {
-		return isset($_POST[self::$login]);
-	}
+    public function userWantLogin(): bool
+    {
+        return isset($_POST[$this->login]);
+    }
 
-	public function userWantLogout () {
-		return isset($_POST[self::$logout]);
-	}
+    public function userWantLogout()
+    {
+        return isset($_POST[$this->logout]);
+    }
 
-	private function usernameExist () {
-		return (isset($_POST[self::$name]) && !empty($_POST[self::$name]));
-	}
+    public function setSessionUsername(string $name)
+    {
+        $_SESSION[$this->name] = $name;
+    }
 
-	private function returnUsername () {
-		return $_POST[self::$name];
-	}
+    public function setSessionPassword(string $password)
+    {
+        $_SESSION[$this->password] = $password;
+    }
 
-	private function returnUsernameIfExist () {
-		if ($this->usernameExist()) {
-			return $this->returnUsername();
-		} else if (isset($_SESSION['username'])) {
-			return $_SESSION['username'];
-		} else {
-			 return '';
-			}
-	}
+    private function usernameExistInPOST()
+    {
+        return isset($_POST[$this->name]);
+    }
 
-	private function cookieNameExist() {
-		return isset($_COOKIE[self::$cookieName]);
-	}
+    private function returnUsernameInPOST()
+    {
+        return $_POST[$this->name];
+    }
+    private function usernameExistInSession()
+    {
+        return isset($_SESSION[$this->name]);
+    }
 
-	private function returnCookieName() {
-		return $_COOKIE[self::$cookieName];
-	}
+    private function returnUsernameInSession()
+    {
+        return $_SESSION[$this->name];
+    }
 
-	private function returnCookieNameIfExist() {
-		if ($this->cookieNameExist()) {
-			return $this->returnCookieName();
-		} else {
-			return "";
-		}
-	}
+    private function returnUsernameIfExist()
+    {
+        if ($this->usernameExistInPOST()) {
+            return $this->returnUsernameInPOST();
+        } else if ($this->usernameExistInSession()) {
+            return $this->returnUsernameInSession();
+        } else {
+            return '';
+        }
+    }
 
-	private function cookiePasswordExist() {
-		return isset($_COOKIE[self::$cookiePassword]);
-	}
+    private function cookieNameExist()
+    {
+        return isset($_COOKIE[$this->cookieName]);
+    }
 
-	private function returncookiePassword() {
-		return $_COOKIE[self::$cookiePassword];
-	}
+    private function returnCookieName()
+    {
+        return $_COOKIE[$this->cookieName];
+    }
 
-	private function returncookiePasswordIfExist() {
-		if ($this->cookiePasswordExist()) {
-			return $this->returncookiePassword();
-		} else {
-			return "";
-		}
-	}
+    private function returnCookieNameIfExist()
+    {
+        if ($this->cookieNameExist()) {
+            return $this->returnCookieName();
+        } else {
+            return "";
+        }
+    }
 
-	private function keepLoggedInExist() {
-		return (isset($_POST[self::$keep]) && !empty($_POST[self::$keep]));
-	}
+    private function cookiePasswordExist()
+    {
+        return isset($_COOKIE[$this->cookiePassword]);
+    }
 
-	private function returnKeepLoggedInIfExist() {
-		if ($this->keepLoggedInExist()) {
-			if ($_POST[self::$keep] == true ) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
+    private function returncookiePassword()
+    {
+        return $_COOKIE[$this->cookiePassword];
+    }
 
-	private function passwordExist () {
-		 return (isset($_POST[self::$password]) && !empty($_POST[self::$password]));
-	}
+    private function returncookiePasswordIfExist()
+    {
+        if ($this->cookiePasswordExist()) {
+            return $this->returncookiePassword();
+        } else {
+            return "";
+        }
+    }
 
-	private function returnPassword () {
-		return $_POST[self::$password];
-	}
+    private function keepLoggedInExist()
+    {
+        return (isset($_POST[$this->keep]) && !empty($_POST[$this->keep]));
+    }
 
-	private function returnPasswordIfExist () {
-		if ($this->passwordExist()) {
-			return $this->returnPassword();
-		} else if (isset($_SESSION['password']))
-		{
-			return $_SESSION['password'];
-		} else {
-			 return '';
-			}
-	}
+    private function returnKeepLoggedInIfExist()
+    {
+        if ($this->keepLoggedInExist()) {
+            if ($_POST[$this->keep] == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
+    private function returnPasswordIfExist()
+    {
+        if ($this->passwordExist()) {
+            return $this->returnPassword();
+        } else {
+            return '';
+        }
+    }
 
-	
+    private function passwordExist()
+    {
+        return (isset($_POST[$this->password]) && !empty($_POST[$this->password]));
+    }
+
+    private function returnPassword()
+    {
+        return $_POST[$this->password];
+    }
+
 }

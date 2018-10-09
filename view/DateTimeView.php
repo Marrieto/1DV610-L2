@@ -1,14 +1,15 @@
 <?php
 
-require_once("model/TimeModel.php");
+require_once "model/TimeModel.php";
 
-class DateTimeView {
+class DateTimeView
+{
 
+    public function show()
+    {
 
-	public function show() {
+        $timeString = calculateDate();
 
-		$timeString = calculateDate();
-
-		return '<p>' . $timeString . '</p>';
-	}
+        return '<p>' . $timeString . '</p>';
+    }
 }
