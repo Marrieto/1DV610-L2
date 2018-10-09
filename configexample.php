@@ -1,41 +1,29 @@
 <?php
 
+## Copy this to config.php and replace with 
+## your own values
+
 class Config {
-
-  private $DBUsername;
-  private $DBPassword;
-  private $DBPort;
-  private $DBHost;
-  private $DBName;
-
-  public function _construct()
-  {
-    $this->DBUsername = "XXX";
-    $this->DBPassword = "XXX";
-    $this->DBPort = 0;
-    $this->DBHost = "XXX";
-    $this->DBName = "XXX";
-  }
 
   public function getDBUsername()
   {
-    return $this->DBUsername;
+    return "XXX";
   }
   public function getDBPassword()
   {
-    return $this->DBUsername;
+    return "XXX";
   }
   public function getDBPort()
   {
-    return $this->DBPort;
+    return 0;
   }
   public function getDBHost()
   {
-    return $this->DBHost;
+    return "XXX";
   }
   public function getDBName()
   {
-    return $this->DBName;
+    return "XXX";
   }
 
 }

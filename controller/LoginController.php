@@ -73,7 +73,6 @@ class LoginController
     private function userWantLogin()
     {
         return isset($_POST['login']);
-        // return self::$LoginView->
     }
 
     private function userWantLogout()
@@ -87,7 +86,7 @@ class LoginController
         echo $credentials->getUsername();
         echo $credentials->getPassword();
         echo $credentials->getKeepLoggedIn();
-        echo $credentials->getCookieName();
+        echo $credentials->getCookieString();
         echo $credentials->getCookiePassword();
     }
     // TESTFUNKTION, WILL BE DELETED WHEN FINISHED
