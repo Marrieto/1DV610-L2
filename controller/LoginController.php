@@ -3,75 +3,70 @@
 class LoginController
 {
 
-    private static $DateTimeView;
-    private static $LoginView;
-    private static $LayoutView;
-    private static $LoginModel;
-
     public function __construct($v, $dtv, $lv, $lm)
     {
-        self::$LoginView = $v;
-        self::$DateTimeView = $dtv;
-        self::$LayoutView = $lv;
-        self::$LoginModel = $lm;
+        $this->LoginView = $v;
+        $this->DateTimeView = $dtv;
+        $this->LayoutView = $lv;
+        $this->LoginModel = $lm;
     }
 
     public function login($credentialsFromMainController)
     {
         // Ask view if someone wants to log in
-        $credentials = self::$LoginView->getCredentials();
+        $credentials = $this->LoginView->getCredentials();
         $response = new StatusMessage();
         $response->setMessageState(false);
 
         //Check if user already logged in - Checking session and cookies
-        if (self::$LoginModel->checkIfLoggedInBySession()) {
+        if ($this->LoginModel->checkIfLoggedInBySession()) {
             // echo 'User was logged in..';
             $response->setMessageState(true);
             $response->setMessageString("");
         }
 
         // Check if not logged in by session
-        if (!$response->getMessageState() && self::$LoginModel->checkIfLoggedInByCookies($credentials)) {
-            self::$LoginModel->login($credentials);
+        if (!$response->getMessageState() && $this->LoginModel->checkIfLoggedInByCookies($credentials)) {
+            $this->LoginModel->login($credentials);
             $response->setMessageState(true);
             $response->setMessageString("Welcome back with cookie");
         }
 
         if ($this->checkIfPOST()) {
             // CHECK IF ALREADY LOGGED IN -> RESPONSE SHOULD ALREADY BE 'TRUE'
-            if (self::$LoginView->userWantLogin()) {
+            if ($this->LoginView->userWantLogin()) {
                 $response = $credentials->validateCredentialFormat();
                 //// SWAPPED THIS LINE BELOW, checks if he's already logged in
                 if ($response->getMessageState()) {
                     // Query the db to see if it was correct
-                    $response = self::$LoginModel->validateCredentialsToDB($credentials);
+                    $response = $this->LoginModel->validateCredentialsToDB($credentials);
 
                     // USER WANT TO LOG IN, WITH RIGHT CREDENTIALS
                     if ($response->getMessageState()) {
-                        if (!self::$LoginModel->checkIfLoggedIn()) {
-                            self::$LoginModel->login($credentials);
+                        if (!$this->LoginModel->checkIfLoggedIn()) {
+                            $this->LoginModel->login($credentials);
                             $response->setMessageString('Welcome');
                         }
                     }
                 }
 
-                self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
+                $this->LayoutView->render($response, $this->LoginView, $this->DateTimeView);
                 // HANDLE LOGOUT && self::$LoginModel->checkIfLoggedIn())
-            } else if (self::$LoginView->userWantLogout()) {
+            } else if ($this->LoginView->userWantLogout()) {
                 // Only log out with 'Bye bye!' if the user was logged in
-                if (self::$LoginModel->checkIfLoggedIn()) {
-                    self::$LoginModel->logout($credentials);
+                if ($this->LoginModel->checkIfLoggedIn()) {
+                    $this->LoginModel->logout($credentials);
                     $response->setMessageState(false);
                     $response->setMessageString("Bye bye!");
                 }
-                self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
+                $this->LayoutView->render($response, $this->LoginView, $this->DateTimeView);
             } else {
                 // When one successfully register
                 $response->setMessageString($credentialsFromMainController);
-                self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
+                $this->LayoutView->render($response, $this->LoginView, $this->DateTimeView);
             }
         } else {
-            self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);
+            $this->LayoutView->render($response, $this->LoginView, $this->DateTimeView);
         }
     }
 
