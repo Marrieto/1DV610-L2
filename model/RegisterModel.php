@@ -56,8 +56,6 @@ function passwordsMatch ($password1, $password2): bool {
   return $password1 == $password2;
 }
 
-// Copied from https://stackoverflow.com/questions/1735972/php-fastest-way-to-check-for-invalid-characters-all-but-a-z-a-z-0-9
-// 21/09/18
 function usesValidCharacters ($word): bool {
   $sanitizedString = str_replace(array("<",">"), "", $word);
   

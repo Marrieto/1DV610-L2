@@ -17,10 +17,8 @@ class LoginController {
   public function login ($credentialsFromMainController) {
     // Ask view if someone wants to log in
     $credentials = self::$LoginView->getCredentials();
-    // $this->printCredentials($credentials);
     $response = new StatusMessage();
     $response->setMessageState(false);
-    //AretheInputscorrect? If so, ask the database, otherwise print out the error 
     
     //Check if user already logged in - Checking session and cookies
     if (self::$LoginModel->checkIfLoggedInBySession()) {
@@ -35,16 +33,8 @@ class LoginController {
       $response->setMessageState(true);
       $response->setMessageString("Welcome back with cookie");
     }
-    // Check if there's a cookie set!
-    // else if (self::$LoginModel->checkIfLoggedInByCookies())
-    // {
-    //   // Create a session using login()
-    //   // If cookies are false, set message to "Wrong information in cookies"
-    // }
     
-
     if ($this->checkIfPOST()) {
-      // IF userWantsToLogin() && !userIsLoggedIn
       // CHECK IF ALREADY LOGGED IN -> RESPONSE SHOULD ALREADY BE 'TRUE'
       if (self::$LoginView->userWantLogin())
       {
@@ -58,16 +48,10 @@ class LoginController {
           // USER WANT TO LOG IN, WITH RIGHT CREDENTIALS
           if ($response->getMessageState()) {
             if (!self::$LoginModel->checkIfLoggedIn()) {
-              // self::$LoginModel->login();
               self::$LoginModel->login($credentials);
               $response->setMessageString('Welcome');
             }
           }
-          // ----------------------------------------------
-          // TODO: Cookie, depending on checked box?s
-          // TODO: Set cookies and session here accordingly
-          // $credentials->getKeepLoggedIn()
-          // ----------------------------------------------
         }
 
       self::$LayoutView->render($response, self::$LoginView, self::$DateTimeView);

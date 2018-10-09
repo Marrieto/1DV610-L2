@@ -1,19 +1,9 @@
 <?php
 
-/*
- A class to keep a message and a state, useful in queries
-*/
 class StatusMessage {
 
   private $messageState   = false;
   private $messageString  = "";
-
-  public function __construct () 
-  {
-    // NOT SURE IF NEEDED
-    // $this->messageState   = false;
-    // $this->messageString  = "";
-  }
 
   public function getMessageState () 
   {

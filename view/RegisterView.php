@@ -2,14 +2,6 @@
 
 class RegisterView {
 
-  // private static $login = 'LoginView::Login';
-	// private static $logout = 'LoginView::Logout';
-	// private static $name = 'LoginView::UserName';
-	// private static $password = 'LoginView::Password';
-	// private static $cookieName = 'LoginView::CookieName';
-	// private static $cookiePassword = 'LoginView::CookiePassword';
-	// private static $keep = 'LoginView::KeepMeLoggedIn';
-  // private static $messageId = 'LoginView::Message';	
   private static $register = 'RegisterView::Register';
   private static $username = 'RegisterView::UserName';
   private static $password = 'RegisterView::Password';
@@ -25,8 +17,6 @@ class RegisterView {
 	 * @return  void BUT writes to standard output and cookies!
 	 */
 	public function render(StatusMessage $message, $dtv) {
-
-    // TODO: Kolla om man ska köra en generate registerForm?
 
     $response = "
     <!DOCTYPE html>
@@ -65,7 +55,6 @@ class RegisterView {
 
   public function userTriedToRegister()
   {
-    // if (isset($_POST['DoRegistration'])) {
     if (isset($_POST[self::$register])) {
       return true;
     } else {
@@ -87,20 +76,15 @@ class RegisterView {
   }
 
   private function returnUsernameIfExistSanitized () {
-    // if ((isset($_POST[self::$username]) && !empty($_POST[self::$username])))
     if ((isset($_POST[self::$username])))
     {
-
       $sanitizedString = strip_tags($_POST[self::$username]);
-
       return $sanitizedString;
-      // return strip_tags($_POST[self::$username]);
     } else {
       return "";}
   }
 
   private function returnUsernameIfExist () {
-    // if ((isset($_POST[self::$username]) && !empty($_POST[self::$username])))
     if ((isset($_POST[self::$username])))
     {
       return $_POST[self::$username];
@@ -109,7 +93,6 @@ class RegisterView {
   }
 
   private function returnPasswordIfExist () {
-    // if ((isset($_POST[self::$password]) && !empty($_POST[self::$password])))
     if ((isset($_POST[self::$password])))
     {
       return $_POST[self::$password];
@@ -118,7 +101,6 @@ class RegisterView {
   }
 
   private function returnPasswordRepeatIfExist () {
-    // if ((isset($_POST[self::$passwordRepeat]) && !empty($_POST[self::$passwordRepeat])))
     if ((isset($_POST[self::$passwordRepeat])))
     {
       return $_POST[self::$passwordRepeat];

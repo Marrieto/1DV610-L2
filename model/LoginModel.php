@@ -1,8 +1,5 @@
 <?php
 
-/*
-* Handle all the data that has  something to do with the login
-*/
 class LoginModel {
 
   private static $db;
@@ -39,8 +36,6 @@ class LoginModel {
   public function login (Credentials $credentials) {
     self::$cookies = new Cookies();
     $_SESSION["loggedin"] = 'true';
-    // TAKEN FROM https://stackoverflow.com/questions/19017694/one-line-php-random-string-generator 27/09/18
-    // $rndStr = chr( mt_rand( 97 ,122 ) ) .substr( md5( time( ) ) ,1 );
     $username = $credentials->getUsername();
     self::$cookies->setCookie(self::$cookieName, $username);
     
@@ -48,7 +43,6 @@ class LoginModel {
 
   public function logout (Credentials $credentials) {
     self::$cookies = new Cookies();
-    // $username = $credentials->getUsername();
     session_destroy();
     self::$cookies->removeCookie(self::$cookieName);
   }
@@ -64,20 +58,9 @@ class LoginModel {
     // Return a statusmessage object, with outcome and message string if manipulated?
     $username = $credentials->getUsername();
     $cookieName = self::$cookieName;
-    // $response = self::$cookies->getCookie(self::$cookieName);
     $cookieUsername = self::$cookies->getCookie($cookieName);
-    // echo "username is: " . $username . "   -   ";
-    // echo "cookieusUsername is:  " . $cookieUsername;
-    // echo "   -  cookieName: " . $cookieName;
-
-
-    //if (self::$cookies->hasCookie($cookieusername)){
-      // $temp = self::$cookies->getCookie($cookieusername);
-      // echo "Has cookie! Name is: " . $temp;
-    //}
 
     if ($username == $cookieUsername && $username != ""){
-      // $_SESSION["loggedin"] = true;
       return true;
     } else {
       return false;
@@ -85,15 +68,8 @@ class LoginModel {
   }
 
   // Check if user is logged in either Session or Cookies
-  // TODO: add the cookiechecks in here, isset && $_SESSION[] || checkIfLoggedInByCookies ()
   public function checkIfLoggedIn() {
     return isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == 'true';
   }
-
-  // public function echoLoggedIn () {
-  //   // if ($_SESSION['loggedin'] == true) {
-  //   //   echo 'also true..';
-  //   // }
-  // }
 
 }

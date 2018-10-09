@@ -42,7 +42,6 @@ Class Database {
     }
   }
 
-  // Run this once if there's no table
   private function initDB () 
   {
     $this->Connection = mysqli_connect("localhost", "root", "Password", "Users");
@@ -86,10 +85,6 @@ Class Database {
     $prepared->execute();
     $prepared->bind_result($result);
     $prepared->fetch();
-
-    // $statement = $this->Connection->prepare($qry);
-    // $statement->bind_param('s', $username);
-    // $statement->fetch();
 
     if ($result == $username)
     {
