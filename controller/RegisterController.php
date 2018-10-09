@@ -3,21 +3,21 @@
 class RegisterController
 {
 
-    private static $DateTimeView;
-    private static $RegisterView;
-    private static $LoginModel;
+    private $DateTimeView;
+    private $RegisterView;
+    private $LoginModel;
 
     public function __construct($rv, $dtv, $lm)
     {
-        self::$RegisterView = $rv;
-        self::$DateTimeView = $dtv;
-        self::$LoginModel = $lm;
+        $this->RegisterView = $rv;
+        $this->DateTimeView = $dtv;
+        $this->LoginModel = $lm;
     }
 
     public function register(StatusMessage $message)
     {
         $statusMessage = new StatusMessage();
-        $statusMessage->setMessageState(self::$LoginModel->checkIfLoggedInBySession());
+        $statusMessage->setMessageState($this->LoginModel->checkIfLoggedInBySession());
         $statusMessage->setMessageString($message->getMessageString());
 
         self::$RegisterView->render($statusMessage, self::$DateTimeView);

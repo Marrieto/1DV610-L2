@@ -3,35 +3,35 @@
 class MainController
 {
 
-    private static $LoginController;
-    private static $DateTimeView;
-    private static $LoginView;
-    private static $RegisterView;
-    private static $RegisterController;
-    private static $LayoutView;
-    private static $LoginModel;
+    private $LoginController;
+    private $DateTimeView;
+    private $LoginView;
+    private $RegisterView;
+    private $RegisterController;
+    private $LayoutView;
+    private $LoginModel;
     private $Database;
-    private static $Config;
+    private $Config;
 
     public function __construct($v, $dtv, $lv, $lm, $rv)
     {
-        self::$LoginView = $v;
-        self::$DateTimeView = $dtv;
-        self::$LayoutView = $lv;
-        self::$LoginModel = $lm;
-        self::$RegisterView = $rv;
-        self::$Config = new Config();
-        $this->Database = new Database(self::$Config);
-        self::$LoginController = new LoginController(self::$LoginView, self::$DateTimeView, self::$LayoutView, self::$LoginModel);
-        self::$RegisterController = new RegisterController(self::$RegisterView, self::$DateTimeView, self::$LoginModel);
+        $this->LoginView = $v;
+        $this->DateTimeView = $dtv;
+        $this->LayoutView = $lv;
+        $this->LoginModel = $lm;
+        $this->RegisterView = $rv;
+        $this->Config = new Config();
+        $this->Database = new Database($this->Config);
+        $this->LoginController = new LoginController($this->LoginView, $this->DateTimeView, $this->LayoutView, $this->LoginModel);
+        $this->RegisterController = new RegisterController($this->RegisterView, $this->DateTimeView, $this->LoginModel);
     }
 
     public function render()
     {
         // Check if there was a POST to register
-        $triedToRegister = self::$RegisterView->userTriedToRegister();
+        $triedToRegister = $this->RegisterView->userTriedToRegister();
         if ($triedToRegister) {
-            $credentials = self::$RegisterView->getCredentials();
+            $credentials = $this->RegisterView->getCredentials();
             $validRegistrationResponse = ValidateRegisterInputFormat($credentials);
 
             // CHECK IF USER ALREADY EXIST
@@ -50,23 +50,23 @@ class MainController
                 // If credentials is true, then set session username and pass
                 // and save to database
                 if ($credentials->getStatusMessage()) {
-                    self::$LoginView->setSessionUsername($credentials->getUsername());
-                    self::$LoginView->setSessionPassword($credentials->getPassword());
+                    $this->LoginView->setSessionUsername($credentials->getUsername());
+                    $this->LoginView->setSessionPassword($credentials->getPassword());
 
                     if (!$this->Database->addUser($credentials)) {
                         echo "Error saving user to database, check Database.php";
                     }
                 }
 
-                self::$LoginController->login($validRegistrationResponse->getMessageString());
+                $this->LoginController->login($validRegistrationResponse->getMessageString());
             } else {
-                self::$RegisterController->register($validRegistrationResponse);
+                $this->RegisterController->register($validRegistrationResponse);
             }
 
-        } else if (self::$LayoutView->userWantToRegister()) {
-            self::$RegisterController->register(new StatusMessage());
+        } else if ($this->LayoutView->userWantToRegister()) {
+            $this->RegisterController->register(new StatusMessage());
         } else {
-            self::$LoginController->login("");
+            $this->LoginController->login("");
         }
     }
 
