@@ -3,25 +3,25 @@
 class Database
 {
 
-    private static $DBUsername;
-    private static $DBPassword;
-    private static $DBPort;
-    private static $DBHost;
-    private static $DBName;
-    private static $Config;
+    private $DBUsername;
+    private $DBPassword;
+    private $DBPort;
+    private $DBHost;
+    private $DBName;
+    private $Config;
     private $Connection;
 
     // public function _construct ($username, $password, $dbport, $dbhost, $dbname) {
     public function _construct()
     {
 
-        self::$DBUsername = "root";
-        self::$DBPassword = "password";
-        self::$DBPort = "3306";
-        self::$DBHost = "localhost";
-        self::$DBName = "Users";
+        $this->DBUsername = "root";
+        $this->DBPassword = "password";
+        $this->DBPort = "3306";
+        $this->DBHost = "localhost";
+        $this->DBName = "Users";
 
-        self::$Config = new Config;
+        $this->Config = new Config;
 
         $this->connect();
     }
@@ -36,7 +36,7 @@ class Database
     private function checkConnection(): bool
     {
         if (mysqli_connect_errno()) {
-            echo "Failed to connect to MYSQL: " . mysqli_connect_error();
+            echo "Failed to connect to MYSQL: " . mysqli_connect_error(); // remove echo
             return false;
         } else {
             return true;
