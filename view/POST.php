@@ -9,6 +9,8 @@ class POST
     private static $registerPassword = 'RegisterView::Password';
     private static $registerPasswordRepeat = 'RegisterView::PasswordRepeat';
     private static $registerMessageId = 'RegisterView::Message';
+    private static $keep = 'LoginView::KeepMeLoggedIn';
+    // TODO: use ViewVariables object instead of static strings
 
     public function userWantToLogin(): bool
     {
@@ -38,16 +40,27 @@ class POST
     {
         return self::$registerName;
     }
-    public function returnUsernameIfExist(): string
-    {
-        if (isset($_POST[self::$registerUsername])) {
-            return $_POST[self::$registerUsername];
-        } else {return "";}
-    }
+
     public function returnRegisterUsername(): string
     {
         return self::$registerUsername;
     }
 
-    // Put getCredentials here
+    public function getUsernameIfExist(): string
+    {
+        if (isset($_POST[self::$registerUsername])) {
+            return $_POST[self::$registerUsername];
+        } else {return "";}
+    }
+    public function getPasswordIfExist(): string
+    {
+        if (isset($_POST[self::$registerPassword])) {
+            return $_POST[self::$registerPassword];
+        } else {return "";}
+    }
+    public function getKeepIfExist(): bool
+    {
+        return (isset($_POST[self::$keep]) && !empty($_POST[self::$keep]));
+    }
+
 }

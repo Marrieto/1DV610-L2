@@ -2,6 +2,14 @@
 
 class Cookies
 {
+    private static $cookieName = 'LoginView::CookieName';
+    private static $cookiePassword = 'LoginView::CookiePassword';
+
+    // public function __construct()
+    // {
+    //     self
+    // POSSIBLE BUG: not using the same variable names for checking pass/username
+    // }
 
     public function setCookie($cookiename, $value)
     {
@@ -24,6 +32,19 @@ class Cookies
     public function hasCookie($cookiename)
     {
         return isset($_COOKIE[$cookiename]);
+    }
+
+    public function getUsernameIfExist()
+    {
+        if (isset($_COOKIE[self::$cookieName])) {
+            return $_COOKIE[self::$cookieName];
+        } else {return "";}
+    }
+    public function getPasswordIfExist()
+    {
+        if (isset($_COOKIE[self::$cookiePassword])) {
+            return $_COOKIE[self::$cookiePassword];
+        } else {return "";}
     }
 
 }

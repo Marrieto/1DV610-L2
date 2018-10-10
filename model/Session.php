@@ -32,6 +32,11 @@ class Session
     {
         $_SESSION[self::$username] = $name;
     }
+    
+    public function setPassword(string $password): void
+    {
+        $_SESSION[self::$password] = $password;
+    }
 
     public function getUsernameIfExist()
     {
@@ -39,11 +44,7 @@ class Session
             return $_SESSION[self::$username];
         } else {return "";}
     }
-
-    public function setPassword(string $password): void
-    {
-        $_SESSION[self::$password] = $password;
-    }
+    
 
     public function getPasswordIfExist()
     {
