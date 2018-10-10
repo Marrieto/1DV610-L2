@@ -2,8 +2,8 @@
 
 class POST 
 {
-    private static $loginString = "login";
-    private static $logoutString = "logout";
+    private static $loginString = "LoginView::Login";
+    private static $logoutString = "LoginView::Logout";
 
     public function userWantToLogin(): bool
     {

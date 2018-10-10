@@ -38,9 +38,11 @@ class LoginController
             $response->setMessageString("Welcome back with cookie");
         }
 
-        if ($this->checkIfPOST()) {
+        // if ($this->checkIfPOST()) {
+        if ($this->POST->requestMethodIsPOST()) {
             // CHECK IF ALREADY LOGGED IN -> RESPONSE SHOULD ALREADY BE 'TRUE'
-            if ($this->LoginView->userWantLogin()) {
+            // if ($this->LoginView->userWantLogin()) {
+            if ($this->POST->userWantToLogin()) {
                 $response = $credentials->validateCredentialFormat();
                 //// SWAPPED THIS LINE BELOW, checks if he's already logged in
                 if ($response->getMessageState()) {
@@ -58,7 +60,8 @@ class LoginController
 
                 $this->LayoutView->render($response, $this->LoginView, $this->DateTimeView);
                 // HANDLE LOGOUT && self::$LoginModel->checkIfLoggedIn())
-            } else if ($this->LoginView->userWantLogout()) {
+            // } else if ($this->LoginView->userWantLogout()) {
+            } else if ($this->POST->userWantToLogout()) {
                 // Only log out with 'Bye bye!' if the user was logged in
                 if ($this->Session->checkIfLoggedIn()) {
                     $this->Session->logout();
@@ -76,15 +79,15 @@ class LoginController
         }
     }
 
-    private function userWantLogin()
-    {
-        return isset($_POST['login']);
-    }
+    // private function userWantLogin()
+    // {
+    //     return isset($_POST['login']);
+    // }
 
-    private function userWantLogout()
-    {
-        return isset($_POST['logout']);
-    }
+    // private function userWantLogout()
+    // {
+    //     return isset($_POST['logout']);
+    // }
 
     // TESTFUNKTION, WILL BE DELETED WHEN FINISHED
     private function printCredentials(Credentials $credentials)
@@ -96,8 +99,8 @@ class LoginController
         echo $credentials->getCookiePassword();
     }
     // TESTFUNKTION, WILL BE DELETED WHEN FINISHED
-    private function checkIfPOST()
-    {
-        return $_SERVER['REQUEST_METHOD'] == 'POST';
-    }
+    // private function checkIfPOST()
+    // {
+    //     return $_SERVER['REQUEST_METHOD'] == 'POST';
+    // }
 }
