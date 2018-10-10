@@ -6,19 +6,26 @@ class Session
     private static $username = "sessionUsername";
     private static $password = "sessionPassword";
 
-    public function __construct()
+    public function construct()
     {
-        session_start();
+        //
     }
 
-    public function setLoggedIn(bool $status): void
+    public function login(): void
     {
-        $_SESSION[self::$sessionString] = $status;
+        $_SESSION[self::$sessionString] = 'true';
+    }
+
+    public function logout(): void 
+    {
+        $_SESSION[self::$sessionString] = 'false';
+        // session_destroy();
     }
 
     public function checkIfLoggedIn(): bool 
     {
-        return isset($_SESSION[self::$sessionString]) && $_SESSION[self::$sessionString] = true;
+        return isset($_SESSION[self::$sessionString]);
+        // return isset($_SESSION[self::$sessionString]) && $_SESSION[self::$sessionString] == 'true';
     }
 
     public function setName(string $name): void

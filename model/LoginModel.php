@@ -5,14 +5,16 @@ class LoginModel
 
     private $db;
     private $cookies;
+    private $Session;
 
     private $cookieName = "Loginview::CookieName";
     private $cookiePassword = "Loginview::CookieName";
 
-    public function _construct()
+    public function __construct()
     {
         $this->cookies = new Cookies();
         $this->db = new Database();
+        $this->Session = new Session();
     }
 
     public function validateCredentialsToDB(Credentials $creds)
@@ -36,7 +38,8 @@ class LoginModel
     public function login(Credentials $credentials)
     {
         $this->cookies = new Cookies();
-        $_SESSION["loggedin"] = 'true';
+        //$_SESSION["loggedin"] = 'true';
+        $this->Session->login();
         $username = $credentials->getUsername();
         $this->cookies->setCookie($this->cookieName, $username);
 
@@ -45,14 +48,16 @@ class LoginModel
     public function logout(Credentials $credentials)
     {
         $this->cookies = new Cookies();
-        session_destroy();
+        // session_destroy();
+        $this->Session->logout();
         $this->cookies->removeCookie($this->cookieName);
     }
 
     // Should have it's own model, sessionmodel?
     public function checkIfLoggedInBySession()
     {
-        return isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == 'true';
+        return $this->Session->checkIfLoggedIn();
+        // return isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == 'true';
     }
 
     public function checkIfLoggedInByCookies(Credentials $credentials)
@@ -73,7 +78,8 @@ class LoginModel
     // Check if user is logged in either Session or Cookies
     public function checkIfLoggedIn()
     {
-        return isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == 'true';
+        return $this->Session->checkIfLoggedIn();
+        // return isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == 'true';
     }
 
 }
