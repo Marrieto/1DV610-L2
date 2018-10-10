@@ -5,8 +5,10 @@ class POST
     private static $loginString = "LoginView::Login";
     private static $logoutString = "LoginView::Logout";
     private static $registerName = "RegisterView::Register";
-    private static $registerUsername = 'RegisterView::UserName';
-    private static $registerPassword = 'RegisterView::Password';
+    // private static $registerUsername = 'RegisterView::UserName';
+    private static $registerUsername = 'LoginView::UserName';
+    private static $registerPassword = 'LoginView::Password';
+    // private static $registerPassword = 'RegisterView::Password';
     private static $registerPasswordRepeat = 'RegisterView::PasswordRepeat';
     private static $registerMessageId = 'RegisterView::Message';
     private static $keep = 'LoginView::KeepMeLoggedIn';

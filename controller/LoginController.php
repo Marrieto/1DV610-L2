@@ -26,6 +26,7 @@ class LoginController
         // Ask view if someone wants to log in
         // $credentials = $this->LoginView->getCredentials();
         $this->credentials->getCredentials();
+        // var_dump($this->credentials);
         $response = new StatusMessage();
         $response->setMessageState(false);
 
@@ -48,7 +49,7 @@ class LoginController
         if ($this->POST->requestMethodIsPOST()) {
             // CHECK IF ALREADY LOGGED IN -> RESPONSE SHOULD ALREADY BE 'TRUE'
             if ($this->POST->userWantToLogin()) {
-                $response = $credentials->validateCredentialFormat();
+                $response = $this->credentials->validateCredentialFormat();
                 //// SWAPPED THIS LINE BELOW, checks if he's already logged in
                 if ($response->getMessageState()) {
                     // Query the db to see if it was correct
