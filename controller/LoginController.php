@@ -3,6 +3,7 @@
 class LoginController
 {
     private $Session;
+    private $POST;
 
     public function __construct($v, $dtv, $lv, $lm)
     {
@@ -11,6 +12,7 @@ class LoginController
         $this->LayoutView = $lv;
         $this->LoginModel = $lm;
         $this->Session = new Session();
+        $this->POST = new POST();
         session_start();
     }
 

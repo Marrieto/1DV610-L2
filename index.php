@@ -16,6 +16,7 @@ require_once 'model/StatusMessage.php';
 require_once 'model/Database.php';
 require_once 'model/Cookies.php';
 require_once 'model/Session.php';
+require_once 'view/POST.php';
 
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
