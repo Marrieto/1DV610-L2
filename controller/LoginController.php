@@ -23,17 +23,14 @@ class LoginController
         $response->setMessageState(false);
 
         //Check if user already logged in - Checking session and cookies
-        // if ($this->LoginModel->checkIfLoggedInBySession()) {
-        // var_dump($this->Session->checkIfLoggedIn());
         if ($this->Session->checkIfLoggedIn()) {
             // echo 'User was logged in..';
             $response->setMessageState(true);
             $response->setMessageString("");
         }
 
-        // Check if not logged in by session
+        // Check if logged in by cookie
         if (!$response->getMessageState() && $this->LoginModel->checkIfLoggedInByCookies($credentials)) {
-            // $this->LoginModel->login($credentials);
             $this->Session->login();
             $response->setMessageState(true);
             $response->setMessageString("Welcome back with cookie");
@@ -50,8 +47,7 @@ class LoginController
 
                     // USER WANT TO LOG IN, WITH RIGHT CREDENTIALS
                     if ($response->getMessageState()) {
-                        if (!$this->LoginModel->checkIfLoggedIn()) {
-                            // $this->LoginModel->login($credentials);
+                        if (!$this->Session->checkIfLoggedIn()) {
                             $this->Session->login();
                             $response->setMessageString('Welcome');
                         }
@@ -59,28 +55,22 @@ class LoginController
                 }
 
                 $this->LayoutView->render($response, $this->LoginView, $this->DateTimeView);
-                //var_dump($this->Session->checkIfLoggedIn());
                 // HANDLE LOGOUT && self::$LoginModel->checkIfLoggedIn())
             } else if ($this->LoginView->userWantLogout()) {
                 // Only log out with 'Bye bye!' if the user was logged in
-                // if ($this->LoginModel->checkIfLoggedIn()) {
                 if ($this->Session->checkIfLoggedIn()) {
-                    // $this->LoginModel->logout($credentials);
                     $this->Session->logout();
                     $response->setMessageState(false);
                     $response->setMessageString("Bye bye!");
                 }
                 $this->LayoutView->render($response, $this->LoginView, $this->DateTimeView);
-                //var_dump($this->Session->checkIfLoggedIn());
             } else {
                 // When one successfully register
                 $response->setMessageString($credentialsFromMainController);
                 $this->LayoutView->render($response, $this->LoginView, $this->DateTimeView);
-                //var_dump($this->Session->checkIfLoggedIn());
             }
         } else {
             $this->LayoutView->render($response, $this->LoginView, $this->DateTimeView);
-            //var_dump($this->Session->checkIfLoggedIn());
         }
     }
 

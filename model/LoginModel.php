@@ -38,7 +38,6 @@ class LoginModel
     public function login(Credentials $credentials)
     {
         $this->cookies = new Cookies();
-        //$_SESSION["loggedin"] = 'true';
         $this->Session->login();
         $username = $credentials->getUsername();
         $this->cookies->setCookie($this->cookieName, $username);
@@ -48,7 +47,6 @@ class LoginModel
     public function logout(Credentials $credentials)
     {
         $this->cookies = new Cookies();
-        // session_destroy();
         $this->Session->logout();
         $this->cookies->removeCookie($this->cookieName);
     }
@@ -57,7 +55,6 @@ class LoginModel
     public function checkIfLoggedInBySession()
     {
         return $this->Session->checkIfLoggedIn();
-        // return isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == 'true';
     }
 
     public function checkIfLoggedInByCookies(Credentials $credentials)
