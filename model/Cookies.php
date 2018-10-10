@@ -46,5 +46,19 @@ class Cookies
             return $_COOKIE[self::$cookiePassword];
         } else {return "";}
     }
+    public function checkIfLoggedInByCookies(Credentials $credentials)
+    {
+        $this->cookies = new Cookies();
+        // Return a statusmessage object, with outcome and message string if manipulated?
+        $username = $credentials->getUsername();
+        $cookieName = self::$cookieName;
+        $cookieUsername = $this->getCookie($cookieName);
+
+        if ($username == $cookieUsername && $username != "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

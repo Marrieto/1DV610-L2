@@ -13,9 +13,12 @@ class LoginView
     // private $keep = 'LoginView::KeepMeLoggedIn';
     // private $messageId = 'LoginView::Message';
     private $viewNames;
+    private $credentials;
     public function __construct()
     {
         $this->viewNames = new ViewVariables();
+        $this->credentials = new Credentials();
+        $this->credentials->getCredentials();
     }
 
     public function response(StatusMessage $msg)
@@ -32,7 +35,7 @@ class LoginView
     {
         return '
 			<form  method="post" >
-				<p id="' . $this->viewNames->getLMessageId() . '">' . $message . '</p>
+				<p id="' . $this->viewNames->getMessageId() . '">' . $message . '</p>
 				<input type="submit" name="' . $this->viewNames->getLLogout() . '" value="logout"/>
 			</form>
 		';
@@ -47,7 +50,7 @@ class LoginView
 					<p id="' . $this->viewNames->getMessageId() . '">' . $message . '</p>
 
 					<label for="' . $this->viewNames->getUsername() . '">Username :</label>
-					<input type="text" id="' . $this->viewNames->getUsername() . '" name="' . $this->viewNames->getLname() . '" value="' . $this->returnUsernameIfExist() . '" />
+					<input type="text" id="' . $this->viewNames->getUsername() . '" name="' . $this->viewNames->getUsername() . '" value="' . $this->credentials->getUsername() . '" />
 
 					<label for="' . $this->viewNames->getPassword() . '">Password :</label>
 					<input type="password" id="' . $this->viewNames->getPassword() . '" name="' . $this->viewNames->getPassword() . '" />
@@ -61,16 +64,16 @@ class LoginView
 		';
     }
 
-    public function getCredentials()
-    {
-        $username = $this->returnUsernameIfExist();
-        $password = $this->returnPasswordIfExist();
-        $keepLoggedIn = $this->returnKeepLoggedInIfExist();
-        $cookieName = $this->returnCookieNameIfExist();
-        $cookiePassword = $this->returnCookiePasswordIfExist();
+    // public function getCredentials()
+    // {
+    //     $username = $this->returnUsernameIfExist();
+    //     $password = $this->returnPasswordIfExist();
+    //     $keepLoggedIn = $this->returnKeepLoggedInIfExist();
+    //     $cookieName = $this->returnCookieNameIfExist();
+    //     $cookiePassword = $this->returnCookiePasswordIfExist();
 
-        return new Credentials($username, $password, $keepLoggedIn, $cookieName, $cookiePassword, "", "");
-    }
+    //     return new Credentials($username, $password, $keepLoggedIn, $cookieName, $cookiePassword, "", "");
+    // }
 
     // public function userWantLogin(): bool
     // {
@@ -92,35 +95,35 @@ class LoginView
         $_SESSION[$this->password] = $password;
     }
 
-    private function usernameExistInPOST()
-    {
-        return isset($_POST[$this->name]);
-    }
+    // private function usernameExistInPOST()
+    // {
+    //     return isset($_POST[$this->name]);
+    // }
 
     private function returnUsernameInPOST()
     {
         return $_POST[$this->name];
     }
-    private function usernameExistInSession()
-    {
-        return isset($_SESSION[$this->name]);
-    }
+    // private function usernameExistInSession()
+    // {
+    //     return isset($_SESSION[$this->name]);
+    // }
 
     private function returnUsernameInSession()
     {
         return $_SESSION[$this->name];
     }
 
-    private function returnUsernameIfExist()
-    {
-        if ($this->usernameExistInPOST()) {
-            return $this->returnUsernameInPOST();
-        } else if ($this->usernameExistInSession()) {
-            return $this->returnUsernameInSession();
-        } else {
-            return '';
-        }
-    }
+    // private function returnUsernameIfExist()
+    // {
+    //     if ($this->usernameExistInPOST()) {
+    //         return $this->returnUsernameInPOST();
+    //     } else if ($this->usernameExistInSession()) {
+    //         return $this->returnUsernameInSession();
+    //     } else {
+    //         return '';
+    //     }
+    // }
 
     private function cookieNameExist()
     {

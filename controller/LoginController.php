@@ -4,6 +4,8 @@ class LoginController
 {
     private $Session;
     private $POST;
+    private $credentials;
+    private $cookies;
 
     public function __construct($v, $dtv, $lv, $lm)
     {
@@ -13,6 +15,8 @@ class LoginController
         $this->LoginModel = $lm;
         $this->Session = new Session();
         $this->POST = new POST();
+        $this->credentials = new Credentials();
+        $this->cookies = new Cookies();
         session_start();
     }
 
@@ -20,7 +24,8 @@ class LoginController
     {
         
         // Ask view if someone wants to log in
-        $credentials = $this->LoginView->getCredentials();
+        // $credentials = $this->LoginView->getCredentials();
+        $this->credentials->getCredentials();
         $response = new StatusMessage();
         $response->setMessageState(false);
 
@@ -32,7 +37,8 @@ class LoginController
         }
 
         // Check if logged in by cookie
-        if (!$response->getMessageState() && $this->LoginModel->checkIfLoggedInByCookies($credentials)) {
+        // if (!$response->getMessageState() && $this->LoginModel->checkIfLoggedInByCookies($credentials)) {
+        if (!$response->getMessageState() && $this->cookies->checkIfLoggedInByCookies($this->credentials)) {
             $this->Session->login();
             $response->setMessageState(true);
             $response->setMessageString("Welcome back with cookie");
@@ -46,7 +52,7 @@ class LoginController
                 //// SWAPPED THIS LINE BELOW, checks if he's already logged in
                 if ($response->getMessageState()) {
                     // Query the db to see if it was correct
-                    $response = $this->LoginModel->validateCredentialsToDB($credentials);
+                    $response = $this->LoginModel->validateCredentialsToDB($this->credentials);
 
                     // USER WANT TO LOG IN, WITH RIGHT CREDENTIALS
                     if ($response->getMessageState()) {

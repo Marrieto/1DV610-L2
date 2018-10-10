@@ -17,15 +17,23 @@ class Credentials
     private $session;
     private $cookies;
 
-    public function __construct($username, $password, $keepLoggedIn, $cookieString, $cookiePassword, $passwordRepeat, $statusMessage)
+    // public function __construct($username, $password, $keepLoggedIn, $cookieString, $cookiePassword, $passwordRepeat, $statusMessage)
+    public function __construct()
     {
-        $this->username = $username;
-        $this->password = $password;
-        $this->passwordRepeat = $passwordRepeat;
-        $this->cookieString = $cookieString;
-        $this->cookiePassword = $cookiePassword;
-        $this->keepLoggedIn = $keepLoggedIn;
-        $this->statusMessage = $statusMessage;
+        // $this->username = $username;
+        // $this->password = $password;
+        // $this->passwordRepeat = $passwordRepeat;
+        // $this->cookieString = $cookieString;
+        // $this->cookiePassword = $cookiePassword;
+        // $this->keepLoggedIn = $keepLoggedIn;
+        // $this->statusMessage = $statusMessage;
+        $this->username = "";
+        $this->password = "";
+        $this->passwordRepeat = "";
+        $this->cookieString = "";
+        $this->cookiePassword = "";
+        $this->keepLoggedIn = false;
+        $this->statusMessage = "";
         $this->POST = new POST();
         $this->session = new Session();
         $this->cookies = new Cookies();
@@ -110,7 +118,7 @@ class Credentials
 
     private function getUsernameIfExist(): string
     {
-        if ($this->POST->returnUsernameIfExist() != "")
+        if ($this->POST->getUsernameIfExist() != "")
         {
             return $this->POST->getUsernameIfExist();
         } else if ($this->session->getUsernameIfExist() != "")
@@ -132,6 +140,7 @@ class Credentials
             return "";
         }
     }
+
     private function getPasswordRepeatIfExist(): string
     {
         return $this->POST->getPasswordRepeatIfExist();

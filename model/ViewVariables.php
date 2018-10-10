@@ -5,6 +5,7 @@ class ViewVariables
     private static $lLogin = 'LoginView::Login';
     private static $lLogout = 'LoginView::Logout';
     private static $lMessageId = 'LoginView::Message';
+    private static $messageId = 'LoginView::Message';
     private static $rName = "RegisterView::Register";
     private static $rUsername = 'RegisterView::UserName';
     private static $rPassword = 'RegisterView::Password';

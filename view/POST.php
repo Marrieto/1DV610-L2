@@ -58,6 +58,12 @@ class POST
             return $_POST[self::$registerPassword];
         } else {return "";}
     }
+    public function getPasswordRepeatIfExist(): string
+    {
+        if (isset($_POST[self::$registerPasswordRepeat])) {
+            return $_POST[self::$registerPasswordRepeat];
+        } else {return "";}
+    }
     public function getKeepIfExist(): bool
     {
         return (isset($_POST[self::$keep]) && !empty($_POST[self::$keep]));
