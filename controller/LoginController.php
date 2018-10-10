@@ -25,6 +25,7 @@ class LoginController
         $response->setMessageState(false);
 
         //Check if user already logged in - Checking session and cookies
+        // TODO: REPLACE WITH checkIfLoggedInByCookiesOrSession
         if ($this->Session->checkIfLoggedIn()) {
             $response->setMessageState(true);
             $response->setMessageString("");

@@ -1,52 +1,55 @@
 <?php
 
-class Session 
+class Session
 {
     private static $sessionString = "sessionLoggedInStatus";
     private static $username = "sessionUsername";
     private static $password = "sessionPassword";
-
 
     public function login(): void
     {
         $_SESSION[self::$sessionString] = 'true';
     }
 
-    public function logout(): void 
+    public function logout(): void
     {
         $_SESSION[self::$sessionString] = 'false';
-        // session_destroy();
     }
 
-    public function checkIfLoggedIn(): bool 
+    public function checkIfLoggedIn(): bool
     {
         return isset($_SESSION[self::$sessionString]) && $_SESSION[self::$sessionString] == 'true';
     }
 
-    public function destroy(): void 
+    public function destroy(): void
     {
         session_destroy();
     }
 
     // Add getters for the variable names to be used in LoginView
 
-    // public function setName(string $name): void
-    // {
-    //     $_SESSION[self::$username] = $name;
-    // }
+    public function setUsername(string $name): void
+    {
+        $_SESSION[self::$username] = $name;
+    }
 
-    // public function getName(): string 
-    // {
-    //     return $_SESSION[self::$username];
-    // }
+    public function getUsernameIfExist()
+    {
+        if (isset($_SESSION[self::$username])) {
+            return $_SESSION[self::$username];
+        } else {return "";}
+    }
 
-    // public function setPassword(string $password): void 
-    // {
-    //     $_SESSION[self::$password] = $password;
-    // }
+    public function setPassword(string $password): void
+    {
+        $_SESSION[self::$password] = $password;
+    }
 
-    // public function getPassword(): string 
-    // {
-    //     return $_SESSION[self::$password];
-    // }
+    public function getPasswordIfExist()
+    {
+        if (isset($_SESSION[self::$password])) {
+            return $_SESSION[self::$password];
+        } else {return "";}
+    }
+
 }

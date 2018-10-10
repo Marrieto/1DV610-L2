@@ -13,6 +13,8 @@ class Credentials
     private $cookiePassword = "";
     private $statusMessage = "";
     private $keepLoggedIn = false;
+    private $POST;
+    private $session;
 
     public function __construct($username, $password, $keepLoggedIn, $cookieString, $cookiePassword, $passwordRepeat, $statusMessage)
     {
@@ -23,6 +25,8 @@ class Credentials
         $this->cookiePassword = $cookiePassword;
         $this->keepLoggedIn = $keepLoggedIn;
         $this->statusMessage = $statusMessage;
+        $this->POST = new POST();
+        $this->session = new Session();
     }
 
     public function getUsername()
@@ -79,6 +83,16 @@ class Credentials
             $returnMessage->setMessageState(true);
             return $returnMessage;
         }
+    }
+
+    public function getCredentials(): void 
+    {
+        // getUsername
+        // getPassword
+        // getPasswordRepeat
+        // getKeep
+        // getCookieName
+        // getCookiePassword
     }
 
 }

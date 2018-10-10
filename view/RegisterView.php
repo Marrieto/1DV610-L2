@@ -54,15 +54,6 @@ class RegisterView
         echo $response;
     }
 
-    // public function userTriedToRegister()
-    // {
-    //     if (isset($_POST[$this->register])) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
     public function getCredentials()
     {
         $username = $this->returnUsernameIfExist();

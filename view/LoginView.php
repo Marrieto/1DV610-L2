@@ -4,14 +4,19 @@ class LoginView
 {
     // Ersätt dessa variabler i session respektive cookies
     // Lägg till en Session objekt i konstruktorn
-    private $login = 'LoginView::Login';
-    private $logout = 'LoginView::Logout';
-    private $name = 'LoginView::UserName';
-    private $password = 'LoginView::Password';
-    private $cookieName = 'LoginView::CookieName';
-    private $cookiePassword = 'LoginView::CookiePassword';
-    private $keep = 'LoginView::KeepMeLoggedIn';
-    private $messageId = 'LoginView::Message';
+    // private $login = 'LoginView::Login';
+    // private $logout = 'LoginView::Logout';
+    // private $name = 'LoginView::UserName';
+    // private $password = 'LoginView::Password';
+    // private $cookieName = 'LoginView::CookieName';
+    // private $cookiePassword = 'LoginView::CookiePassword';
+    // private $keep = 'LoginView::KeepMeLoggedIn';
+    // private $messageId = 'LoginView::Message';
+    private $viewNames;
+    public function __construct()
+    {
+        $this->viewNames = new ViewVariables();
+    }
 
     public function response(StatusMessage $msg)
     {
@@ -27,8 +32,8 @@ class LoginView
     {
         return '
 			<form  method="post" >
-				<p id="' . $this->messageId . '">' . $message . '</p>
-				<input type="submit" name="' . $this->logout . '" value="logout"/>
+				<p id="' . $this->viewNames->getLMessageId() . '">' . $message . '</p>
+				<input type="submit" name="' . $this->viewNames->getLLogout() . '" value="logout"/>
 			</form>
 		';
     }
@@ -39,18 +44,18 @@ class LoginView
 			<form method="post" >
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
-					<p id="' . $this->messageId . '">' . $message . '</p>
+					<p id="' . $this->viewNames->getMessageId() . '">' . $message . '</p>
 
-					<label for="' . $this->name . '">Username :</label>
-					<input type="text" id="' . $this->name . '" name="' . $this->name . '" value="' . $this->returnUsernameIfExist() . '" />
+					<label for="' . $this->viewNames->getUsername() . '">Username :</label>
+					<input type="text" id="' . $this->viewNames->getUsername() . '" name="' . $this->viewNames->getLname() . '" value="' . $this->returnUsernameIfExist() . '" />
 
-					<label for="' . $this->password . '">Password :</label>
-					<input type="password" id="' . $this->password . '" name="' . $this->password . '" />
+					<label for="' . $this->viewNames->getPassword() . '">Password :</label>
+					<input type="password" id="' . $this->viewNames->getPassword() . '" name="' . $this->viewNames->getPassword() . '" />
 
-					<label for="' . $this->keep . '">Keep me logged in  :</label>
-					<input type="checkbox" id="' . $this->keep . '" name="' . $this->keep . '" />
+					<label for="' . $this->viewNames->getKeep() . '">Keep me logged in  :</label>
+					<input type="checkbox" id="' . $this->viewNames->getKeep() . '" name="' . $this->viewNames->getKeep() . '" />
 
-					<input type="submit" name="' . $this->login . '" value="login" />
+					<input type="submit" name="' . $this->viewNames->getLLogin() . '" value="login" />
 				</fieldset>
 			</form>
 		';
@@ -67,15 +72,15 @@ class LoginView
         return new Credentials($username, $password, $keepLoggedIn, $cookieName, $cookiePassword, "", "");
     }
 
-    public function userWantLogin(): bool
-    {
-        return isset($_POST[$this->login]);
-    }
+    // public function userWantLogin(): bool
+    // {
+    //     return isset($_POST[$this->login]);
+    // }
 
-    public function userWantLogout()
-    {
-        return isset($_POST[$this->logout]);
-    }
+    // public function userWantLogout()
+    // {
+    //     return isset($_POST[$this->logout]);
+    // }
 
     public function setSessionUsername(string $name)
     {
