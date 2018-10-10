@@ -2,6 +2,8 @@
 
 class LoginView
 {
+    // Ersätt dessa variabler i session respektive cookies
+    // Lägg till en Session objekt i konstruktorn
     private $login = 'LoginView::Login';
     private $logout = 'LoginView::Logout';
     private $name = 'LoginView::UserName';

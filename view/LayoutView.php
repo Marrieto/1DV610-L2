@@ -26,15 +26,14 @@ class LayoutView
     }
 
     // Replace with GET/POSTView, InputView? Inputs?
-    public function userWantToRegister()
-    {
-        if (isset($_GET['register'])) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
+    // public function userWantToRegister()
+    // {
+    //     if (isset($_GET['register'])) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     private function renderIsLoggedIn($isLoggedIn)
     {

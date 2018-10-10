@@ -12,6 +12,8 @@ class MainController
     private $LoginModel;
     private $Database;
     private $Config;
+    private $GET;
+    private $POST;
 
     public function __construct($v, $dtv, $lv, $lm, $rv)
     {
@@ -24,12 +26,16 @@ class MainController
         $this->Database = new Database($this->Config);
         $this->LoginController = new LoginController($this->LoginView, $this->DateTimeView, $this->LayoutView, $this->LoginModel);
         $this->RegisterController = new RegisterController($this->RegisterView, $this->DateTimeView, $this->LoginModel);
+        $this->POST = new POST();
+        $this->GET = new GET();
+
     }
 
     public function render()
     {
         // Check if there was a POST to register
-        $triedToRegister = $this->RegisterView->userTriedToRegister();
+        $triedToRegister = $this->POST->userTriedToRegister();
+
         if ($triedToRegister) {
             $credentials = $this->RegisterView->getCredentials();
             $validRegistrationResponse = ValidateRegisterInputFormat($credentials);
@@ -63,7 +69,7 @@ class MainController
                 $this->RegisterController->register($validRegistrationResponse);
             }
 
-        } else if ($this->LayoutView->userWantToRegister()) {
+        } else if ($this->GET->userWantToRegister()) {
             $this->RegisterController->register(new StatusMessage());
         } else {
             $this->LoginController->login("");

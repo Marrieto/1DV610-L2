@@ -2,7 +2,7 @@
 
 class RegisterView
 {
-
+    // REPLACE WITH POST OBJECT
     private $register = 'RegisterView::Register';
     private $username = 'RegisterView::UserName';
     private $password = 'RegisterView::Password';
@@ -54,14 +54,14 @@ class RegisterView
         echo $response;
     }
 
-    public function userTriedToRegister()
-    {
-        if (isset($_POST[$this->register])) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // public function userTriedToRegister()
+    // {
+    //     if (isset($_POST[$this->register])) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     public function getCredentials()
     {
@@ -77,6 +77,8 @@ class RegisterView
         return $isLoggedIn == true ? "Logged in" : "Not logged in";
     }
 
+
+    // TODO: REPLACE THESE AND PUT IN POST OBJECT
     private function returnUsernameIfExistSanitized()
     {
         if ((isset($_POST[$this->username]))) {

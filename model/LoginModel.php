@@ -20,10 +20,8 @@ class LoginModel
     public function validateCredentialsToDB(Credentials $creds)
     {
         $response = new StatusMessage;
-        $tempdb = new Database();
 
-        // TODO Replace this with database
-        if ($tempdb->authenticate($creds)) {
+        if ($this->db->authenticate($creds)) {
             $response->setMessageState(true);
             $response->setMessageString("");
             return $response;
@@ -51,12 +49,6 @@ class LoginModel
         $this->cookies->removeCookie($this->cookieName);
     }
 
-    // Should have it's own model, sessionmodel?
-    public function checkIfLoggedInBySession()
-    {
-        return $this->Session->checkIfLoggedIn();
-    }
-
     public function checkIfLoggedInByCookies(Credentials $credentials)
     {
         $this->cookies = new Cookies();
@@ -70,13 +62,6 @@ class LoginModel
         } else {
             return false;
         }
-    }
-
-    // Check if user is logged in either Session or Cookies
-    public function checkIfLoggedIn()
-    {
-        return $this->Session->checkIfLoggedIn();
-        // return isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == 'true';
     }
 
 }

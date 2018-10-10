@@ -18,28 +18,10 @@ class RegisterController
 
     public function register(StatusMessage $message)
     {
-        // session_start();
         $statusMessage = new StatusMessage();
-        // $statusMessage->setMessageState($this->LoginModel->checkIfLoggedInBySession());
         $statusMessage->setMessageState($this->Session->checkIfLoggedIn());
         $statusMessage->setMessageString($message->getMessageString());
 
         $this->RegisterView->render($statusMessage, $this->DateTimeView);
-        //var_dump($this->Session->checkIfLoggedIn());
     }
-
-    // private function userWantLogin()
-    // {
-    //     return isset($_POST['login']);
-    // }
-
-    // private function userWantLogout()
-    // {
-    //     return isset($_POST['logout']);
-    // }
-
-    // private function checkIfPOST()
-    // {
-    //     return $_SERVER['REQUEST_METHOD'] == 'POST';
-    // }
 }
