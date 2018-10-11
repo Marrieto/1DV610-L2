@@ -40,8 +40,6 @@ class Database
 
     public function addUser(Credentials $credentials): bool
     {
-        // Use checkConnection and throw error if database is down?
-        // Enapsulate database in a model and use short functions?
         $hashedPassword = password_hash($credentials->getPassword(), PASSWORD_BCRYPT);
 
         $qry = "INSERT INTO user (username, password, cookiestring)
@@ -57,7 +55,6 @@ class Database
 
     public function checkIfUserExist(string $username): bool
     {
-        // $username = $credentials->getUsername();
         $qry = "SELECT username FROM user WHERE username=?";
 
         $prepared = $this->Connection->prepare($qry);

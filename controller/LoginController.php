@@ -22,24 +22,23 @@ class LoginController
 
     public function render(StatusMessage $statusFromMain)
     {
-        // Get credentials
         $this->credentials->getCredentials();
-        // Check if logged in
         $response = $this->checkIfLoggedIn();
+
         if ($statusFromMain->getMessageString() != "")
         {
             $response->setMessageString($statusFromMain->getMessageString());
         }
-        // get html from loginview
+
         $html = $this->LoginView->returnHTML($response);
-        // render through layoutview
+
         $this->LayoutView->render($response, $html);
     }
 
     private function checkIfLoggedIn()
     {
         $response = new StatusMessage();
-        // Check if logged in by session
+
         if ($this->session->checkIfLoggedInBySession())
         {
             $response->setMessageState(true);
@@ -85,9 +84,6 @@ class LoginController
 
         return $response;
     }
-    // Check if loggedin
-    // User want to Logout -> SetMessage accordingly
-    // User want to Login -> SetMessage accordingly
 
     public function loginn($credentialsFromMainController)
     {
