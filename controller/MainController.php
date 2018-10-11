@@ -43,12 +43,21 @@ class MainController
         if ($this->POST->userTriedToRegister())
         {
             // Check for response, if it failed, show register, else login
-            $this->RegisterController->userTriedToRegister();
+            $response = $this->RegisterController->userTriedToRegister();
+
+            if($response->getMessageState())
+            {
+                $this->LoginController->render($response);
+            } 
+            else
+            {
+                $this->RegisterController->render($response);
+            }
         } 
         else if ($this->POST->userTriedToLogin())
         {
             // Check for response, send response to render
-            $response = $this->LoginController->ValidateCredentials();
+            $response = $this->LoginController->userTriedToLogin();
 
             if ($response->getMessageState())
             {
@@ -59,9 +68,15 @@ class MainController
         }
         else if ($this->POST->userTriedToLogout())
         {
-            echo "loggin out";
-            // Set message to Bye bye and render with empty message
-            $this->LoginController->Logout();
+            $logoutStatus = new StatusMessage();
+
+            if ($this->session->checkIfLoggedInBySession())
+            {
+                $logoutStatus->setMessageString("Bye bye");
+                $this->LoginController->logout();
+            }
+
+            $this->LoginController->render($logoutStatus);
         }
         else if ($this->GET->userWantToRegister())
         {

@@ -55,9 +55,9 @@ class Database
 
     }
 
-    public function checkIfUserExist(Credentials $credentials): bool
+    public function checkIfUserExist(string $username): bool
     {
-        $username = $credentials->getUsername();
+        // $username = $credentials->getUsername();
         $qry = "SELECT username FROM user WHERE username=?";
 
         $prepared = $this->Connection->prepare($qry);

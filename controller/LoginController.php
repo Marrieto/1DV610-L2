@@ -65,7 +65,7 @@ class LoginController
         $this->cookies->removeCookies();
     }
 
-    public function validateCredentials()
+    public function userTriedToLogin()
     {
         $response = new StatusMessage();
         $this->credentials->getCredentials();
