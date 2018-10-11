@@ -26,6 +26,8 @@ class LoginView
     private function generateLogoutButtonHTML($message)
     {
         return '
+        <a href="?register">Register a new user</a>
+        <div class="container">
 			<form  method="post" >
 				<p id="' . $this->viewNames->getLMessageId() . '">' . $message . '</p>
 				<input type="submit" name="' . $this->viewNames->getLLogout() . '" value="logout"/>
@@ -36,6 +38,8 @@ class LoginView
     private function generateLoginFormHTML($message)
     {
         return '
+        <a href="?register">Register a new user</a>
+        <div class="container">
 			<form method="post" >
 				<fieldset>
 					<legend>Login - enter Username and password</legend>

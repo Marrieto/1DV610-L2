@@ -20,8 +20,6 @@ class LayoutView
         <body>
           <h1>Assignment 2</h1>
           ' . $this->renderIsLoggedIn($msg->getMessageState()) . '
-          <a href="?register">Register a new user</a>
-          <div class="container">
               ' . $htmlFromViews . '
 
               ' . $this->DateTimeView->show() . '

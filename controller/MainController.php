@@ -27,7 +27,7 @@ class MainController
         $this->Config = new Config();
         $this->Database = new Database($this->Config);
         $this->LoginController = new LoginController($this->LoginView, $this->DateTimeView, $this->LayoutView, $this->LoginModel);
-        $this->RegisterController = new RegisterController($this->RegisterView, $this->DateTimeView, $this->LoginModel);
+        $this->RegisterController = new RegisterController($this->LoginView, $this->LayoutView, $this->RegisterView, $this->DateTimeView, $this->LoginModel);
         $this->POST = new POST();
         $this->GET = new GET();
         $this->credentials = new Credentials();
@@ -60,12 +60,13 @@ class MainController
         else if ($this->POST->userTriedToLogout())
         {
             echo "loggin out";
+            // Set message to Bye bye and render with empty message
             $this->LoginController->Logout();
         }
         else if ($this->GET->userWantToRegister())
         {
-            //$this->RegisterController->userWantToRegister();
-            echo "Want to register";
+            $emptyStatus = new StatusMessage();
+            $this->RegisterController->render($emptyStatus);
         }
         else
         {
