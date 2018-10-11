@@ -15,6 +15,7 @@ class MainController
     private $GET;
     private $POST;
     private $credentials;
+    private $session;
 
     public function __construct($v, $dtv, $lv, $lm, $rv)
     {
@@ -30,6 +31,7 @@ class MainController
         $this->POST = new POST();
         $this->GET = new GET();
         $this->credentials = new Credentials();
+        $this->session = new Session();
     }
 
     public function render()
@@ -59,8 +61,10 @@ class MainController
                 // If credentials is true, then set session username and pass
                 // and save to database
                 if ($this->credentials->getStatusMessage()) {
-                    $this->LoginView->setSessionUsername($this->credentials->getUsername());
-                    $this->LoginView->setSessionPassword($this->credentials->getPassword());
+                    // $this->LoginView->setSessionUsername($this->credentials->getUsername());
+                    // $this->LoginView->setSessionPassword($this->credentials->getPassword());
+                    $this->session->setUsername($this->credentials->getUsername());
+                    $this->session->setUsername($this->credentials->getPassword());
 
                     if (!$this->Database->addUser($this->credentials)) {
                         echo "Error saving user to database, check Database.php";

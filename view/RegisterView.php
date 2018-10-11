@@ -44,8 +44,8 @@ class RegisterView
               <label for='" . $this->viewNames->getRUsername() . "' >Username :</label>
               <input type='text' size='20' name='" . $this->viewNames->getRUsername() . "' id='" . $this->viewNames->getRUsername() . "' value='" . $this->returnUsernameIfExistSanitized() . "' />
               <br/>
-              <label for='" . $this->viewNames->getPassword() . "' >Password  :</label>
-              <input type='password' size='20' name='" . $this->viewNames->getPassword() . "' id='" . $this->viewNames->getRPassword() . "' value='" . $this->returnPasswordIfExist() . "' />
+              <label for='" . $this->viewNames->getRPassword() . "' >Password  :</label>
+              <input type='password' size='20' name='" . $this->viewNames->getRPassword() . "' id='" . $this->viewNames->getRPassword() . "' value='" . $this->returnPasswordIfExist() . "' />
               <br/>
               <label for='" . $this->viewNames->getRPasswordRepeat() . "' >Repeat password  :</label>
               <input type='password' size='20' name='" . $this->viewNames->getRPasswordRepeat() . "' id='" . $this->viewNames->getRPasswordRepeat() . "' value='" . $this->returnPasswordRepeatIfExist() . "' />

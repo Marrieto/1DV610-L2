@@ -52,7 +52,7 @@ class Credentials
             return $returnMessage;
         }
     }
-
+    
     public function getCredentials(): void 
     {
         $this->username = $this->getUsernameIfExist();
@@ -61,6 +61,37 @@ class Credentials
         $this->keep = $this->getKeepIfExist();
         $this->cookieUsername = $this->getCookieUsernameIfExist();
         $this->cookiePassword = $this->getCookiePasswordIfExist();
+    }
+    
+    private function getPasswordIfExist(): string
+    {
+        if ($this->POST->getPasswordIfExist() != "")
+        {
+            return $this->POST->getPasswordIfExist();
+        } else if ($this->session->getPasswordIfExist() != "")
+        {
+            return $this->session->getPasswordIfExist();
+        } else {
+            return "";
+        }
+    }
+    
+    private function getUsernameIfExist(): string
+    {
+        if ($this->POST->getUsernameIfExist() != "")
+        {
+            return $this->POST->getUsernameIfExist();
+        } else if ($this->session->getUsernameIfExist() != "")
+        {
+            return $this->session->getUsernameIfExist();
+        } else {
+            return "";
+        }
+    }
+    
+    private function getPasswordRepeatIfExist(): string
+    {
+        return $this->POST->getPasswordRepeatIfExist();
     }
 
     public function getUsername()
@@ -98,36 +129,6 @@ class Credentials
     public function setStatusMessage($message)
     {
         $this->statusMessage = $message;
-    }
-
-    private function getUsernameIfExist(): string
-    {
-        if ($this->POST->getUsernameIfExist() != "")
-        {
-            return $this->POST->getUsernameIfExist();
-        } else if ($this->session->getUsernameIfExist() != "")
-        {
-            return $this->session->getUsernameIfExist();
-        } else {
-            return "";
-        }
-    }
-    private function getPasswordIfExist(): string
-    {
-        if ($this->POST->getPasswordIfExist() != "")
-        {
-            return $this->POST->getPasswordIfExist();
-        } else if ($this->session->getPasswordIfExist() != "")
-        {
-            return $this->session->getPasswordIfExist();
-        } else {
-            return "";
-        }
-    }
-
-    private function getPasswordRepeatIfExist(): string
-    {
-        return $this->POST->getPasswordRepeatIfExist();
     }
     private function getKeepIfExist(): string
     {
