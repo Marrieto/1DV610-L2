@@ -2,8 +2,14 @@
 
 class LayoutView
 {
+    private $DateTimeView;
 
-    public function render(StatusMessage $msg, LoginView $v, DateTimeView $dtv)
+    public function __construct($dtv)
+    {
+        $this->DateTimeView = $dtv;
+    }
+
+    public function render(StatusMessage $msg, string $htmlFromViews)
     {
         echo '<!DOCTYPE html>
       <html>
@@ -16,9 +22,9 @@ class LayoutView
           ' . $this->renderIsLoggedIn($msg->getMessageState()) . '
           <a href="?register">Register a new user</a>
           <div class="container">
-              ' . $v->response($msg) . '
+              ' . $htmlFromViews . '
 
-              ' . $dtv->show() . '
+              ' . $this->DateTimeView->show() . '
           </div>
          </body>
       </html>

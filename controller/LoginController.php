@@ -13,12 +13,44 @@ class LoginController
         $this->DateTimeView = $dtv;
         $this->LayoutView = $lv;
         $this->LoginModel = $lm;
-        $this->Session = new Session();
+        $this->session = new Session();
         $this->POST = new POST();
         $this->credentials = new Credentials();
         $this->cookies = new Cookies();
         session_start();
     }
+
+    public function render(StatusMessage $statusFromMain)
+    {
+        // Get credentials
+        $this->credentials->getCredentials();
+        // Check if logged in
+        $response = $this->checkIfLoggedIn();
+        // get html from loginview
+        $html = $this->LoginView->returnHTML($response);
+        // render through layoutview
+        $this->LayoutView->render($response, $html);
+    }
+
+    private function checkIfLoggedIn()
+    {
+        $response = new StatusMessage();
+        // Check if logged in by session
+        if ($this->session->checkIfLoggedInBySession())
+        {
+            $response->setStatusStatus(true);
+        }
+
+        if (!$response->getMessageState() && $this->cookies->checkIfLoggedInByCookies($this->credentials))
+        {
+            $response->setMessageState(true);
+            $response->setMessageString("Welcome back with cookie");
+        }
+        return $response;
+    }
+    // Check if loggedin
+    // User want to Logout -> SetMessage accordingly
+    // User want to Login -> SetMessage accordingly
 
     public function login($credentialsFromMainController)
     {

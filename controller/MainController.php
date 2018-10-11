@@ -64,7 +64,8 @@ class MainController
         }
         else
         {
-            echo "Want to login";
+            $emptyStatus = new StatusMessage();
+            $this->LoginController->render($emptyStatus);
             // Get html from loginview without parameters (should never be)
         }
         // Check if there was a POST to register

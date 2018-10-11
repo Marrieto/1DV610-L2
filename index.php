@@ -30,7 +30,7 @@ ini_set('display_errors', 'On');
 //CREATE OBJECTS OF THE VIEWS
 $v = new LoginView();
 $dtv = new DateTimeView();
-$lv = new LayoutView();
+$lv = new LayoutView($dtv);
 $lm = new LoginModel();
 $rv = new RegisterView();
 $mc = new MainController($v, $dtv, $lv, $lm, $rv);

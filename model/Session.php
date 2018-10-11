@@ -16,7 +16,7 @@ class Session
         $_SESSION[self::$sessionString] = 'false';
     }
 
-    public function checkIfLoggedIn(): bool
+    public function checkIfLoggedInBySession(): bool
     {
         return isset($_SESSION[self::$sessionString]) && $_SESSION[self::$sessionString] == 'true';
     }
