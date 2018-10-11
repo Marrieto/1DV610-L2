@@ -26,8 +26,6 @@ class Session
         session_destroy();
     }
 
-    // Add getters for the variable names to be used in LoginView
-
     public function setUsername(string $name): void
     {
         $_SESSION[self::$username] = $name;

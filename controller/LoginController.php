@@ -23,10 +23,8 @@ class LoginController
     public function login($credentialsFromMainController)
     {
         
-        // Ask view if someone wants to log in
-        // $credentials = $this->LoginView->getCredentials();
+        // Ask view if someone wants to log in;
         $this->credentials->getCredentials();
-        //var_dump($this->credentials);
         $response = new StatusMessage();
         $response->setMessageState(false);
 
@@ -38,14 +36,12 @@ class LoginController
         }
 
         // Check if logged in by cookie
-        // if (!$response->getMessageState() && $this->LoginModel->checkIfLoggedInByCookies($credentials)) {
         if (!$response->getMessageState() && $this->cookies->checkIfLoggedInByCookies($this->credentials)) {
             $this->Session->login();
             $response->setMessageState(true);
             $response->setMessageString("Welcome back with cookie");
         }
 
-        // if ($this->checkIfPOST()) {
         if ($this->POST->requestMethodIsPOST()) {
             // CHECK IF ALREADY LOGGED IN -> RESPONSE SHOULD ALREADY BE 'TRUE'
             if ($this->POST->userWantToLogin()) {
@@ -82,16 +78,4 @@ class LoginController
             $this->LayoutView->render($response, $this->LoginView, $this->DateTimeView);
         }
     }
-
-    // TESTFUNKTION, WILL BE DELETED WHEN FINISHED
-    private function printCredentials(Credentials $credentials)
-    {
-        echo $credentials->getUsername();
-        echo $credentials->getPassword();
-        echo $credentials->getKeepLoggedIn();
-        echo $credentials->getCookieString();
-        echo $credentials->getCookiePassword();
-    }
-    // TESTFUNKTION, WILL BE DELETED WHEN FINISHED
-
 }

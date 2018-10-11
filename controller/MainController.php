@@ -40,9 +40,7 @@ class MainController
         $triedToRegister = $this->POST->userTriedToRegister();
 
         if ($triedToRegister) {
-            // $credentials = $this->RegisterView->getCredentials();
             $this->credentials->getCredentials();
-            // var_dump($this->credentials);
             $validRegistrationResponse = ValidateRegisterInputFormat($this->credentials);
 
             // CHECK IF USER ALREADY EXIST
@@ -61,8 +59,6 @@ class MainController
                 // If credentials is true, then set session username and pass
                 // and save to database
                 if ($this->credentials->getStatusMessage()) {
-                    // $this->LoginView->setSessionUsername($this->credentials->getUsername());
-                    // $this->LoginView->setSessionPassword($this->credentials->getPassword());
                     $this->session->setUsername($this->credentials->getUsername());
                     $this->session->setUsername($this->credentials->getPassword());
 

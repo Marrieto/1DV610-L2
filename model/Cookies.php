@@ -5,15 +5,17 @@ class Cookies
     private static $cookieName = 'LoginView::CookieName';
     private static $cookiePassword = 'LoginView::CookiePassword';
 
-    // public function __construct()
+    // public function setCookie($cookiename, $value)
     // {
-    //     self
-    // POSSIBLE BUG: not using the same variable names for checking pass/username
+    //     setcookie($cookiename, $value, (time() + 60 * 60 * 24));
     // }
-
-    public function setCookie($cookiename, $value)
+    public function setUsername($value)
     {
-        setcookie($cookiename, $value, (time() + 60 * 60 * 24));
+        setcookie(self::$cookieName, $value, (time() + 60 * 60 * 24));
+    }
+    public function setPassword($value)
+    {
+        setcookie(self::$cookiePassword, $value, (time() + 60 * 60 * 24));
     }
 
     public function getCookie($cookiename)
@@ -23,16 +25,19 @@ class Cookies
         }
     }
 
-    public function removeCookie($cookiename)
+    public function removeCookies($cookiename)
     {
-        setcookie($cookiename, "", (time() + 60 * 60 * 24));
-        unset($_COOKIE[$cookiename]);
+        // setcookie($cookiename, "", (time() + 60 * 60 * 24));
+        setcookie(self::$cookiename, "", (time() + 60 * 60 * 24));
+        setcookie(self::$cookiePassword, "", (time() + 60 * 60 * 24));
+        unset($_COOKIE[self::$cookiename]);
+        unset($_COOKIE[self::$cookiePassword]);
     }
 
-    public function hasCookie($cookiename)
-    {
-        return isset($_COOKIE[$cookiename]);
-    }
+    // public function hasCookie($cookiename)
+    // {
+    //     return isset($_COOKIE[$cookiename]);
+    // }
 
     public function getUsernameIfExist()
     {
@@ -52,7 +57,8 @@ class Cookies
         // Return a statusmessage object, with outcome and message string if manipulated?
         $username = $credentials->getUsername();
         $cookieName = self::$cookieName;
-        $cookieUsername = $this->getCookie($cookieName);
+        // $cookieUsername = $this->getCookie($cookieName);
+        $cookieUsername = $this->getUsernameIfExist();
 
         if ($username == $cookieUsername && $username != "") {
             return true;
