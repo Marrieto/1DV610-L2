@@ -5,10 +5,6 @@ class Cookies
     private static $cookieName = 'LoginView::CookieName';
     private static $cookiePassword = 'LoginView::CookiePassword';
 
-    // public function setCookie($cookiename, $value)
-    // {
-    //     setcookie($cookiename, $value, (time() + 60 * 60 * 24));
-    // }
     public function setUsername($value)
     {
         setcookie(self::$cookieName, $value, (time() + 60 * 60 * 24));
@@ -27,17 +23,11 @@ class Cookies
 
     public function removeCookies($cookiename)
     {
-        // setcookie($cookiename, "", (time() + 60 * 60 * 24));
         setcookie(self::$cookiename, "", (time() + 60 * 60 * 24));
         setcookie(self::$cookiePassword, "", (time() + 60 * 60 * 24));
         unset($_COOKIE[self::$cookiename]);
         unset($_COOKIE[self::$cookiePassword]);
     }
-
-    // public function hasCookie($cookiename)
-    // {
-    //     return isset($_COOKIE[$cookiename]);
-    // }
 
     public function getUsernameIfExist()
     {
@@ -57,7 +47,6 @@ class Cookies
         // Return a statusmessage object, with outcome and message string if manipulated?
         $username = $credentials->getUsername();
         $cookieName = self::$cookieName;
-        // $cookieUsername = $this->getCookie($cookieName);
         $cookieUsername = $this->getUsernameIfExist();
 
         if ($username == $cookieUsername && $username != "") {

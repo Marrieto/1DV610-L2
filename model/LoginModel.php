@@ -35,17 +35,13 @@ class LoginModel
 
     public function login(Credentials $credentials)
     {
-        // $this->cookies = new Cookies();
         $this->Session->login();
         $username = $credentials->getUsername();
-        // $this->cookies->setCookie($this->cookieName, $username);
         $this->cookies->setUsername($username);
-
     }
 
     public function logout(Credentials $credentials)
     {
-        // $this->cookies = new Cookies();
         $this->Session->logout();
         $this->cookies->removeCookies();
     }
@@ -57,7 +53,6 @@ class LoginModel
         $username = $credentials->getUsername();
         $cookieName = $this->cookieName;
         $cookieUsername = $this->cookies->getUsernameIfExist();
-        //$cookieUsername = $this->cookies->getCookie($cookieName);
 
         if ($username == $cookieUsername && $username != "") {
             return true;
