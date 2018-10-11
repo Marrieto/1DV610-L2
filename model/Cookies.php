@@ -5,27 +5,27 @@ class Cookies
     private static $cookieName = 'LoginView::CookieName';
     private static $cookiePassword = 'LoginView::CookiePassword';
 
-    public function setUsername($value)
+    public function setCookieUsername($value)
     {
         setcookie(self::$cookieName, $value, (time() + 60 * 60 * 24));
     }
-    public function setPassword($value)
+    public function setCookiePassword($value)
     {
         setcookie(self::$cookiePassword, $value, (time() + 60 * 60 * 24));
     }
 
     public function getCookie($cookiename)
     {
-        if (isset($_COOKIE[$cookiename])) {
+        if (isset($_COOKIE[$cookieName])) {
             return $_COOKIE[$cookiename];
         }
     }
 
-    public function removeCookies($cookiename)
+    public function removeCookies()
     {
-        setcookie(self::$cookiename, "", (time() + 60 * 60 * 24));
+        setcookie(self::$cookieName, "", (time() + 60 * 60 * 24));
         setcookie(self::$cookiePassword, "", (time() + 60 * 60 * 24));
-        unset($_COOKIE[self::$cookiename]);
+        unset($_COOKIE[self::$cookieName]);
         unset($_COOKIE[self::$cookiePassword]);
     }
 

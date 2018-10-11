@@ -26,6 +26,10 @@ class LoginController
         $this->credentials->getCredentials();
         // Check if logged in
         $response = $this->checkIfLoggedIn();
+        if ($statusFromMain->getMessageString() != "")
+        {
+            $response->setMessageString($statusFromMain->getMessageString());
+        }
         // get html from loginview
         $html = $this->LoginView->returnHTML($response);
         // render through layoutview
@@ -38,7 +42,7 @@ class LoginController
         // Check if logged in by session
         if ($this->session->checkIfLoggedInBySession())
         {
-            $response->setStatusStatus(true);
+            $response->setMessageState(true);
         }
 
         if (!$response->getMessageState() && $this->cookies->checkIfLoggedInByCookies($this->credentials))
@@ -48,11 +52,44 @@ class LoginController
         }
         return $response;
     }
+
+    public function login()
+    {
+        $this->session->login();
+        $this->cookies->setCookieUsername($this->credentials->getUsername());
+        $this->cookies->setCookiePassword($this->credentials->getPassword());
+    }
+    public function logout()
+    {
+        $this->session->logout();
+        $this->cookies->removeCookies();
+    }
+
+    public function validateCredentials()
+    {
+        $response = new StatusMessage();
+        $this->credentials->getCredentials();
+
+        $response = $this->credentials->validateCredentialFormat();
+
+        if ($response->getMessageState())
+        {
+            $response = $this->LoginModel->validateCredentialsToDB($this->credentials);
+
+            if ($response->getMessageState() && !$this->session->checkIfLoggedinBySession())
+            {
+                $response->setMessageString("Welcome");
+                $response->setMessageState(true);
+            }
+        }
+
+        return $response;
+    }
     // Check if loggedin
     // User want to Logout -> SetMessage accordingly
     // User want to Login -> SetMessage accordingly
 
-    public function login($credentialsFromMainController)
+    public function loginn($credentialsFromMainController)
     {
         
         // Ask view if someone wants to log in;

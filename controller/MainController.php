@@ -48,14 +48,19 @@ class MainController
         else if ($this->POST->userTriedToLogin())
         {
             // Check for response, send response to render
-            // if failed or
-            // if success
-            //      return loginView html and render with layoutview
-            $this->LoginController->userTriedToLogin();
+            $response = $this->LoginController->ValidateCredentials();
+
+            if ($response->getMessageState())
+            {
+                $this->LoginController->Login();
+            }
+
+            $this->LoginController->render($response);
         }
         else if ($this->POST->userTriedToLogout())
         {
             echo "loggin out";
+            $this->LoginController->Logout();
         }
         else if ($this->GET->userWantToRegister())
         {
@@ -109,6 +114,13 @@ class MainController
         // } else {
         //     $this->LoginController->login("");
         // }
+    }
+
+    private function login(Credentials $credentials)
+    {
+        $this->session->login();
+
+        // Set cookies
     }
 
 }
