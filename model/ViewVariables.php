@@ -29,9 +29,9 @@ class ViewVariables
     {
         return self::$rPassword;
     }
-    public function getRPasswordRepeat(): string 
+    public function getPasswordRepeat(): string 
     {
-        return self::$rPasswordRepeat;
+        return self::$passwordRepeat;
     }
     public function getRMessageId(): string 
     {

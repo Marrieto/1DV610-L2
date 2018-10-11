@@ -26,7 +26,7 @@ class LoginController
         // Ask view if someone wants to log in
         // $credentials = $this->LoginView->getCredentials();
         $this->credentials->getCredentials();
-        // var_dump($this->credentials);
+        //var_dump($this->credentials);
         $response = new StatusMessage();
         $response->setMessageState(false);
 
@@ -63,7 +63,6 @@ class LoginController
                         }
                     }
                 }
-
                 $this->LayoutView->render($response, $this->LoginView, $this->DateTimeView);
                 // HANDLE LOGOUT && self::$LoginModel->checkIfLoggedIn())
             } else if ($this->POST->userWantToLogout()) {

@@ -8,6 +8,12 @@ class RegisterView
     private $password = 'RegisterView::Password';
     private $passwordRepeat = 'RegisterView::PasswordRepeat';
     private $messageId = 'RegisterView::Message';
+    private $viewNames;
+
+    public function __construct()
+    {
+        $this->viewNames = new ViewVariables();
+    }
 
     /**
      * Create HTTP response
@@ -34,17 +40,17 @@ class RegisterView
           <form action='?register' method='post' enctype='multipart/form-data'>
             <fieldset>
             <legend>Register a new user - Write username and password</legend>
-              <p id='" . $this->messageId . "'>" . $message->getMessageString() . "</p>
-              <label for='" . $this->username . "' >Username :</label>
-              <input type='text' size='20' name='" . $this->username . "' id='" . $this->username . "' value='" . $this->returnUsernameIfExistSanitized() . "' />
+              <p id='" . $this->viewNames->getMessageId() . "'>" . $message->getMessageString() . "</p>
+              <label for='" . $this->viewNames->getUsername() . "' >Username :</label>
+              <input type='text' size='20' name='" . $this->viewNames->getUsername() . "' id='" . $this->viewNames->getUsername() . "' value='" . $this->returnUsernameIfExistSanitized() . "' />
               <br/>
-              <label for='" . $this->password . "' >Password  :</label>
-              <input type='password' size='20' name='" . $this->password . "' id='" . $this->password . "' value='" . $this->returnPasswordIfExist() . "' />
+              <label for='" . $this->viewNames->getPassword() . "' >Password  :</label>
+              <input type='password' size='20' name='" . $this->viewNames->getPassword() . "' id='" . $this->viewNames->getPassword() . "' value='" . $this->returnPasswordIfExist() . "' />
               <br/>
-              <label for='" . $this->passwordRepeat . "' >Repeat password  :</label>
-              <input type='password' size='20' name='" . $this->passwordRepeat . "' id='" . $this->passwordRepeat . "' value='" . $this->returnPasswordRepeatIfExist() . "' />
+              <label for='" . $this->viewNames->getPasswordRepeat() . "' >Repeat password  :</label>
+              <input type='password' size='20' name='" . $this->viewNames->getPasswordRepeat() . "' id='" . $this->viewNames->getPasswordRepeat() . "' value='" . $this->returnPasswordRepeatIfExist() . "' />
               <br/>
-              <input id='submit' type='submit' name='" . $this->register . "'  value='Register' />
+              <input id='submit' type='submit' name='" . $this->viewNames->getRName() . "'  value='Register' />
               <br/>
             </fieldset>
           </form>" . $dtv->show() . "    </div>

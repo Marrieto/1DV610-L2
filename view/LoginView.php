@@ -4,14 +4,6 @@ class LoginView
 {
     // Ersätt dessa variabler i session respektive cookies
     // Lägg till en Session objekt i konstruktorn
-    // private $login = 'LoginView::Login';
-    // private $logout = 'LoginView::Logout';
-    // private $name = 'LoginView::UserName';
-    // private $password = 'LoginView::Password';
-    // private $cookieName = 'LoginView::CookieName';
-    // private $cookiePassword = 'LoginView::CookiePassword';
-    // private $keep = 'LoginView::KeepMeLoggedIn';
-    // private $messageId = 'LoginView::Message';
     private $viewNames;
     private $credentials;
     public function __construct()
@@ -85,15 +77,15 @@ class LoginView
     //     return isset($_POST[$this->logout]);
     // }
 
-    public function setSessionUsername(string $name)
-    {
-        $_SESSION[$this->name] = $name;
-    }
+    // public function setSessionUsername(string $name)
+    // {
+    //     $_SESSION[$this->name] = $name;
+    // }
 
-    public function setSessionPassword(string $password)
-    {
-        $_SESSION[$this->password] = $password;
-    }
+    // public function setSessionPassword(string $password)
+    // {
+    //     $_SESSION[$this->password] = $password;
+    // }
 
     // private function usernameExistInPOST()
     // {

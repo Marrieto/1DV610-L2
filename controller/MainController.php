@@ -14,6 +14,7 @@ class MainController
     private $Config;
     private $GET;
     private $POST;
+    private $credentials;
 
     public function __construct($v, $dtv, $lv, $lm, $rv)
     {
@@ -28,7 +29,7 @@ class MainController
         $this->RegisterController = new RegisterController($this->RegisterView, $this->DateTimeView, $this->LoginModel);
         $this->POST = new POST();
         $this->GET = new GET();
-
+        $this->credentials = new Credentials();
     }
 
     public function render()
@@ -37,12 +38,14 @@ class MainController
         $triedToRegister = $this->POST->userTriedToRegister();
 
         if ($triedToRegister) {
-            $credentials = $this->RegisterView->getCredentials();
-            $validRegistrationResponse = ValidateRegisterInputFormat($credentials);
+            // $credentials = $this->RegisterView->getCredentials();
+            $this->credentials->getCredentials();
+            var_dump($this->credentials);
+            $validRegistrationResponse = ValidateRegisterInputFormat($this->credentials);
 
             // CHECK IF USER ALREADY EXIST
             if ($validRegistrationResponse->getMessageState()) {
-                $response = $this->Database->checkIfUserExist($credentials);
+                $response = $this->Database->checkIfUserExist($this->credentials);
                 if ($response) {
                     $validRegistrationResponse->setMessageString("User exists, pick another username.");
                     $validRegistrationResponse->setMessageState(false);
@@ -52,14 +55,14 @@ class MainController
             // If username and password has correct input
             if ($validRegistrationResponse->getMessageState()) {
 
-                $credentials->setStatusMessage($validRegistrationResponse->getMessageString());
+                $this->credentials->setStatusMessage($validRegistrationResponse->getMessageString());
                 // If credentials is true, then set session username and pass
                 // and save to database
-                if ($credentials->getStatusMessage()) {
-                    $this->LoginView->setSessionUsername($credentials->getUsername());
-                    $this->LoginView->setSessionPassword($credentials->getPassword());
+                if ($this->credentials->getStatusMessage()) {
+                    $this->LoginView->setSessionUsername($this->credentials->getUsername());
+                    $this->LoginView->setSessionPassword($this->credentials->getPassword());
 
-                    if (!$this->Database->addUser($credentials)) {
+                    if (!$this->Database->addUser($this->credentials)) {
                         echo "Error saving user to database, check Database.php";
                     }
                 }
