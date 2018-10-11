@@ -72,7 +72,7 @@ class MainController
 
             if ($this->session->checkIfLoggedInBySession())
             {
-                $logoutStatus->setMessageString("Bye bye");
+                $logoutStatus->setMessageString("Bye bye!");
                 $this->LoginController->logout();
             }
 
