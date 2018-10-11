@@ -2,18 +2,19 @@
 
 class ViewVariables
 {
-    private static $lLogin = 'LoginView::Login';
-    private static $lLogout = 'LoginView::Logout';
-    private static $lMessageId = 'LoginView::Message';
-    private static $messageId = 'LoginView::Message';
     private static $rName = "RegisterView::Register";
     private static $rUsername = 'RegisterView::UserName';
     private static $rPassword = 'RegisterView::Password';
+    private static $rPasswordRepeat = 'RegisterView::PasswordRepeat';
     private static $rMessageId = 'RegisterView::Message';
-    private static $username = 'LoginView::UserName';
-    private static $password = 'LoginView::Password';
-    private static $passwordRepeat = 'RegisterView::PasswordRepeat';
-    private static $keep = 'LoginView::KeepMeLoggedIn';
+
+    private static $lLogin = 'LoginView::Login';
+    private static $lLogout = 'LoginView::Logout';
+    private static $lMessageId = 'LoginView::Message';
+    private static $lUsername = 'LoginView::UserName';
+    private static $lPassword = 'LoginView::Password';
+    private static $lKeep = 'LoginView::KeepMeLoggedIn';
+
     private static $cookieName = 'LoginView::CookieName';
     private static $cookiePassword = 'LoginView::CookiePassword';
 
@@ -29,9 +30,9 @@ class ViewVariables
     {
         return self::$rPassword;
     }
-    public function getPasswordRepeat(): string 
+    public function getRPasswordRepeat(): string 
     {
-        return self::$passwordRepeat;
+        return self::$rPasswordRepeat;
     }
     public function getRMessageId(): string 
     {
@@ -45,13 +46,13 @@ class ViewVariables
     {
         return self::$lLogout;
     }
-    public function getUsername(): string 
+    public function getLUsername(): string 
     {
-        return self::$username;
+        return self::$lUsername;
     }
-    public function getPassword(): string 
+    public function getLPassword(): string 
     {
-        return self::$password;
+        return self::$lPassword;
     }
     public function getCookieName(): string 
     {
@@ -61,12 +62,12 @@ class ViewVariables
     {
         return self::$cookiePassword;
     }
-    public function getKeep(): string 
+    public function getLKeep(): string 
     {
-        return self::$keep;
+        return self::$lKeep;
     }
-    public function getMessageId(): string 
+    public function getLMessageId(): string 
     {
-        return self::$messageId;
+        return self::$lMessageId;
     }
 }

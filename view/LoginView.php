@@ -27,7 +27,7 @@ class LoginView
     {
         return '
 			<form  method="post" >
-				<p id="' . $this->viewNames->getMessageId() . '">' . $message . '</p>
+				<p id="' . $this->viewNames->getLMessageId() . '">' . $message . '</p>
 				<input type="submit" name="' . $this->viewNames->getLLogout() . '" value="logout"/>
 			</form>
 		';
@@ -39,16 +39,16 @@ class LoginView
 			<form method="post" >
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
-					<p id="' . $this->viewNames->getMessageId() . '">' . $message . '</p>
+					<p id="' . $this->viewNames->getLMessageId() . '">' . $message . '</p>
 
-					<label for="' . $this->viewNames->getUsername() . '">Username :</label>
-					<input type="text" id="' . $this->viewNames->getUsername() . '" name="' . $this->viewNames->getUsername() . '" value="' . $this->credentials->getUsername() . '" />
+					<label for="' . $this->viewNames->getLUsername() . '">Username :</label>
+					<input type="text" id="' . $this->viewNames->getLUsername() . '" name="' . $this->viewNames->getLUsername() . '" value="' . $this->credentials->getUsername() . '" />
 
-					<label for="' . $this->viewNames->getPassword() . '">Password :</label>
-					<input type="password" id="' . $this->viewNames->getPassword() . '" name="' . $this->viewNames->getPassword() . '" />
+					<label for="' . $this->viewNames->getLPassword() . '">Password :</label>
+					<input type="password" id="' . $this->viewNames->getLPassword() . '" name="' . $this->viewNames->getLPassword() . '" />
 
-					<label for="' . $this->viewNames->getKeep() . '">Keep me logged in  :</label>
-					<input type="checkbox" id="' . $this->viewNames->getKeep() . '" name="' . $this->viewNames->getKeep() . '" />
+					<label for="' . $this->viewNames->getLKeep() . '">Keep me logged in  :</label>
+					<input type="checkbox" id="' . $this->viewNames->getLKeep() . '" name="' . $this->viewNames->getLKeep() . '" />
 
 					<input type="submit" name="' . $this->viewNames->getLLogin() . '" value="login" />
 				</fieldset>

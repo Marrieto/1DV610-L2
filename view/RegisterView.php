@@ -40,15 +40,15 @@ class RegisterView
           <form action='?register' method='post' enctype='multipart/form-data'>
             <fieldset>
             <legend>Register a new user - Write username and password</legend>
-              <p id='" . $this->viewNames->getMessageId() . "'>" . $message->getMessageString() . "</p>
-              <label for='" . $this->viewNames->getUsername() . "' >Username :</label>
-              <input type='text' size='20' name='" . $this->viewNames->getUsername() . "' id='" . $this->viewNames->getUsername() . "' value='" . $this->returnUsernameIfExistSanitized() . "' />
+              <p id='" . $this->viewNames->getRMessageId() . "'>" . $message->getMessageString() . "</p>
+              <label for='" . $this->viewNames->getRUsername() . "' >Username :</label>
+              <input type='text' size='20' name='" . $this->viewNames->getRUsername() . "' id='" . $this->viewNames->getRUsername() . "' value='" . $this->returnUsernameIfExistSanitized() . "' />
               <br/>
               <label for='" . $this->viewNames->getPassword() . "' >Password  :</label>
-              <input type='password' size='20' name='" . $this->viewNames->getPassword() . "' id='" . $this->viewNames->getPassword() . "' value='" . $this->returnPasswordIfExist() . "' />
+              <input type='password' size='20' name='" . $this->viewNames->getPassword() . "' id='" . $this->viewNames->getRPassword() . "' value='" . $this->returnPasswordIfExist() . "' />
               <br/>
-              <label for='" . $this->viewNames->getPasswordRepeat() . "' >Repeat password  :</label>
-              <input type='password' size='20' name='" . $this->viewNames->getPasswordRepeat() . "' id='" . $this->viewNames->getPasswordRepeat() . "' value='" . $this->returnPasswordRepeatIfExist() . "' />
+              <label for='" . $this->viewNames->getRPasswordRepeat() . "' >Repeat password  :</label>
+              <input type='password' size='20' name='" . $this->viewNames->getRPasswordRepeat() . "' id='" . $this->viewNames->getRPasswordRepeat() . "' value='" . $this->returnPasswordRepeatIfExist() . "' />
               <br/>
               <input id='submit' type='submit' name='" . $this->viewNames->getRName() . "'  value='Register' />
               <br/>

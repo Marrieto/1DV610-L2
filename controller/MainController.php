@@ -40,7 +40,7 @@ class MainController
         if ($triedToRegister) {
             // $credentials = $this->RegisterView->getCredentials();
             $this->credentials->getCredentials();
-            var_dump($this->credentials);
+            // var_dump($this->credentials);
             $validRegistrationResponse = ValidateRegisterInputFormat($this->credentials);
 
             // CHECK IF USER ALREADY EXIST
