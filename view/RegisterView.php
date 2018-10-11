@@ -2,12 +2,18 @@
 
 class RegisterView
 {
-
+    // REPLACE WITH POST OBJECT
     private $register = 'RegisterView::Register';
     private $username = 'RegisterView::UserName';
     private $password = 'RegisterView::Password';
     private $passwordRepeat = 'RegisterView::PasswordRepeat';
     private $messageId = 'RegisterView::Message';
+    private $viewNames;
+
+    public function __construct()
+    {
+        $this->viewNames = new ViewVariables();
+    }
 
     /**
      * Create HTTP response
@@ -34,17 +40,17 @@ class RegisterView
           <form action='?register' method='post' enctype='multipart/form-data'>
             <fieldset>
             <legend>Register a new user - Write username and password</legend>
-              <p id='" . $this->messageId . "'>" . $message->getMessageString() . "</p>
-              <label for='" . $this->username . "' >Username :</label>
-              <input type='text' size='20' name='" . $this->username . "' id='" . $this->username . "' value='" . $this->returnUsernameIfExistSanitized() . "' />
+              <p id='" . $this->viewNames->getRMessageId() . "'>" . $message->getMessageString() . "</p>
+              <label for='" . $this->viewNames->getRUsername() . "' >Username :</label>
+              <input type='text' size='20' name='" . $this->viewNames->getRUsername() . "' id='" . $this->viewNames->getRUsername() . "' value='" . $this->returnUsernameIfExistSanitized() . "' />
               <br/>
-              <label for='" . $this->password . "' >Password  :</label>
-              <input type='password' size='20' name='" . $this->password . "' id='" . $this->password . "' value='" . $this->returnPasswordIfExist() . "' />
+              <label for='" . $this->viewNames->getRPassword() . "' >Password  :</label>
+              <input type='password' size='20' name='" . $this->viewNames->getRPassword() . "' id='" . $this->viewNames->getRPassword() . "' value='" . $this->returnPasswordIfExist() . "' />
               <br/>
-              <label for='" . $this->passwordRepeat . "' >Repeat password  :</label>
-              <input type='password' size='20' name='" . $this->passwordRepeat . "' id='" . $this->passwordRepeat . "' value='" . $this->returnPasswordRepeatIfExist() . "' />
+              <label for='" . $this->viewNames->getRPasswordRepeat() . "' >Repeat password  :</label>
+              <input type='password' size='20' name='" . $this->viewNames->getRPasswordRepeat() . "' id='" . $this->viewNames->getRPasswordRepeat() . "' value='" . $this->returnPasswordRepeatIfExist() . "' />
               <br/>
-              <input id='submit' type='submit' name='" . $this->register . "'  value='Register' />
+              <input id='submit' type='submit' name='" . $this->viewNames->getRName() . "'  value='Register' />
               <br/>
             </fieldset>
           </form>" . $dtv->show() . "    </div>
@@ -52,15 +58,6 @@ class RegisterView
     </html>
     ";
         echo $response;
-    }
-
-    public function userTriedToRegister()
-    {
-        if (isset($_POST[$this->register])) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public function getCredentials()
@@ -77,6 +74,8 @@ class RegisterView
         return $isLoggedIn == true ? "Logged in" : "Not logged in";
     }
 
+
+    // TODO: REPLACE THESE AND PUT IN POST OBJECT
     private function returnUsernameIfExistSanitized()
     {
         if ((isset($_POST[$this->username]))) {

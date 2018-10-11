@@ -4,6 +4,7 @@
  * Handle all the data that has  something to do with the login
  */
 
+ // SHOULD BE REPLACED BY A FUNCTION IN THE CREDENTIALS CLASS
 function ValidateRegisterInputFormat(Credentials $credentials): StatusMessage
 {
     $response = new StatusMessage();

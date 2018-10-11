@@ -13,8 +13,7 @@ function calculateDate()
     return $weekDay . ", the " . ordinal($mday) . " of " . $month . " " . $year . ", The time is ";
 }
 
-/*     Copied from:
-https://stackoverflow.com/questions/3109978/display-numbers-with-ordinal-suffix-in-php
+/*     Copied from: https://stackoverflow.com/questions/3109978/display-numbers-with-ordinal-suffix-in-php
 21/09/18
  */
 function ordinal($number)

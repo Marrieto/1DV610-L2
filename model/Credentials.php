@@ -13,21 +13,94 @@ class Credentials
     private $cookiePassword = "";
     private $statusMessage = "";
     private $keepLoggedIn = false;
+    private $POST;
+    private $session;
+    private $cookies;
 
-    public function __construct($username, $password, $keepLoggedIn, $cookieString, $cookiePassword, $passwordRepeat, $statusMessage)
+    public function __construct()
     {
-        $this->username = $username;
-        $this->password = $password;
-        $this->passwordRepeat = $passwordRepeat;
-        $this->cookieString = $cookieString;
-        $this->cookiePassword = $cookiePassword;
-        $this->keepLoggedIn = $keepLoggedIn;
-        $this->statusMessage = $statusMessage;
+        $this->username = "";
+        $this->password = "";
+        $this->passwordRepeat = "";
+        $this->cookieString = "";
+        $this->cookiePassword = "";
+        $this->keepLoggedIn = false;
+        $this->statusMessage = "";
+        $this->POST = new POST();
+        $this->session = new Session();
+        $this->cookies = new Cookies();
+    }
+
+    // Checks if the credential object is having the right format
+    public function validateCredentialFormat()
+    {
+        $returnMessage = new StatusMessage();
+        // Check if username exists
+        if (!strlen($this->username) > 0) {
+            $returnMessage->setMessageState(false);
+            $returnMessage->setMessageString("Username is missing");
+            return $returnMessage;
+        }
+
+        // Check if password exists
+        if (!strlen($this->password) > 0) {
+            $returnMessage->setMessageState(false);
+            $returnMessage->setMessageString("Password is missing");
+            return $returnMessage;
+        } else {
+            $returnMessage->setMessageState(true);
+            return $returnMessage;
+        }
+    }
+    
+    public function getCredentials(): void 
+    {
+        $this->username = $this->getUsernameIfExist();
+        $this->password = $this->getPasswordIfExist();
+        $this->passwordRepeat = $this->getPasswordRepeatIfExist();
+        $this->keep = $this->getKeepIfExist();
+        $this->cookieUsername = $this->getCookieUsernameIfExist();
+        $this->cookiePassword = $this->getCookiePasswordIfExist();
+    }
+    
+    private function getPasswordIfExist(): string
+    {
+        if ($this->POST->getPasswordIfExist() != "")
+        {
+            return $this->POST->getPasswordIfExist();
+        } else if ($this->session->getPasswordIfExist() != "")
+        {
+            return $this->session->getPasswordIfExist();
+        } else {
+            return "";
+        }
+    }
+    
+    private function getUsernameIfExist(): string
+    {
+        if ($this->POST->getUsernameIfExist() != "")
+        {
+            return $this->POST->getUsernameIfExist();
+        } else if ($this->session->getUsernameIfExist() != "")
+        {
+            return $this->session->getUsernameIfExist();
+        } else {
+            return "";
+        }
+    }
+    
+    private function getPasswordRepeatIfExist(): string
+    {
+        return $this->POST->getPasswordRepeatIfExist();
     }
 
     public function getUsername()
     {
         return $this->username;
+    }
+    public function getUsernameSanitized(): string 
+    {
+        return strip_tags($this->username);
     }
     public function getPassword()
     {
@@ -57,28 +130,16 @@ class Credentials
     {
         $this->statusMessage = $message;
     }
-
-    // Checks if the credential object is having the right format
-    public function validateCredentialFormat()
+    private function getKeepIfExist(): string
     {
-        $returnMessage = new StatusMessage();
-
-        // Check if username exists
-        if (!strlen($this->username) > 0) {
-            $returnMessage->setMessageState(false);
-            $returnMessage->setMessageString("Username is missing");
-            return $returnMessage;
-        }
-
-        // Check if password exists
-        if (!strlen($this->password) > 0) {
-            $returnMessage->setMessageState(false);
-            $returnMessage->setMessageString("Password is missing");
-            return $returnMessage;
-        } else {
-            $returnMessage->setMessageState(true);
-            return $returnMessage;
-        }
+        return $this->POST->getKeepIfExist();
     }
-
+    private function getCookieUsernameIfExist(): string
+    {
+        return $this->cookies->getUsernameIfExist();
+    }
+    private function getCookiePasswordIfExist(): string
+    {
+        return $this->cookies->getPasswordIfExist();
+    }
 }

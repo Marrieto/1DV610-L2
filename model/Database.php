@@ -2,34 +2,20 @@
 
 class Database
 {
-
-    private $DBUsername;
-    private $DBPassword;
-    private $DBPort;
-    private $DBHost;
-    private $DBName;
     private $Config;
     private $Connection;
 
-    // public function _construct ($username, $password, $dbport, $dbhost, $dbname) {
-    public function _construct()
+    public function __construct()
     {
-
-        $this->DBUsername = "root";
-        $this->DBPassword = "password";
-        $this->DBPort = "3306";
-        $this->DBHost = "localhost";
-        $this->DBName = "Users";
-
-        $this->Config = new Config;
-
+        $this->Config = new Config();
         $this->connect();
+        $this->initDB();
     }
 
     // TAKEN FROM https://www.w3schools.com/php/func_mysqli_connect.asp
     private function connect(): bool
     {
-        $this->Connection = mysqli_connect("localhost", "root", "password", "Users");
+        $this->Connection = mysqli_connect($this->Config->getDBHost(), $this->Config->getDBUsername(), $this->Config->getDBPassword(), $this->Config->getDBName());
         return $this->checkConnection();
     }
 
@@ -45,7 +31,6 @@ class Database
 
     private function initDB()
     {
-        $this->Connection = mysqli_connect("localhost", "root", "password", "Users");
         $this->Connection->query("CREATE TABLE IF NOT EXISTS `user` (
       `cookiestring` varchar(250) default '',
       `username` varchar(250)  NOT NULL,
@@ -55,15 +40,14 @@ class Database
 
     public function addUser(Credentials $credentials): bool
     {
-        $this->initDB();
-        $response = $this->connect();
-
+        // Use checkConnection and throw error if database is down?
+        // Enapsulate database in a model and use short functions?
         $hashedPassword = password_hash($credentials->getPassword(), PASSWORD_BCRYPT);
 
         $qry = "INSERT INTO user (username, password, cookiestring)
     VALUES ('" . $credentials->getUsername() . "', '" . $hashedPassword . "', '" . $credentials->getCookieString() . "')";
 
-        if ($this->Connection->query($qry) == true && $response == true) {
+        if ($this->Connection->query($qry) == true) {
             return true;
         } else {
             return false;
@@ -73,8 +57,6 @@ class Database
 
     public function checkIfUserExist(Credentials $credentials): bool
     {
-        $this->initDB();
-        $this->connect();
         $username = $credentials->getUsername();
         $qry = "SELECT username FROM user WHERE username=?";
 
@@ -94,8 +76,6 @@ class Database
 
     public function authenticate(Credentials $credentials): bool
     {
-        $this->initDB();
-        $this->connect();
         $username = $credentials->getUsername();
         $password = $credentials->getPassword();
         $qry = "SELECT username, password FROM user WHERE username=?";
@@ -106,7 +86,6 @@ class Database
         $prepared->bind_result($dbusername, $dbpassword);
         $prepared->fetch();
 
-        // Check if the passwords match
         if (password_verify($password, $dbpassword) && $dbusername == $username) {
             return true;
         } else {
