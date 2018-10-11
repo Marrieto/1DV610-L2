@@ -2,16 +2,16 @@
 
 class POST
 {
-    private static $loginString = "LoginView::Login";
-    private static $logoutString = "LoginView::Logout";
-    private static $registerName = "RegisterView::Register";
-    // private static $registerUsername = 'RegisterView::UserName';
-    //private static $registerUsername = 'LoginView::UserName';
-    //private static $registerPassword = 'LoginView::Password';
-    // private static $registerPassword = 'RegisterView::Password';
-    private static $registerPasswordRepeat = 'RegisterView::PasswordRepeat';
-    private static $registerMessageId = 'RegisterView::Message';
-    private static $keep = 'LoginView::KeepMeLoggedIn';
+    // private static $loginString = "LoginView::Login";
+    // private static $logoutString = "LoginView::Logout";
+    // private static $registerName = "RegisterView::Register";
+    // // private static $registerUsername = 'RegisterView::UserName';
+    // //private static $registerUsername = 'LoginView::UserName';
+    // //private static $registerPassword = 'LoginView::Password';
+    // // private static $registerPassword = 'RegisterView::Password';
+    // private static $registerPasswordRepeat = 'RegisterView::PasswordRepeat';
+    // private static $registerMessageId = 'RegisterView::Message';
+    // private static $keep = 'LoginView::KeepMeLoggedIn';
     private $viewNames;
     // TODO: use ViewVariables object instead of static strings
     public function __construct()
@@ -19,14 +19,14 @@ class POST
         $this->viewNames = new ViewVariables();
     }
 
-    public function userWantToLogin(): bool
+    public function userTriedToLogin(): bool
     {
-        return isset($_POST[self::$loginString]);
+        return isset($_POST[$this->viewNames->getLLogin()]);
     }
 
-    public function userWantToLogout(): bool
+    public function userTriedToLogout(): bool
     {
-        return isset($_POST[self::$logoutString]);
+        return isset($_POST[$this->viewNames->getLLogout()]);
     }
 
     public function requestMethodIsPOST(): bool
@@ -36,22 +36,12 @@ class POST
 
     public function userTriedToRegister()
     {
-        if (isset($_POST[self::$registerName])) {
+        if (isset($_POST[$this->viewNames->getRName()])) {
             return true;
         } else {
             return false;
         }
     }
-
-    // public function returnRegisterName(): string
-    // {
-    //     return self::$registerName;
-    // }
-
-    // public function returnRegisterUsername(): string
-    // {
-    //     return self::$registerUsername;
-    // }
 
     public function getUsernameIfExist(): string
     {
