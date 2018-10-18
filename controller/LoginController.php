@@ -56,7 +56,6 @@ class LoginController
     public function login()
     {
         $this->credentials->getCredentials();
-        var_dump($this->credentials->getUsername());
         $this->session->login();
         $this->session->setUsername($this->credentials->getUsername());
         $this->cookies->setCookieUsername($this->credentials->getUsername());
