@@ -99,36 +99,46 @@ class Database
 
     public function getNotes(string $username)
     {
-        //$qry = "SELECT notestring FROM notes WHERE username=?";
-        $qry = "SELECT notestring, id FROM notes WHERE username=?";
-        $prepared = $this->Connection->prepare($qry);
-
-        $prepared->bind_param("s", $username);
-        $prepared->execute();
-        // $prepared->store_result();
-        //$prepared->bind_result($resultString);
-        $prepared->bind_result($resultString, $resultId);
-
-        
-        //var_dump($resultId);
-
         $noteArray = array();
-
-        while ($prepared->fetch())
+        
+        if (strlen($username) > 0)
         {
-            $note = new Note("test", "test", 0);
-            $note->username = $username;
-            $note->content = $resultString;
-            $note->id = $resultId;
-            // var_dump($resultString);
-            // var_dump($username);
-            // var_dump($resultId);
-            // $resultNote = new Note($username, $resultString, $resultId);
-            array_push($noteArray, $note);
-        }
-        // var_dump($noteArray);
+            //$qry = "SELECT notestring FROM notes WHERE username=?";
+            $qry = "SELECT notestring, id FROM notes WHERE username=?";
+            $prepared = $this->Connection->prepare($qry);
 
-        return $noteArray;
+            $prepared->bind_param("s", $username);
+            $prepared->execute();
+            // $prepared->store_result();
+            //$prepared->bind_result($resultString);
+            $prepared->bind_result($resultString, $resultId);
+
+            
+            //var_dump($resultId);
+
+            // $noteArray = array();
+
+            while ($prepared->fetch())
+            {
+                $note = new Note("test", "test", 0);
+                $note->username = $username;
+                $note->content = $resultString;
+                $note->id = $resultId;
+                // var_dump($resultString);
+                // var_dump($username);
+                // var_dump($resultId);
+                // $resultNote = new Note($username, $resultString, $resultId);
+                array_push($noteArray, $note);
+            }
+            // var_dump($noteArray);
+
+            return $noteArray;
+        } 
+        else
+        {
+            return $noteArray;
+        }
+        
     }
 
     public function addNote(string $content, string $username): bool
