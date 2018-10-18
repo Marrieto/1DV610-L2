@@ -62,7 +62,8 @@ class LoginModel
 
     public function getNotesIfExist(string $username)
     {
-        $noteArray = $this->db->getNotes($username);
+        // $noteArray = $this->db->getNotes($username);
+        strlen($username) > 0 ? $noteArray = $this->db->getNotes($username) : $noteArray = array();
         return $noteArray;
     }
 
