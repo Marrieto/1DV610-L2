@@ -95,7 +95,7 @@ class LoginController
         if ($this->POST->userWantsToAddNote())
         {
             // Lägg till vart posten ska gå, skriv sedan klart här nere
-            $noteTextToBeAdded = $this->POST->getNoteContent();
+            $noteTextToBeAdded = $this->POST->getAddNoteContent();
             $noteUserToBeAdded = $this->credentials->getUsernameIfExist();
 
             $this->LoginModel->addNote($noteTextToBeAdded, $noteUserToBeAdded);
@@ -103,6 +103,15 @@ class LoginController
             // Render using this login with status message
             $response->setMessageString("Note added.");
             $response->setMessageState(true);
+            $this->render($response);
+        } 
+        else 
+        {
+
+            $noteIdToBeRemoved = $this->POST->getRemoveNoteContent();
+            $this->LoginModel->removeNote($noteIdToBeRemoved);
+            $response->setMessageState(true);
+            $response->setMessageString("Note deleted.");
             $this->render($response);
         }
     }

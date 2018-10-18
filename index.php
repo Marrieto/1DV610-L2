@@ -19,6 +19,7 @@ require_once 'model/Session.php';
 require_once 'view/POST.php';
 require_once 'view/GET.php';
 require_once 'model/ViewVariables.php';
+require_once 'model/Note.php';
 
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER

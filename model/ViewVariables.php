@@ -21,6 +21,7 @@ class ViewVariables
     private static $addNote = "LoginView::AddNote";
     private static $addNoteContent = "LoginView::AddNoteContent";
     private static $removeNote = "LoginView::RemoveNote";
+    private static $removeNoteContent = "LoginView::RemoveNoteContent";
 
     public function getRName(): string 
     {
@@ -85,5 +86,9 @@ class ViewVariables
     public function getRemoveNote(): string
     {
         return self::$removeNote;
+    }
+    public function getRemoveNoteContent(): string
+    {
+        return self::$removeNoteContent;
     }
 }

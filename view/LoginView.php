@@ -65,14 +65,20 @@ class LoginView
     {
         $returningHTML = '
         <br>
-        <form method="post" >
-                <input type="text" id="' . $this->viewNames->getAddNoteContent() . '" name="' . $this->viewNames->getAddNoteContent() . '" placeholder="note content"/>
-                <input type="submit" name="' . $this->viewNames->getAddNote() . '" value="addnote" />
-        </form>
+            <form method="post" >
+                    <input type="text" id="' . $this->viewNames->getAddNoteContent() . '" name="' . $this->viewNames->getAddNoteContent() . '" placeholder="note content"/>
+                    <input type="submit" name="' . $this->viewNames->getAddNote() . '" value="Add note" />
+            </form>
+        <br>
+            <form method="post" >
+                <input type="text" id="' . $this->viewNames->getRemoveNoteContent() . '" name="' . $this->viewNames->getRemoveNoteContent() . '" placeholder="note content"/>
+                <input type="submit" name="' . $this->viewNames->getRemoveNote() . '" value="Remove note with id" />
+            </form>
         <br>
         Notes are listed down below:  <br>';
+
         foreach ($notes as $note => $value) {
-            $returningHTML .= $value . '<br>';
+            $returningHTML .= '| ID: ' . $value->id . ' | ' . $value->content . '<br>';
         }
         return $returningHTML;
     }

@@ -71,5 +71,9 @@ class LoginModel
         // $username = $this->credentials->getUsername();
         $this->db->addNote($content, $username);
     }
+    public function removeNote(int $idToBeRemoved)
+    {
+        $this->db->removeNote($idToBeRemoved);
+    }
 
 }

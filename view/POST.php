@@ -77,9 +77,13 @@ class POST
     {
         return isset($_POST[$this->viewNames->getRemoveNote()]);
     }
-    public function getNoteContent()
+    public function getAddNoteContent()
     {
         return $_POST[$this->viewNames->getAddNoteContent()];
+    }
+    public function getRemoveNoteContent()
+    {
+        return $_POST[$this->viewNames->getRemoveNoteContent()];
     }
 
 }
