@@ -62,9 +62,17 @@ class LoginModel
 
     public function getNotesIfExist(string $username)
     {
-        // $noteArray = $this->db->getNotes($username);
-        strlen($username) > 0 ? $noteArray = $this->db->getNotes($username) : $noteArray = array();
-        return $noteArray;
+        if ($this->db->checkIfUserExist($username))
+        {
+            $noteArray = $this->db->getNotes($username);
+            return $noteArray;
+        } 
+        else
+        {
+            $emptyNote = new Note("", "", 0);
+            array_push($noteArray, $emptyNote);
+            return $noteArray;
+        }
     }
 
     public function addNote(string $content, string $username)
