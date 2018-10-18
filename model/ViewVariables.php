@@ -18,6 +18,10 @@ class ViewVariables
     private static $cookieName = 'LoginView::CookieName';
     private static $cookiePassword = 'LoginView::CookiePassword';
 
+    private static $addNote = "LoginView::AddNote";
+    private static $addNoteContent = "LoginView::AddNoteContent";
+    private static $removeNote = "LoginView::RemoveNote";
+
     public function getRName(): string 
     {
         return self::$rName;
@@ -69,5 +73,17 @@ class ViewVariables
     public function getLMessageId(): string 
     {
         return self::$lMessageId;
+    }
+    public function getAddNote(): string
+    {
+        return self::$addNote;
+    }
+    public function getAddNoteContent(): string
+    {
+        return self::$addNoteContent;
+    }
+    public function getRemoveNote(): string
+    {
+        return self::$removeNote;
     }
 }

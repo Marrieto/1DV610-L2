@@ -38,8 +38,10 @@ class Database
     );");
 
     $this->Connection->query("CREATE TABLE IF NOT EXISTS `notes` (
+        `id` int NOT NULL AUTO_INCREMENT,
         `notestring` varchar(250) default '',
-        `username` varchar(250)  NOT NULL
+        `username` varchar(250)  NOT NULL,
+        PRIMARY KEY (`id`)
         );");
     }
 
@@ -55,7 +57,6 @@ class Database
         } else {
             return false;
         }
-
     }
 
     public function checkIfUserExist(string $username): bool
@@ -113,6 +114,18 @@ class Database
         }
 
         return $noteArray;
+    }
+
+    public function addNote(string $content, string $username): bool
+    {
+        $qry = "INSERT INTO notes (username, notestring)
+        VALUES ('" . $username . "',  '" . $content . "')";
+
+        if ($this->Connection->query($qry) == true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

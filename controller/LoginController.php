@@ -55,7 +55,10 @@ class LoginController
 
     public function login()
     {
+        $this->credentials->getCredentials();
+        var_dump($this->credentials->getUsername());
         $this->session->login();
+        $this->session->setUsername($this->credentials->getUsername());
         $this->cookies->setCookieUsername($this->credentials->getUsername());
         $this->cookies->setCookiePassword($this->credentials->getPassword());
     }
@@ -83,6 +86,26 @@ class LoginController
             }
         }
         return $response;
+    }
+
+    public function removeOrAddNote()
+    {
+        $response = new StatusMessage();
+        $username = $this->credentials->getUsernameIfExist();
+
+        if ($this->POST->userWantsToAddNote())
+        {
+            // Lägg till vart posten ska gå, skriv sedan klart här nere
+            $noteTextToBeAdded = $this->POST->getNoteContent();
+            $noteUserToBeAdded = $this->credentials->getUsernameIfExist();
+
+            $this->LoginModel->addNote($noteTextToBeAdded, $noteUserToBeAdded);
+            
+            // Render using this login with status message
+            $response->setMessageString("Note added.");
+            $response->setMessageState(true);
+            $this->render($response);
+        }
     }
 
 }

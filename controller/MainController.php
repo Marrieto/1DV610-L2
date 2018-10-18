@@ -77,6 +77,10 @@ class MainController
             $emptyStatus = new StatusMessage();
             $this->RegisterController->render($emptyStatus);
         }
+        else if ($this->POST->userWantsToAddOrRemoveNote())
+        {
+            $this->LoginController->removeOrAddNote();
+        }
         else
         {
             $emptyStatus = new StatusMessage();

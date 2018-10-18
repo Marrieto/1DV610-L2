@@ -36,7 +36,6 @@ class LoginModel
     public function login(Credentials $credentials)
     {
         $this->Session->login();
-        $username = $credentials->getUsername();
         $this->cookies->setUsername($username);
     }
 
@@ -64,8 +63,13 @@ class LoginModel
     public function getNotesIfExist(string $username)
     {
         $noteArray = $this->db->getNotes($username);
-        // var_dump($noteArray);
         return $noteArray;
+    }
+
+    public function addNote(string $content, string $username)
+    {
+        // $username = $this->credentials->getUsername();
+        $this->db->addNote($content, $username);
     }
 
 }

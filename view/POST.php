@@ -65,5 +65,21 @@ class POST
     {
         return (isset($_POST[$this->viewNames->getLKeep()]) && !empty($_POST[$this->viewNames->getLKeep()]));
     }
+    public function userWantsToAddOrRemoveNote()
+    {
+        return $this->userWantsToAddNote() || $this->userWantsToRemoveNote();
+    }
+    public function userWantsToAddNote()
+    {
+        return isset($_POST[$this->viewNames->getAddNote()]);
+    }
+    public function userWantsToRemoveNote()
+    {
+        return isset($_POST[$this->viewNames->getRemoveNote()]);
+    }
+    public function getNoteContent()
+    {
+        return $_POST[$this->viewNames->getAddNoteContent()];
+    }
 
 }

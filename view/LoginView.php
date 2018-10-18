@@ -16,9 +16,8 @@ class LoginView
     {
         if ($msg->getMessageState()) {
             $responseHTML = $this->generateLogoutButtonHTML($msg->getMessageString());
-            
             $responseHTML .= $this->generateNotes($notes);
-            //var_dump($responseHTML);
+
         } else {
             $responseHTML = $this->generateLoginFormHTML($msg->getMessageString());
         }
@@ -65,6 +64,11 @@ class LoginView
     private function generateNotes(array $notes)
     {
         $returningHTML = '
+        <br>
+        <form method="post" >
+                <input type="text" id="' . $this->viewNames->getAddNoteContent() . '" name="' . $this->viewNames->getAddNoteContent() . '" placeholder="note content"/>
+                <input type="submit" name="' . $this->viewNames->getAddNote() . '" value="addnote" />
+        </form>
         <br>
         Notes are listed down below:  <br>';
         foreach ($notes as $note => $value) {

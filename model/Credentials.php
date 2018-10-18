@@ -76,7 +76,7 @@ class Credentials
         }
     }
     
-    private function getUsernameIfExist(): string
+    public function getUsernameIfExist(): string
     {
         if ($this->POST->getUsernameIfExist() != "")
         {
