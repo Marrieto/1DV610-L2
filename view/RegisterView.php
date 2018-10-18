@@ -2,14 +2,9 @@
 
 class RegisterView
 {
-    // REPLACE WITH POST OBJECT
-    // private $register = 'RegisterView::Register';
-    // private $username = 'RegisterView::UserName';
-    // private $password = 'RegisterView::Password';
-    // private $passwordRepeat = 'RegisterView::PasswordRepeat';
-    // private $messageId = 'RegisterView::Message';
     private $viewNames;
     private $credentials;
+
     public function __construct()
     {
         $this->viewNames = new ViewVariables();
@@ -17,13 +12,6 @@ class RegisterView
         $this->credentials->getCredentials();
     }
 
-    /**
-     * Create HTTP response
-     *
-     * Should be called after a login attempt has been determined
-     *
-     * @return  void BUT writes to standard output and cookies!
-     */
     public function returnHtml(StatusMessage $message): string
     {
 
@@ -51,56 +39,5 @@ class RegisterView
     ";
         return $response;
     }
-
-
-
-    // public function getCredentials()
-    // {
-    //     $username = $this->returnUsernameIfExist();
-    //     $password = $this->returnPasswordIfExist();
-    //     $passwordRepeat = $this->returnPasswordRepeatIfExist();
-    //     $credentials = new Credentials($username, $password, false, "", "", $passwordRepeat, "");
-    //     return $credentials;
-    // }
-
-    // private function userIsLoggedIn($isLoggedIn)
-    // {
-    //     return $isLoggedIn == true ? "Logged in" : "Not logged in";
-    // }
-
-
-    // TODO: REPLACE THESE AND PUT IN POST OBJECT
-    // private function returnUsernameIfExistSanitized()
-    // {
-    //     if ((isset($_POST[$this->username]))) {
-    //         $sanitizedString = strip_tags($_POST[$this->username]);
-    //         return $sanitizedString;
-    //     } else {
-    //         return "";}
-    // }
-
-    // private function returnUsernameIfExist()
-    // {
-    //     if ((isset($_POST[$this->username]))) {
-    //         return $_POST[$this->username];
-    //     } else {
-    //         return "";}
-    // }
-
-    // private function returnPasswordIfExist()
-    // {
-    //     if ((isset($_POST[$this->password]))) {
-    //         return $_POST[$this->password];
-    //     } else {
-    //         return "";}
-    // }
-
-    // private function returnPasswordRepeatIfExist()
-    // {
-    //     if ((isset($_POST[$this->passwordRepeat]))) {
-    //         return $_POST[$this->passwordRepeat];
-    //     } else {
-    //         return "";}
-    // }
 
 }

@@ -36,6 +36,11 @@ class Database
       `username` varchar(250)  NOT NULL,
       `password` varchar(250)  NOT NULL
     );");
+
+    $this->Connection->query("CREATE TABLE IF NOT EXISTS `notes` (
+        `notestring` varchar(250) default '',
+        `username` varchar(250)  NOT NULL
+        );");
     }
 
     public function addUser(Credentials $credentials): bool
@@ -89,6 +94,25 @@ class Database
             return false;
         }
 
+    }
+
+    public function getNotes(string $username)
+    {
+        $qry = "SELECT notestring FROM notes WHERE username=?";
+        $prepared = $this->Connection->prepare($qry);
+
+        $prepared->bind_param("s", $username);
+        $prepared->execute();
+        $prepared->bind_result($result);
+
+        $noteArray = array();
+
+        while ($prepared->fetch())
+        {
+            array_push($noteArray, $result);
+        }
+
+        return $noteArray;
     }
 
 }

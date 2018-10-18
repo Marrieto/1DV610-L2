@@ -61,4 +61,11 @@ class LoginModel
         }
     }
 
+    public function getNotesIfExist(string $username)
+    {
+        $noteArray = $this->db->getNotes($username);
+        // var_dump($noteArray);
+        return $noteArray;
+    }
+
 }
