@@ -101,7 +101,7 @@ class Database
     {
         $noteArray = array();
         
-        if (strlen($username) > 0)
+        if (!empty($username))
         {
             //$qry = "SELECT notestring FROM notes WHERE username=?";
             $qry = "SELECT notestring, id FROM notes WHERE username=?";
