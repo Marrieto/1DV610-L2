@@ -66,7 +66,7 @@ class LoginModel
         {
             $noteArray = $this->db->getNotes($username);
             return $noteArray;
-        } 
+        } // Unnecessary? Make the check in controller
         else
         {
             $emptyNote = new Note("", "", 0);
