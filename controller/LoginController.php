@@ -24,8 +24,8 @@ class LoginController
     {
         $this->credentials->getCredentials();
         $response = $this->checkIfLoggedIn();
-        $noteArray;
-        
+        $noteArray = array();
+
         if ($statusFromMain->getMessageState())
         {
             $noteArray = $this->LoginModel->getNotesIfExist($this->credentials->getUsername());
