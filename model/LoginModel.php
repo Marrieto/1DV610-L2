@@ -48,7 +48,7 @@ class LoginModel
     public function checkIfLoggedInByCookies(Credentials $credentials)
     {
         $this->cookies = new Cookies();
-        // Return a statusmessage object, with outcome and message string if manipulated?
+
         $username = $credentials->getUsername();
         $cookieName = $this->cookieName;
         $cookieUsername = $this->cookies->getUsernameIfExist();
@@ -66,7 +66,7 @@ class LoginModel
         {
             $noteArray = $this->db->getNotes($username);
             return $noteArray;
-        } // Unnecessary? Make the check in controller
+        }
         else
         {
             $emptyNote = new Note("", "", 0);
@@ -77,7 +77,6 @@ class LoginModel
 
     public function addNote(string $content, string $username)
     {
-        // $username = $this->credentials->getUsername();
         $this->db->addNote($content, $username);
     }
     public function removeNote(int $idToBeRemoved)

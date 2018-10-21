@@ -31,18 +31,17 @@ class Credentials
         $this->cookies = new Cookies();
     }
 
-    // Checks if the credential object is having the right format
     public function validateCredentialFormat()
     {
         $returnMessage = new StatusMessage();
-        // Check if username exists
+
         if (!strlen($this->username) > 0) {
             $returnMessage->setMessageState(false);
             $returnMessage->setMessageString("Username is missing");
             return $returnMessage;
         }
 
-        // Check if password exists
+
         if (!strlen($this->password) > 0) {
             $returnMessage->setMessageState(false);
             $returnMessage->setMessageString("Password is missing");

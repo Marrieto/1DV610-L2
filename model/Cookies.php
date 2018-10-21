@@ -44,7 +44,7 @@ class Cookies
     public function checkIfLoggedInByCookies(Credentials $credentials)
     {
         $this->cookies = new Cookies();
-        // Return a statusmessage object, with outcome and message string if manipulated?
+
         $username = $credentials->getUsername();
         $cookieName = self::$cookieName;
         $cookieUsername = $this->getUsernameIfExist();
