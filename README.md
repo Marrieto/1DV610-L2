@@ -39,4 +39,4 @@ The use cases are described in more detail below.
 3. The system deletes the note from the database
 4. The message _Note deleted._ is displayed on the screen
  
- The test cases created for the use cases can be found HERE. However, not all of these tests are succeeding.
+ The test cases created for the use cases can be found [here](https://github.com/Marrieto/1DV610-L2/blob/master/TestCases.md). However, not all of these tests are succeeding.
