@@ -98,7 +98,7 @@ class LoginController
         return $response;
     }
 
-    public function removeOrAddNote(): StatusMessage
+    public function removeOrAddNote(): void
     {
         $response = new StatusMessage();
         $username = $this->credentials->getUsernameIfExist();
