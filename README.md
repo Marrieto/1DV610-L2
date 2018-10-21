@@ -22,18 +22,18 @@ I added three extra use cases to the project after the first hand-in. I was sati
 
 The use cases are described in more detail below.
 
-#### Use case 1 - View post/s 
+#### Use case 1 - View note/s 
 1. User logs in to his/her account.
 2. The system checks if that user has any saved notes in the database
 3. If there's any notes to show, the note is displayed under _Notes are listed down below:_ with an ID and the content of the note.
 
-#### Use case 2 - Add post 
+#### Use case 2 - Add note 
 1. User logs in to his/her account.
 2. User fills in the text box next to _Add note_ with the content of the note
 3. The system creates and saves the note to the database
 4. The message _Note added._ is displayed on the screen
 
-#### Use case 3 - Delete post 
+#### Use case 3 - Delete note 
 1. User logs in to his/her account.
 2. User fills in the text box next to _Remove note with id_ with the id of the note
 3. The system deletes the note from the database
