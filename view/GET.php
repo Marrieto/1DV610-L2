@@ -2,7 +2,7 @@
 
 class GET
 {
-    public function userWantToRegister()
+    public function userWantToRegister(): bool
     {
         if (isset($_GET['register'])) {
             return true;

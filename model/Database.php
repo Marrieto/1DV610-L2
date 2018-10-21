@@ -28,7 +28,7 @@ class Database
         }
     }
 
-    private function initDB()
+    private function initDB(): void
     {
         $this->Connection->query("CREATE TABLE IF NOT EXISTS `user` (
       `cookiestring` varchar(250) default '',
@@ -96,7 +96,7 @@ class Database
 
     }
 
-    public function getNotes(string $username)
+    public function getNotes(string $username): array
     {
         $noteArray = array();
         

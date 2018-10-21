@@ -31,7 +31,7 @@ class Credentials
         $this->cookies = new Cookies();
     }
 
-    public function validateCredentialFormat()
+    public function validateCredentialFormat(): StatusMessage
     {
         $returnMessage = new StatusMessage();
 
@@ -52,7 +52,7 @@ class Credentials
         }
     }
     
-    public function getCredentials(): void 
+    public function fetchCredentials(): void 
     {
         $this->username = $this->getUsernameIfExist();
         $this->password = $this->getPasswordIfExist();
@@ -93,7 +93,7 @@ class Credentials
         return $this->POST->getPasswordRepeatIfExist();
     }
 
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -101,31 +101,31 @@ class Credentials
     {
         return strip_tags($this->username);
     }
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
-    public function getPasswordRepeat()
+    public function getPasswordRepeat(): string
     {
         return $this->passwordRepeat;
     }
-    public function getKeepLoggedIn()
+    public function getKeepLoggedIn(): bool
     {
         return $this->keepLoggedIn;
     }
-    public function getCookieString()
+    public function getCookieString(): string
     {
         return $this->cookieString;
     }
-    public function getCookiePassword()
+    public function getCookiePassword(): string
     {
         return $this->cookiePassword;
     }
-    public function getStatusMessage()
+    public function getStatusMessage(): string
     {
         return $this->statusMessage;
     }
-    public function setStatusMessage($message)
+    public function setStatusMessage($message): void
     {
         $this->statusMessage = $message;
     }

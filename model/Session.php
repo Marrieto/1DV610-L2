@@ -36,7 +36,7 @@ class Session
         $_SESSION[self::$password] = $password;
     }
 
-    public function getUsernameIfExist()
+    public function getUsernameIfExist(): string
     {
         if (isset($_SESSION[self::$username])) {
             return $_SESSION[self::$username];
@@ -44,7 +44,7 @@ class Session
     }
     
 
-    public function getPasswordIfExist()
+    public function getPasswordIfExist(): string
     {
         if (isset($_SESSION[self::$password])) {
             return $_SESSION[self::$password];

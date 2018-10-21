@@ -17,7 +17,7 @@ class LoginModel
         $this->Session = new Session();
     }
 
-    public function validateCredentialsToDB(Credentials $creds)
+    public function validateCredentialsToDB(Credentials $creds): StatusMessage
     {
         $response = new StatusMessage;
 
@@ -33,19 +33,19 @@ class LoginModel
         return $response;
     }
 
-    public function login(Credentials $credentials)
+    public function login(Credentials $credentials): void
     {
         $this->Session->login();
         $this->cookies->setUsername($username);
     }
 
-    public function logout(Credentials $credentials)
+    public function logout(Credentials $credentials): void
     {
         $this->Session->logout();
         $this->cookies->removeCookies();
     }
 
-    public function checkIfLoggedInByCookies(Credentials $credentials)
+    public function checkIfLoggedInByCookies(Credentials $credentials): bool
     {
         $this->cookies = new Cookies();
 
@@ -75,11 +75,11 @@ class LoginModel
         }
     }
 
-    public function addNote(string $content, string $username)
+    public function addNote(string $content, string $username): void
     {
         $this->db->addNote($content, $username);
     }
-    public function removeNote(int $idToBeRemoved)
+    public function removeNote(int $idToBeRemoved): void
     {
         $this->db->removeNote($idToBeRemoved);
     }

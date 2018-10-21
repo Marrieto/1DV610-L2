@@ -5,7 +5,7 @@ require_once "model/TimeModel.php";
 class DateTimeView
 {
 
-    public function show()
+    public function show(): string
     {
 
         $timeString = calculateDate();

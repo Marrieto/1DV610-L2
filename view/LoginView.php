@@ -9,10 +9,10 @@ class LoginView
     {
         $this->viewNames = new ViewVariables();
         $this->credentials = new Credentials();
-        $this->credentials->getCredentials();
+        $this->credentials->fetchCredentials();
     }
 
-    public function returnHTML(StatusMessage $msg, array $notes)
+    public function returnHTML(StatusMessage $msg, array $notes): string
     {
         if ($msg->getMessageState()) {
             $responseHTML = $this->generateLogoutButtonHTML($msg->getMessageString());
@@ -24,7 +24,7 @@ class LoginView
         return $responseHTML;
     }
 
-    private function generateLogoutButtonHTML($message)
+    private function generateLogoutButtonHTML($message): string
     {
         return '
         <a href="?register">Register a new user</a>
@@ -36,7 +36,7 @@ class LoginView
 		';
     }
 
-    private function generateLoginFormHTML($message)
+    private function generateLoginFormHTML($message): string
     {
         return '
         <a href="?register">Register a new user</a>
@@ -61,7 +61,7 @@ class LoginView
 		';
     }
 
-    private function generateNotes(array $notes)
+    private function generateNotes(array $notes): string
     {
         $returningHTML = '
         <br>

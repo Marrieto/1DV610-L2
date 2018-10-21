@@ -16,7 +16,7 @@ function calculateDate()
 /*     Copied from: https://stackoverflow.com/questions/3109978/display-numbers-with-ordinal-suffix-in-php
 21/09/18
  */
-function ordinal($number)
+function ordinal($number): string
 {
     $ends = array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th');
     if ((($number % 100) >= 11) && (($number % 100) <= 13)) {

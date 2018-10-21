@@ -24,7 +24,7 @@ class POST
         return $_SERVER['REQUEST_METHOD'] == 'POST';
     }
 
-    public function userTriedToRegister()
+    public function userTriedToRegister(): bool
     {
         if (isset($_POST[$this->viewNames->getRName()])) {
             return true;
@@ -65,7 +65,7 @@ class POST
     {
         return (isset($_POST[$this->viewNames->getLKeep()]) && !empty($_POST[$this->viewNames->getLKeep()]));
     }
-    public function userWantsToAddOrRemoveNote()
+    public function userWantsToAddOrRemoveNote(): bool
     {
         return $this->userWantsToAddNote() || $this->userWantsToRemoveNote();
     }
@@ -73,15 +73,15 @@ class POST
     {
         return isset($_POST[$this->viewNames->getAddNote()]);
     }
-    public function userWantsToRemoveNote()
+    public function userWantsToRemoveNote(): bool
     {
         return isset($_POST[$this->viewNames->getRemoveNote()]);
     }
-    public function getAddNoteContent()
+    public function getAddNoteContent(): string
     {
         return $_POST[$this->viewNames->getAddNoteContent()];
     }
-    public function getRemoveNoteContent()
+    public function getRemoveNoteContent(): string
     {
         return $_POST[$this->viewNames->getRemoveNoteContent()];
     }

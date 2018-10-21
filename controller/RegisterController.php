@@ -21,7 +21,7 @@ class RegisterController
         $this->Database = new Database();
     }
 
-    public function render(StatusMessage $statusFromMain)
+    public function render(StatusMessage $statusFromMain): void
     {
         $statusMessage = new StatusMessage();
         $statusMessage->setMessageState($this->Session->checkIfLoggedInBySession());
@@ -31,7 +31,7 @@ class RegisterController
         $this->LayoutView->render($statusMessage, $html);
     }
 
-    public function register(StatusMessage $message)
+    public function register(StatusMessage $message): void
     {
         $statusMessage = new StatusMessage();
         $statusMessage->setMessageState($this->Session->checkIfLoggedIn());
@@ -40,10 +40,10 @@ class RegisterController
         $this->RegisterView->render($statusMessage, $this->DateTimeView);
     }
 
-    public function userTriedToRegister()
+    public function userTriedToRegister(): StatusMessage
     {
         $response = new StatusMessage();
-        $this->Credentials->getCredentials();
+        $this->Credentials->fetchCredentials();
 
         
         $response = ValidateRegisterInputFormat($this->Credentials);

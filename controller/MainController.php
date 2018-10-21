@@ -34,7 +34,7 @@ class MainController
         $this->session = new Session();
     }
 
-    public function render()
+    public function render(): void
     {
         if ($this->POST->userTriedToRegister())
         {

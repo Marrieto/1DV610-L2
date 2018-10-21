@@ -9,7 +9,7 @@ class RegisterView
     {
         $this->viewNames = new ViewVariables();
         $this->credentials = new Credentials();
-        $this->credentials->getCredentials();
+        $this->credentials->fetchCredentials();
     }
 
     public function returnHtml(StatusMessage $message): string

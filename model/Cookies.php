@@ -5,11 +5,11 @@ class Cookies
     private static $cookieName = 'LoginView::CookieName';
     private static $cookiePassword = 'LoginView::CookiePassword';
 
-    public function setCookieUsername($value)
+    public function setCookieUsername($value): void
     {
         setcookie(self::$cookieName, $value, (time() + 60 * 60 * 24));
     }
-    public function setCookiePassword($value)
+    public function setCookiePassword($value): void
     {
         setcookie(self::$cookiePassword, $value, (time() + 60 * 60 * 24));
     }
@@ -21,7 +21,7 @@ class Cookies
         }
     }
 
-    public function removeCookies()
+    public function removeCookies(): void
     {
         setcookie(self::$cookieName, "", (time() + 60 * 60 * 24));
         setcookie(self::$cookiePassword, "", (time() + 60 * 60 * 24));
@@ -29,19 +29,19 @@ class Cookies
         unset($_COOKIE[self::$cookiePassword]);
     }
 
-    public function getUsernameIfExist()
+    public function getUsernameIfExist(): string
     {
         if (isset($_COOKIE[self::$cookieName])) {
             return $_COOKIE[self::$cookieName];
         } else {return "";}
     }
-    public function getPasswordIfExist()
+    public function getPasswordIfExist(): string
     {
         if (isset($_COOKIE[self::$cookiePassword])) {
             return $_COOKIE[self::$cookiePassword];
         } else {return "";}
     }
-    public function checkIfLoggedInByCookies(Credentials $credentials)
+    public function checkIfLoggedInByCookies(Credentials $credentials): bool
     {
         $this->cookies = new Cookies();
 

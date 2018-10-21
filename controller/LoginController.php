@@ -20,9 +20,9 @@ class LoginController
         session_start();
     }
 
-    public function render(StatusMessage $statusFromMain)
+    public function render(StatusMessage $statusFromMain): void
     {
-        $this->credentials->getCredentials();
+        $this->credentials->fetchCredentials();
         $response = $this->checkIfLoggedIn();
         $noteArray = array();
 
@@ -47,7 +47,7 @@ class LoginController
         $this->LayoutView->render($response, $html);
     }
 
-    private function checkIfLoggedIn()
+    private function checkIfLoggedIn(): StatusMessage
     {
         $response = new StatusMessage();
 
@@ -64,24 +64,24 @@ class LoginController
         return $response;
     }
 
-    public function login()
+    public function login(): void
     {
-        $this->credentials->getCredentials();
+        $this->credentials->fetchCredentials();
         $this->session->login();
         $this->session->setUsername($this->credentials->getUsername());
         $this->cookies->setCookieUsername($this->credentials->getUsername());
         $this->cookies->setCookiePassword($this->credentials->getPassword());
     }
-    public function logout()
+    public function logout(): void
     {
         $this->session->logout();
         $this->cookies->removeCookies();
     }
 
-    public function userTriedToLogin()
+    public function userTriedToLogin(): StatusMessage
     {
         $response = new StatusMessage();
-        $this->credentials->getCredentials();
+        $this->credentials->fetchCredentials();
 
         $response = $this->credentials->validateCredentialFormat();
 
@@ -98,7 +98,7 @@ class LoginController
         return $response;
     }
 
-    public function removeOrAddNote()
+    public function removeOrAddNote(): StatusMessage
     {
         $response = new StatusMessage();
         $username = $this->credentials->getUsernameIfExist();
