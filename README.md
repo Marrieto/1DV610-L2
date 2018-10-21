@@ -14,7 +14,7 @@ To be able to run the code, you must first install a stack with Apache, MySQL an
 1. Pull down the repo to your folder where your stack is executed. On my LAMP server this is "~/var/www/html".
 2. Copy the file "configexample.php" and name it "config.php", and fill it with your settings such as username, password, port etc. It's a file with empty settings that consist of 'XXX' and zeros. Make sure to replace them. When you first start the project, the table/s are created with the right information if they don't already exist.
 
-### Extra functionality
+### Extra use cases and tests
 I added three extra use cases to the project after the first hand-in. I was satisfied with 81% on the other functionality. The extra use cases is regarding the creation of notes, and is as follows:
 1. A user is able to see his/her posts.
 2. A user is able to create a new post.
