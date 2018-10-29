@@ -47,28 +47,38 @@ class RegisterController
 
         $response = $this->validateUsernameAndPasswordFormat($this->Credentials);
         
-        if ($response->getMessageState())
+        // Make a AddUser to the DB that throws exceptions instead
+        try 
         {
-            $userExist = $this->Database->checkIfUserExist($this->Credentials->getUsername());
-            if ($userExist) {
-                $response->setMessageString("User exists, pick another username.");
-                $response->setMessageState(false);
-            }
+            $this->Database->addUser($this->Credentials);
         }
-
-        if ($response->getMessageState())
+        catch (Exception $e)
         {
-            if (!$this->Database->addUser($this->Credentials)) {
-                $response->setMessageString("Error saving user to database, check Database.php");
-                $response->setMessageState(false);
-            } else {
-                $this->Session->setUsername($this->Credentials->getUsername());
-            }
+            $response->setMessageState(false);
+            $response->setMessageString($e->getMessage());
         }
 
         return $response;
+        // if ($response->getMessageState())
+        // {
+        //     $userExist = $this->Database->checkIfUserExist($this->Credentials->getUsername());
+        //     if ($userExist) {
+        //         $response->setMessageString("User exists, pick another username.");
+        //         $response->setMessageState(false);
+        //     }
+        // }
+    
+        // if ($response->getMessageState())
+        // {
+        //     if (!$this->Database->addUser($this->Credentials)) {
+        //         $response->setMessageString("Error saving user to database, check Database.php");
+        //         $response->setMessageState(false);
+        //     } else {
+        //         $this->Session->setUsername($this->Credentials->getUsername());
+        //     }
+        // }
     }
-
+    
     private function validateUsernameAndPasswordFormat(Credentials $credentials): StatusMessage
     {
         $username = $credentials->getUsername();

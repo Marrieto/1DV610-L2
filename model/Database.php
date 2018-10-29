@@ -44,18 +44,20 @@ class Database
         );");
     }
 
-    public function addUser(Credentials $credentials): bool
+    public function addUser(Credentials $credentials): void
     {
+        if ($this->checkIfUserExist($credentials->getUsername()))
+        {
+            throw new Exception('User exists, pick another username.');
+        }
+
         $hashedPassword = password_hash($credentials->getPassword(), PASSWORD_BCRYPT);
 
-        $qry = "INSERT INTO user (username, password, cookiestring)
-    VALUES ('" . $credentials->getUsername() . "', '" . $hashedPassword . "', '" . $credentials->getCookieString() . "')";
+        $qry = "INSERT INTO user (username, password, cookiestring) VALUES ('" . $credentials->getUsername() . "', '" . $hashedPassword . "', '" . $credentials->getCookieString() . "')";
 
-        if ($this->Connection->query($qry) == true) {
-            return true;
-        } else {
-            return false;
-        }
+        if ($this->Connection->query($qry) == false) {
+            throw new Exception('Error saving user to database, check Database.php.');
+        } 
     }
 
     public function checkIfUserExist(string $username): bool
