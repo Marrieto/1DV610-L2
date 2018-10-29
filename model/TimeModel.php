@@ -9,8 +9,10 @@ function calculateDate()
     $mday = $currentTime["mday"];
     $month = $currentTime["month"];
     $year = $currentTime["year"];
+    $hours = $currentTime["hours"];
+    $minutes = $currentTime["minutes"];
 
-    return $weekDay . ", the " . ordinal($mday) . " of " . $month . " " . $year . ", The time is ";
+    return $weekDay . ", the " . ordinal($mday) . " of " . $month . " " . $year . ", The time is " . $hours . ":" . $minutes . ".";
 }
 
 /*     Copied from: https://stackoverflow.com/questions/3109978/display-numbers-with-ordinal-suffix-in-php

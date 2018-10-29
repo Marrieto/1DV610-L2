@@ -27,7 +27,6 @@ class MainController
         $this->Config = new Config();
         $this->Database = new Database($this->Config);
         $this->LoginController = new LoginController($this->LoginView, $this->DateTimeView, $this->LayoutView, $this->LoginModel);
-        // $this->RegisterController = new RegisterController($this->LoginView, $this->LayoutView, $this->RegisterView, $this->DateTimeView, $this->LoginModel);
         $this->RegisterController = new RegisterController($this->LayoutView, $this->RegisterView);
         $this->POST = new POST();
         $this->GET = new GET();
