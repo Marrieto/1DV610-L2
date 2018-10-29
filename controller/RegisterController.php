@@ -10,12 +10,10 @@ class RegisterController
     private $Credentials;
     private $Database;
 
-    public function __construct($v, $lv, $rv, $dtv, $lm)
+    public function __construct($lv, $rv)
     {
-        $this->LoginView = $v;
         $this->LayoutView = $lv;
         $this->RegisterView = $rv;
-        $this->DateTimeView = $dtv;
         $this->Session = new Session();
         $this->Credentials = new Credentials();
         $this->Database = new Database();
