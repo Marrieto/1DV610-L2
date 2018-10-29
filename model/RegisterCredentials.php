@@ -34,12 +34,12 @@ class RegisterCredentials {
       throw new Exception("Username contains invalid characters.");
     }
 
-    if (strlen($firstPassword) < 1)
-    {
-      throw new Exception("Password is missing.");
-    }
+    // if (strlen($firstPassword) < 1)
+    // {
+    //   throw new Exception("Password is missing.");
+    // }
     
-    if (strlen($firstPassword) < 3)
+    if (strlen($firstPassword) < 6)
     {
       throw new Exception("Password has too few characters, at least 6 characters.");
     }
