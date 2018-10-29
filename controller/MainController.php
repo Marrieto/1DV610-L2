@@ -38,6 +38,7 @@ class MainController
     {
         if ($this->POST->userTriedToRegister())
         {
+           
             $response = $this->RegisterController->userTriedToRegister();
 
             if($response->getMessageState())

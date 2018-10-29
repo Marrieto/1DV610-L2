@@ -43,13 +43,12 @@ class RegisterController
     public function userTriedToRegister(): StatusMessage
     {
         $response = new StatusMessage();
+        $response->setMessageState(false);
         $this->Credentials->fetchCredentials();
-
-        $response = $this->validateUsernameAndPasswordFormat($this->Credentials);
         
-        // Make a AddUser to the DB that throws exceptions instead
         try 
         {
+            $response = $this->validateUsernameAndPasswordFormat($this->Credentials);
             $this->Database->addUser($this->Credentials);
         }
         catch (Exception $e)
@@ -88,15 +87,16 @@ class RegisterController
         $response->setMessageState(true);
         $response->setMessageString('Registered new user.');
 
-        try
-        {
-            $testCredentials = new RegisterCredentials($username, $password, $passwordRepeat);
-        }
-        catch (Exception $e)
-        {
-            $response->setMessageState(false);
-            $response->setMessageString($e->getMessage());
-        }
+        $testCredentials = new RegisterCredentials($username, $password, $passwordRepeat);
+        // try
+        // {
+        //     $testCredentials = new RegisterCredentials($username, $password, $passwordRepeat);
+        // }
+        // catch (Exception $e)
+        // {
+        //     $response->setMessageState(false);
+        //     $response->setMessageString($e->getMessage());
+        // }
 
         return $response;
     }
