@@ -11,7 +11,7 @@ class Credentials
     private $passwordRepeat = "";
     private $cookieString = "";
     private $cookiePassword = "";
-    private $statusMessage = "";
+    private $ResponseObject = "";
     private $keepLoggedIn = false;
     private $POST;
     private $session;
@@ -25,29 +25,29 @@ class Credentials
         $this->cookieString = "";
         $this->cookiePassword = "";
         $this->keepLoggedIn = false;
-        $this->statusMessage = "";
+        $this->ResponseObject = "";
         $this->POST = new POST();
         $this->session = new Session();
         $this->cookies = new Cookies();
     }
 
-    public function validateCredentialFormat(): StatusMessage
+    public function validateCredentialFormat(): ResponseObject
     {
-        $returnMessage = new StatusMessage();
+        $returnMessage = new ResponseObject();
 
         if (!strlen($this->username) > 0) {
-            $returnMessage->setMessageState(false);
-            $returnMessage->setMessageString("Username is missing");
+            $returnMessage->setWasSuccessful(false);
+            $returnMessage->setMessage("Username is missing");
             return $returnMessage;
         }
 
 
         if (!strlen($this->password) > 0) {
-            $returnMessage->setMessageState(false);
-            $returnMessage->setMessageString("Password is missing");
+            $returnMessage->setWasSuccessful(false);
+            $returnMessage->setMessage("Password is missing");
             return $returnMessage;
         } else {
-            $returnMessage->setMessageState(true);
+            $returnMessage->setWasSuccessful(true);
             return $returnMessage;
         }
     }
@@ -121,13 +121,13 @@ class Credentials
     {
         return $this->cookiePassword;
     }
-    public function getStatusMessage(): string
+    public function getResponseObject(): string
     {
-        return $this->statusMessage;
+        return $this->ResponseObject;
     }
-    public function setStatusMessage($message): void
+    public function setResponseObject($message): void
     {
-        $this->statusMessage = $message;
+        $this->ResponseObject = $message;
     }
     private function getKeepIfExist(): string
     {

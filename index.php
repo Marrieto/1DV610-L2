@@ -12,7 +12,7 @@ require_once 'controller/MainController.php';
 require_once 'model/LoginModel.php';
 require_once 'model/RegisterModel.php';
 require_once 'model/Credentials.php';
-require_once 'model/StatusMessage.php';
+require_once 'model/ResponseObject.php';
 require_once 'model/Database.php';
 require_once 'model/Cookies.php';
 require_once 'model/Session.php';

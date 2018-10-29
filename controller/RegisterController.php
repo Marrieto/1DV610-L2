@@ -19,21 +19,21 @@ class RegisterController
         $this->Database = new Database();
     }
 
-    public function render(StatusMessage $statusFromMain): void
+    public function render(ResponseObject $statusFromMain): void
     {
-        $statusMessage = new StatusMessage();
-        $statusMessage->setMessageState($this->Session->checkIfLoggedInBySession());
-        $statusMessage->setMessageString($statusFromMain->getMessageString());
+        $ResponseObject = new ResponseObject();
+        $ResponseObject->setWasSuccessful($this->Session->checkIfLoggedInBySession());
+        $ResponseObject->setMessage($statusFromMain->getMessage());
 
-        $html = $this->RegisterView->returnHTML($statusMessage);
-        $this->LayoutView->render($statusMessage, $html);
+        $html = $this->RegisterView->returnHTML($ResponseObject);
+        $this->LayoutView->render($ResponseObject, $html);
     }
 
-    public function userTriedToRegister(): StatusMessage
+    public function userTriedToRegister(): ResponseObject
     {
-        $response = new StatusMessage();
-        $response->setMessageState(true);
-        $response->setMessageString('Registered new user.');
+        $response = new ResponseObject();
+        $response->setWasSuccessful(true);
+        $response->setMessage('Registered new user.');
         $this->Credentials->fetchCredentials();
         
         try 
@@ -43,8 +43,8 @@ class RegisterController
         }
         catch (Exception $e)
         {
-            $response->setMessageState(false);
-            $response->setMessageString($e->getMessage());
+            $response->setWasSuccessful(false);
+            $response->setMessage($e->getMessage());
         }
 
         return $response;
@@ -56,6 +56,7 @@ class RegisterController
         $password = $credentials->getPassword();
         $passwordRepeat = $credentials->getPasswordRepeat();
 
+        // Throws exception if it's not having correct format
         $testCredentials = new RegisterCredentials($username, $password, $passwordRepeat);
     }
 }

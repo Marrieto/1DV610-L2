@@ -17,18 +17,18 @@ class LoginModel
         $this->Session = new Session();
     }
 
-    public function validateCredentialsToDB(Credentials $creds): StatusMessage
+    public function validateCredentialsToDB(Credentials $creds): ResponseObject
     {
-        $response = new StatusMessage;
+        $response = new ResponseObject;
 
         if ($this->db->authenticate($creds)) {
-            $response->setMessageState(true);
-            $response->setMessageString("");
+            $response->setWasSuccessful(true);
+            $response->setMessage("");
             return $response;
         }
 
-        $response->setMessageState(false);
-        $response->setMessageString("Wrong name or password");
+        $response->setWasSuccessful(false);
+        $response->setMessage("Wrong name or password");
 
         return $response;
     }

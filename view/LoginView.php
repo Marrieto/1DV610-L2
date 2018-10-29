@@ -12,14 +12,14 @@ class LoginView
         $this->credentials->fetchCredentials();
     }
 
-    public function returnHTML(StatusMessage $msg, array $notes): string
+    public function returnHTML(ResponseObject $msg, array $notes): string
     {
-        if ($msg->getMessageState()) {
-            $responseHTML = $this->generateLogoutButtonHTML($msg->getMessageString());
+        if ($msg->getWasSuccessful()) {
+            $responseHTML = $this->generateLogoutButtonHTML($msg->getMessage());
             $responseHTML .= $this->generateNotes($notes);
 
         } else {
-            $responseHTML = $this->generateLoginFormHTML($msg->getMessageString());
+            $responseHTML = $this->generateLoginFormHTML($msg->getMessage());
         }
         return $responseHTML;
     }

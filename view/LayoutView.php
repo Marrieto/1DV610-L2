@@ -9,7 +9,7 @@ class LayoutView
         $this->DateTimeView = $dtv;
     }
 
-    public function render(StatusMessage $msg, string $htmlFromViews): void
+    public function render(ResponseObject $msg, string $htmlFromViews): void
     {
         echo '<!DOCTYPE html>
       <html>
@@ -19,7 +19,7 @@ class LayoutView
         </head>
         <body>
           <h1>Assignment 2</h1>
-          ' . $this->renderIsLoggedIn($msg->getMessageState()) . '
+          ' . $this->renderIsLoggedIn($msg->getWasSuccessful()) . '
               ' . $htmlFromViews . '
 
               ' . $this->DateTimeView->show() . '

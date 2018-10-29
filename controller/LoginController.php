@@ -20,13 +20,13 @@ class LoginController
         session_start();
     }
 
-    public function render(StatusMessage $statusFromMain): void
+    public function render(ResponseObject $statusFromMain): void
     {
         $this->credentials->fetchCredentials();
         $response = $this->checkIfLoggedIn();
         $noteArray = array();
 
-        if ($statusFromMain->getMessageState())
+        if ($statusFromMain->getWasSuccessful())
         {
             $noteArray = $this->LoginModel->getNotesIfExist($this->credentials->getUsername());
         }
@@ -37,9 +37,9 @@ class LoginController
         }
         
 
-        if ($statusFromMain->getMessageString() != "")
+        if ($statusFromMain->getMessage() != "")
         {
-            $response->setMessageString($statusFromMain->getMessageString());
+            $response->setMessage($statusFromMain->getMessage());
         }
 
         $html = $this->LoginView->returnHTML($response, $noteArray);
@@ -47,19 +47,19 @@ class LoginController
         $this->LayoutView->render($response, $html);
     }
 
-    private function checkIfLoggedIn(): StatusMessage
+    private function checkIfLoggedIn(): ResponseObject
     {
-        $response = new StatusMessage();
+        $response = new ResponseObject();
 
         if ($this->session->checkIfLoggedInBySession())
         {
-            $response->setMessageState(true);
+            $response->setWasSuccessful(true);
         }
 
-        if (!$response->getMessageState() && $this->cookies->checkIfLoggedInByCookies($this->credentials))
+        if (!$response->getWasSuccessful() && $this->cookies->checkIfLoggedInByCookies($this->credentials))
         {
-            $response->setMessageState(true);
-            $response->setMessageString("Welcome back with cookie");
+            $response->setWasSuccessful(true);
+            $response->setMessage("Welcome back with cookie");
         }
         return $response;
     }
@@ -78,21 +78,21 @@ class LoginController
         $this->cookies->removeCookies();
     }
 
-    public function userTriedToLogin(): StatusMessage
+    public function userTriedToLogin(): ResponseObject
     {
-        $response = new StatusMessage();
+        $response = new ResponseObject();
         $this->credentials->fetchCredentials();
 
         $response = $this->credentials->validateCredentialFormat();
 
-        if ($response->getMessageState())
+        if ($response->getWasSuccessful())
         {
             $response = $this->LoginModel->validateCredentialsToDB($this->credentials);
 
-            if ($response->getMessageState() && !$this->session->checkIfLoggedinBySession())
+            if ($response->getWasSuccessful() && !$this->session->checkIfLoggedinBySession())
             {
-                $response->setMessageString("Welcome");
-                $response->setMessageState(true);
+                $response->setMessage("Welcome");
+                $response->setWasSuccessful(true);
             }
         }
         return $response;
@@ -100,7 +100,7 @@ class LoginController
 
     public function removeOrAddNote(): void
     {
-        $response = new StatusMessage();
+        $response = new ResponseObject();
         $username = $this->credentials->getUsernameIfExist();
 
         if ($this->POST->userWantsToAddNote())
@@ -110,8 +110,8 @@ class LoginController
 
             $this->LoginModel->addNote($noteTextToBeAdded, $noteUserToBeAdded);
             
-            $response->setMessageString("Note added.");
-            $response->setMessageState(true);
+            $response->setMessage("Note added.");
+            $response->setWasSuccessful(true);
             $this->render($response);
         } 
         else 
@@ -119,8 +119,8 @@ class LoginController
 
             $noteIdToBeRemoved = $this->POST->getRemoveNoteContent();
             $this->LoginModel->removeNote($noteIdToBeRemoved);
-            $response->setMessageState(true);
-            $response->setMessageString("Note deleted.");
+            $response->setWasSuccessful(true);
+            $response->setMessage("Note deleted.");
             $this->render($response);
         }
     }

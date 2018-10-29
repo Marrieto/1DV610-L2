@@ -41,7 +41,7 @@ class MainController
            
             $response = $this->RegisterController->userTriedToRegister();
 
-            if($response->getMessageState())
+            if($response->getWasSuccessful())
             {
                 $this->LoginController->render($response);
             } 
@@ -54,7 +54,7 @@ class MainController
         {
             $response = $this->LoginController->userTriedToLogin();
 
-            if ($response->getMessageState())
+            if ($response->getWasSuccessful())
             {
                 $this->LoginController->Login();
             }
@@ -63,11 +63,11 @@ class MainController
         }
         else if ($this->POST->userTriedToLogout())
         {
-            $logoutStatus = new StatusMessage();
+            $logoutStatus = new ResponseObject();
 
             if ($this->session->checkIfLoggedInBySession())
             {
-                $logoutStatus->setMessageString("Bye bye!");
+                $logoutStatus->setMessage("Bye bye!");
                 $this->LoginController->logout();
             }
 
@@ -75,7 +75,7 @@ class MainController
         }
         else if ($this->GET->userWantToRegister())
         {
-            $emptyStatus = new StatusMessage();
+            $emptyStatus = new ResponseObject();
             $this->RegisterController->render($emptyStatus);
         }
         else if ($this->POST->userWantsToAddOrRemoveNote())
@@ -84,7 +84,7 @@ class MainController
         }
         else
         {
-            $emptyStatus = new StatusMessage();
+            $emptyStatus = new ResponseObject();
             $this->LoginController->render($emptyStatus);
         }
     }

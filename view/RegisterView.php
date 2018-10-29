@@ -12,7 +12,7 @@ class RegisterView
         $this->credentials->fetchCredentials();
     }
 
-    public function returnHtml(StatusMessage $message): string
+    public function returnHtml(ResponseObject $message): string
     {
 
         $response = "
@@ -22,7 +22,7 @@ class RegisterView
           <form action='?register' method='post' enctype='multipart/form-data'>
             <fieldset>
             <legend>Register a new user - Write username and password</legend>
-              <p id='" . $this->viewNames->getRMessageId() . "'>" . $message->getMessageString() . "</p>
+              <p id='" . $this->viewNames->getRMessageId() . "'>" . $message->getMessage() . "</p>
               <label for='" . $this->viewNames->getRUsername() . "' >Username :</label>
               <input type='text' size='20' name='" . $this->viewNames->getRUsername() . "' id='" . $this->viewNames->getRUsername() . "' value='" . $this->credentials->getUsernameSanitized() . "' />
               <br/>

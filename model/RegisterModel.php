@@ -5,35 +5,35 @@
  */
 
  // SHOULD BE REPLACED BY A FUNCTION IN THE CREDENTIALS CLASS
-function ValidateRegisterInputFormat(Credentials $credentials): StatusMessage
+function ValidateRegisterInputFormat(Credentials $credentials): ResponseObject
 {
-    $response = new StatusMessage();
+    $response = new ResponseObject();
     $username = $credentials->getUsername();
     $password = $credentials->getPassword();
     $passwordRepeat = $credentials->getPasswordRepeat();
 
-    $response->setMessageState(true);
-    $response->setMessageString("Registered new user.");
+    $response->setWasSuccessful(true);
+    $response->setMessage("Registered new user.");
 
     if (!passwordsMatch($password, $passwordRepeat)) {
-        $response->setMessageState(false);
-        $response->setMessageString("Passwords do not match.");
+        $response->setWasSuccessful(false);
+        $response->setMessage("Passwords do not match.");
     }
     if (!passwordIsLongEnough($password)) {
-        $response->setMessageState(false);
-        $response->setMessageString("Password has too few characters, at least 6 characters.");
+        $response->setWasSuccessful(false);
+        $response->setMessage("Password has too few characters, at least 6 characters.");
     }
     if (!usernameIsLongEnough($username)) {
-        $response->setMessageState(false);
-        $response->setMessageString("Username has too few characters, at least 3 characters.");
+        $response->setWasSuccessful(false);
+        $response->setMessage("Username has too few characters, at least 3 characters.");
     }
     if (!passwordIsLongEnough($password) && !usernameIsLongEnough($username)) {
-        $response->setMessageState(false);
-        $response->setMessageString("Username has too few characters, at least 3 characters. Password has too few characters, at least 6 characters.");
+        $response->setWasSuccessful(false);
+        $response->setMessage("Username has too few characters, at least 3 characters. Password has too few characters, at least 6 characters.");
     }
     if (!usesValidCharacters($username)) {
-        $response->setMessageState(false);
-        $response->setMessageString("Username contains invalid characters.");
+        $response->setWasSuccessful(false);
+        $response->setMessage("Username contains invalid characters.");
     }
 
     return $response;
