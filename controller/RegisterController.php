@@ -43,11 +43,8 @@ class RegisterController
     public function userTriedToRegister(): StatusMessage
     {
         $response = new StatusMessage();
-        $response->setMessageString('Registered new user');
         $this->Credentials->fetchCredentials();
 
-        
-        // $response = ValidateRegisterInputFormat($this->Credentials);
         $response = $this->validateUsernameAndPasswordFormat($this->Credentials);
         
         if ($response->getMessageState())
@@ -79,6 +76,7 @@ class RegisterController
         $passwordRepeat = $credentials->getPasswordRepeat();
         $response = new StatusMessage();
         $response->setMessageState(true);
+        $response->setMessageString('Registered new user');
 
         try
         {
