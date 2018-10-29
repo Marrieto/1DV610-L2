@@ -13,11 +13,6 @@ class RegisterCredentials {
     {
       throw new Exception("Passwords do not match.");
     }
-  
-    // if (strlen($username) < 1)
-    // {
-    //   throw new Exception("Username is missing.");
-    // }
 
     if (strlen($username) < 3 && strlen($firstPassword) < 6)
     {
@@ -33,11 +28,6 @@ class RegisterCredentials {
     {
       throw new Exception("Username contains invalid characters.");
     }
-
-    // if (strlen($firstPassword) < 1)
-    // {
-    //   throw new Exception("Password is missing.");
-    // }
     
     if (strlen($firstPassword) < 6)
     {

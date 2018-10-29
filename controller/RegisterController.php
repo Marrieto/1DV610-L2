@@ -43,6 +43,7 @@ class RegisterController
     public function userTriedToRegister(): StatusMessage
     {
         $response = new StatusMessage();
+        $response->setMessageString('Registered new user');
         $this->Credentials->fetchCredentials();
 
         
@@ -61,7 +62,6 @@ class RegisterController
         if ($response->getMessageState())
         {
             if (!$this->Database->addUser($this->Credentials)) {
-                throw new Error("Error saving user to database, check Database.php");
                 $response->setMessageString("Error saving user to database, check Database.php");
                 $response->setMessageState(false);
             } else {
