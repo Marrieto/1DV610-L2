@@ -36,18 +36,18 @@ class Credentials
         $returnMessage = new ResponseObject();
 
         if (!strlen($this->username) > 0) {
-            $returnMessage->setWasSuccessful(false);
+            $returnMessage->setSuccessful(false);
             $returnMessage->setMessage("Username is missing");
             return $returnMessage;
         }
 
 
         if (!strlen($this->password) > 0) {
-            $returnMessage->setWasSuccessful(false);
+            $returnMessage->setSuccessful(false);
             $returnMessage->setMessage("Password is missing");
             return $returnMessage;
         } else {
-            $returnMessage->setWasSuccessful(true);
+            $returnMessage->setSuccessful(true);
             return $returnMessage;
         }
     }

@@ -12,27 +12,27 @@ function ValidateRegisterInputFormat(Credentials $credentials): ResponseObject
     $password = $credentials->getPassword();
     $passwordRepeat = $credentials->getPasswordRepeat();
 
-    $response->setWasSuccessful(true);
+    $response->setSuccessful(true);
     $response->setMessage("Registered new user.");
 
     if (!passwordsMatch($password, $passwordRepeat)) {
-        $response->setWasSuccessful(false);
+        $response->setSuccessful(false);
         $response->setMessage("Passwords do not match.");
     }
     if (!passwordIsLongEnough($password)) {
-        $response->setWasSuccessful(false);
+        $response->setSuccessful(false);
         $response->setMessage("Password has too few characters, at least 6 characters.");
     }
     if (!usernameIsLongEnough($username)) {
-        $response->setWasSuccessful(false);
+        $response->setSuccessful(false);
         $response->setMessage("Username has too few characters, at least 3 characters.");
     }
     if (!passwordIsLongEnough($password) && !usernameIsLongEnough($username)) {
-        $response->setWasSuccessful(false);
+        $response->setSuccessful(false);
         $response->setMessage("Username has too few characters, at least 3 characters. Password has too few characters, at least 6 characters.");
     }
     if (!usesValidCharacters($username)) {
-        $response->setWasSuccessful(false);
+        $response->setSuccessful(false);
         $response->setMessage("Username contains invalid characters.");
     }
 

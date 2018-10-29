@@ -4,31 +4,30 @@ class LoginController
 {
     private $Session;
     private $POST;
-    private $credentials;
-    private $cookies;
+    private $Credentials;
+    private $Cookies;
 
-    public function __construct($v, $dtv, $lv, $lm)
+    public function __construct($v, $lv, $lm)
     {
         $this->LoginView = $v;
-        $this->DateTimeView = $dtv;
         $this->LayoutView = $lv;
         $this->LoginModel = $lm;
-        $this->session = new Session();
+        $this->Session = new Session();
         $this->POST = new POST();
-        $this->credentials = new Credentials();
-        $this->cookies = new Cookies();
-        session_start();
+        $this->Credentials = new Credentials();
+        $this->Cookies = new Cookies();
+        Session_start();
     }
 
     public function render(ResponseObject $statusFromMain): void
     {
-        $this->credentials->fetchCredentials();
+        $this->Credentials->fetchCredentials();
         $response = $this->checkIfLoggedIn();
         $noteArray = array();
 
-        if ($statusFromMain->getWasSuccessful())
+        if ($statusFromMain->wasSuccessful())
         {
-            $noteArray = $this->LoginModel->getNotesIfExist($this->credentials->getUsername());
+            $noteArray = $this->LoginModel->getNotesIfExist($this->Credentials->getUsername());
         }
         else
         {
@@ -51,14 +50,14 @@ class LoginController
     {
         $response = new ResponseObject();
 
-        if ($this->session->checkIfLoggedInBySession())
+        if ($this->Session->checkIfLoggedInBySession())
         {
-            $response->setWasSuccessful(true);
+            $response->setSuccessful(true);
         }
 
-        if (!$response->getWasSuccessful() && $this->cookies->checkIfLoggedInByCookies($this->credentials))
+        if (!$response->wasSuccessful() && $this->Cookies->checkIfLoggedInByCookies($this->Credentials))
         {
-            $response->setWasSuccessful(true);
+            $response->setSuccessful(true);
             $response->setMessage("Welcome back with cookie");
         }
         return $response;
@@ -66,33 +65,33 @@ class LoginController
 
     public function login(): void
     {
-        $this->credentials->fetchCredentials();
-        $this->session->login();
-        $this->session->setUsername($this->credentials->getUsername());
-        $this->cookies->setCookieUsername($this->credentials->getUsername());
-        $this->cookies->setCookiePassword($this->credentials->getPassword());
+        $this->Credentials->fetchCredentials();
+        $this->Session->login();
+        $this->Session->setUsername($this->Credentials->getUsername());
+        $this->Cookies->setCookieUsername($this->Credentials->getUsername());
+        $this->Cookies->setCookiePassword($this->Credentials->getPassword());
     }
     public function logout(): void
     {
-        $this->session->logout();
-        $this->cookies->removeCookies();
+        $this->Session->logout();
+        $this->Cookies->removeCookies();
     }
 
     public function userTriedToLogin(): ResponseObject
     {
         $response = new ResponseObject();
-        $this->credentials->fetchCredentials();
+        $this->Credentials->fetchCredentials();
 
-        $response = $this->credentials->validateCredentialFormat();
+        $response = $this->Credentials->validateCredentialFormat();
 
-        if ($response->getWasSuccessful())
+        if ($response->wasSuccessful())
         {
-            $response = $this->LoginModel->validateCredentialsToDB($this->credentials);
+            $response = $this->LoginModel->validateCredentialsToDB($this->Credentials);
 
-            if ($response->getWasSuccessful() && !$this->session->checkIfLoggedinBySession())
+            if ($response->wasSuccessful() && !$this->Session->checkIfLoggedinBySession())
             {
                 $response->setMessage("Welcome");
-                $response->setWasSuccessful(true);
+                $response->setSuccessful(true);
             }
         }
         return $response;
@@ -101,17 +100,17 @@ class LoginController
     public function removeOrAddNote(): void
     {
         $response = new ResponseObject();
-        $username = $this->credentials->getUsernameIfExist();
+        $username = $this->Credentials->getUsernameIfExist();
 
         if ($this->POST->userWantsToAddNote())
         {
             $noteTextToBeAdded = $this->POST->getAddNoteContent();
-            $noteUserToBeAdded = $this->credentials->getUsernameIfExist();
+            $noteUserToBeAdded = $this->Credentials->getUsernameIfExist();
 
             $this->LoginModel->addNote($noteTextToBeAdded, $noteUserToBeAdded);
             
             $response->setMessage("Note added.");
-            $response->setWasSuccessful(true);
+            $response->setSuccessful(true);
             $this->render($response);
         } 
         else 
@@ -119,7 +118,7 @@ class LoginController
 
             $noteIdToBeRemoved = $this->POST->getRemoveNoteContent();
             $this->LoginModel->removeNote($noteIdToBeRemoved);
-            $response->setWasSuccessful(true);
+            $response->setSuccessful(true);
             $response->setMessage("Note deleted.");
             $this->render($response);
         }

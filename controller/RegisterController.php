@@ -22,7 +22,7 @@ class RegisterController
     public function render(ResponseObject $statusFromMain): void
     {
         $ResponseObject = new ResponseObject();
-        $ResponseObject->setWasSuccessful($this->Session->checkIfLoggedInBySession());
+        $ResponseObject->setSuccessful($this->Session->checkIfLoggedInBySession());
         $ResponseObject->setMessage($statusFromMain->getMessage());
 
         $html = $this->RegisterView->returnHTML($ResponseObject);
@@ -32,7 +32,7 @@ class RegisterController
     public function userTriedToRegister(): ResponseObject
     {
         $response = new ResponseObject();
-        $response->setWasSuccessful(true);
+        $response->setSuccessful(true);
         $response->setMessage('Registered new user.');
         $this->Credentials->fetchCredentials();
         
@@ -43,7 +43,7 @@ class RegisterController
         }
         catch (Exception $e)
         {
-            $response->setWasSuccessful(false);
+            $response->setSuccessful(false);
             $response->setMessage($e->getMessage());
         }
 

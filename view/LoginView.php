@@ -14,7 +14,7 @@ class LoginView
 
     public function returnHTML(ResponseObject $msg, array $notes): string
     {
-        if ($msg->getWasSuccessful()) {
+        if ($msg->wasSuccessful()) {
             $responseHTML = $this->generateLogoutButtonHTML($msg->getMessage());
             $responseHTML .= $this->generateNotes($notes);
 

@@ -19,7 +19,7 @@ class LayoutView
         </head>
         <body>
           <h1>Assignment 2</h1>
-          ' . $this->renderIsLoggedIn($msg->getWasSuccessful()) . '
+          ' . $this->renderIsLoggedIn($msg->wasSuccessful()) . '
               ' . $htmlFromViews . '
 
               ' . $this->DateTimeView->show() . '

@@ -6,12 +6,12 @@ class ResponseObject
     private $WasSuccessful = false;
     private $Message = "";
 
-    public function getWasSuccessful(): bool
+    public function wasSuccessful(): bool
     {
         return $this->WasSuccessful;
     }
 
-    public function setWasSuccessful($state): void
+    public function setSuccessful($state): void
     {
         $this->WasSuccessful = $state;
     }

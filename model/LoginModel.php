@@ -22,12 +22,12 @@ class LoginModel
         $response = new ResponseObject;
 
         if ($this->db->authenticate($creds)) {
-            $response->setWasSuccessful(true);
+            $response->setSuccessful(true);
             $response->setMessage("");
             return $response;
         }
 
-        $response->setWasSuccessful(false);
+        $response->setSuccessful(false);
         $response->setMessage("Wrong name or password");
 
         return $response;

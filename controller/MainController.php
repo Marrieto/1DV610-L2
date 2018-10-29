@@ -41,7 +41,7 @@ class MainController
            
             $response = $this->RegisterController->userTriedToRegister();
 
-            if($response->getWasSuccessful())
+            if($response->wasSuccessful())
             {
                 $this->LoginController->render($response);
             } 
@@ -54,7 +54,7 @@ class MainController
         {
             $response = $this->LoginController->userTriedToLogin();
 
-            if ($response->getWasSuccessful())
+            if ($response->wasSuccessful())
             {
                 $this->LoginController->Login();
             }
@@ -63,15 +63,15 @@ class MainController
         }
         else if ($this->POST->userTriedToLogout())
         {
-            $logoutStatus = new ResponseObject();
+            $logoutResponse = new ResponseObject();
 
             if ($this->session->checkIfLoggedInBySession())
             {
-                $logoutStatus->setMessage("Bye bye!");
+                $logoutResponse->setMessage("Bye bye!");
                 $this->LoginController->logout();
             }
 
-            $this->LoginController->render($logoutStatus);
+            $this->LoginController->render($logoutResponse);
         }
         else if ($this->GET->userWantToRegister())
         {
