@@ -21,6 +21,8 @@ require_once 'view/GET.php';
 require_once 'model/ViewVariables.php';
 require_once 'model/Note.php';
 require_once 'model/Username.php';
+require_once 'model/Password.php';
+require_once 'model/RegisterCredentials.php';
 
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER

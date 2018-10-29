@@ -46,7 +46,8 @@ class RegisterController
         $this->Credentials->fetchCredentials();
 
         
-        $response = ValidateRegisterInputFormat($this->Credentials);
+        // $response = ValidateRegisterInputFormat($this->Credentials);
+        $response = $this->validateUsernameAndPasswordFormat($this->Credentials);
         
         if ($response->getMessageState())
         {
@@ -66,6 +67,27 @@ class RegisterController
             } else {
                 $this->Session->setUsername($this->Credentials->getUsername());
             }
+        }
+
+        return $response;
+    }
+
+    private function validateUsernameAndPasswordFormat(Credentials $credentials): StatusMessage
+    {
+        $username = $credentials->getUsername();
+        $password = $credentials->getPassword();
+        $passwordRepeat = $credentials->getPasswordRepeat();
+        $response = new StatusMessage();
+        $response->setMessageState(true);
+
+        try
+        {
+            $testCredentials = new RegisterCredentials($username, $password, $passwordRepeat);
+        }
+        catch (Exception $e)
+        {
+            $response->setMessageState(false);
+            $response->setMessageString($e->getMessage());
         }
 
         return $response;
