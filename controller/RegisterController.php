@@ -43,12 +43,13 @@ class RegisterController
     public function userTriedToRegister(): StatusMessage
     {
         $response = new StatusMessage();
-        $response->setMessageState(false);
+        $response->setMessageState(true);
+        $response->setMessageString('Registered new user.');
         $this->Credentials->fetchCredentials();
         
         try 
         {
-            $response = $this->validateUsernameAndPasswordFormat($this->Credentials);
+            $this->validateUsernameAndPasswordFormat($this->Credentials);
             $this->Database->addUser($this->Credentials);
         }
         catch (Exception $e)
@@ -58,46 +59,20 @@ class RegisterController
         }
 
         return $response;
-        // if ($response->getMessageState())
-        // {
-        //     $userExist = $this->Database->checkIfUserExist($this->Credentials->getUsername());
-        //     if ($userExist) {
-        //         $response->setMessageString("User exists, pick another username.");
-        //         $response->setMessageState(false);
-        //     }
-        // }
-    
-        // if ($response->getMessageState())
-        // {
-        //     if (!$this->Database->addUser($this->Credentials)) {
-        //         $response->setMessageString("Error saving user to database, check Database.php");
-        //         $response->setMessageState(false);
-        //     } else {
-        //         $this->Session->setUsername($this->Credentials->getUsername());
-        //     }
-        // }
     }
     
-    private function validateUsernameAndPasswordFormat(Credentials $credentials): StatusMessage
+    private function validateUsernameAndPasswordFormat(Credentials $credentials): void
     {
         $username = $credentials->getUsername();
         $password = $credentials->getPassword();
         $passwordRepeat = $credentials->getPasswordRepeat();
-        $response = new StatusMessage();
-        $response->setMessageState(true);
-        $response->setMessageString('Registered new user.');
+
+        // $response = new StatusMessage();
+        // $response->setMessageState(true);
+        // $response->setMessageString('Registered new user.');
 
         $testCredentials = new RegisterCredentials($username, $password, $passwordRepeat);
-        // try
-        // {
-        //     $testCredentials = new RegisterCredentials($username, $password, $passwordRepeat);
-        // }
-        // catch (Exception $e)
-        // {
-        //     $response->setMessageState(false);
-        //     $response->setMessageString($e->getMessage());
-        // }
 
-        return $response;
+        // return $response;
     }
 }
