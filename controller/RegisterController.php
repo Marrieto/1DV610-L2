@@ -76,7 +76,7 @@ class RegisterController
         $passwordRepeat = $credentials->getPasswordRepeat();
         $response = new StatusMessage();
         $response->setMessageState(true);
-        $response->setMessageString('Registered new user');
+        $response->setMessageString('Registered new user.');
 
         try
         {
