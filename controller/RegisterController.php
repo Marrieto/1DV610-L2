@@ -31,15 +31,6 @@ class RegisterController
         $this->LayoutView->render($statusMessage, $html);
     }
 
-    public function register(StatusMessage $message): void
-    {
-        $statusMessage = new StatusMessage();
-        $statusMessage->setMessageState($this->Session->checkIfLoggedIn());
-        $statusMessage->setMessageString($message->getMessageString());
-
-        $this->RegisterView->render($statusMessage, $this->DateTimeView);
-    }
-
     public function userTriedToRegister(): StatusMessage
     {
         $response = new StatusMessage();
@@ -67,12 +58,6 @@ class RegisterController
         $password = $credentials->getPassword();
         $passwordRepeat = $credentials->getPasswordRepeat();
 
-        // $response = new StatusMessage();
-        // $response->setMessageState(true);
-        // $response->setMessageString('Registered new user.');
-
         $testCredentials = new RegisterCredentials($username, $password, $passwordRepeat);
-
-        // return $response;
     }
 }
