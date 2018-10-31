@@ -167,7 +167,7 @@ class Database
 
         if ($this->Connection->query($qry) == null) 
         {
-            throw new Exception('Remove note error: no note with that id found.');
+            throw new Exception('Remove note error: no note with that ID found.');
         }
 
     }

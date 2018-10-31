@@ -23,18 +23,18 @@ class LoginController
 
     public function render(ResponseObject $statusFromMain): void
     {
-        $renderObject = new ResponseObject();
+        $responseObject = new ResponseObject();
         $this->Credentials->fetchCredentials();
     
-        $renderObject->setSuccessful($this->checkIfLoggedIn());
+        $responseObject->setSuccessful($this->checkIfLoggedIn());
         $noteArray = array();
 
         if ($statusFromMain->getMessage() != "")
         {
-            $renderObject->setMessage($statusFromMain->getMessage());
+            $responseObject->setMessage($statusFromMain->getMessage());
         }
 
-        if ($renderObject->wasSuccessful())
+        if ($responseObject->wasSuccessful())
         {
             $noteArray = $this->LoginModel->getNotesIfExist($this->Credentials->getUsername());
         }
@@ -44,12 +44,9 @@ class LoginController
             array_push($noteArray, $emptyNote);
         }
         
+        $html = $this->LoginView->returnHTML($responseObject, $noteArray);
 
-
-
-        $html = $this->LoginView->returnHTML($renderObject, $noteArray);
-
-        $this->LayoutView->render($renderObject, $html);
+        $this->LayoutView->render($responseObject, $html);
     }
 
     private function checkIfLoggedIn(): bool
@@ -114,43 +111,20 @@ class LoginController
 
     public function removeOrAddNote(): ResponseObject
     {
-        $response = new ResponseObject();
         $username = $this->Credentials->getUsernameIfExist();
 
         if ($this->POST->userWantsToAddNote())
         {
             $noteTextToBeAdded = $this->POST->getAddNoteContent();
-            // $noteUserToBeAdded = $this->Credentials->getUsernameIfExist();
+            $response = $this->LoginModel->addNote($noteTextToBeAdded, $username);
 
-            $response->setMessage("Note added.");
-            $response->setSuccessful(true);
-
-            try 
-            {
-                $this->LoginModel->addNote($noteTextToBeAdded, $username);
-            }
-            catch (Exception $e)
-            {
-                $response->setMessage($e->getMessage());
-            }
-            
             return $response;
         } 
         else 
         {
             $noteIdToBeRemoved = $this->POST->getRemoveNoteId();
-            //$noteUserThatRemoves = $this->Credentials->getUsernameIfExist();
-            try
-            {
-                $response = $this->LoginModel->removeNote($noteIdToBeRemoved, $username);
-            }
-            catch(Exception $e)
-            {
-                echo $e->getMessage();
-            }
-            // $response->setSuccessful(true);
-            // $response->setMessage("Note deleted.");
-            // $this->render($response);
+            $response = $this->LoginModel->removeNote($noteIdToBeRemoved, $username);
+
             return $response;
         }
     }

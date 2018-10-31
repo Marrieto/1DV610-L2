@@ -68,8 +68,10 @@ class LoginModel
         }
     }
 
-    public function addNote(string $content, string $username): void
+    public function addNote(string $content, string $username): ResponseObject
     {
+        $response = new ResponseObject();
+
         try 
         {
             $this->validateNoteContent($content);
@@ -77,8 +79,15 @@ class LoginModel
         }
         catch (Exception $e)
         {
-            throw new Exception($e->getMessage());
+            $response->setMessage($e->getMessage());
+            $response->setSuccessful(false);
+            return $response;
         }
+
+        $response->setMessage('Note added.');
+        $response->setSuccessful(true);
+
+        return $response;
     }
 
     public function removeNote(int $idToBeRemoved, string $username): ResponseObject
@@ -102,6 +111,7 @@ class LoginModel
         $response->setSuccessful(true);
 
         return $response;
+
     }
 
     private function validateNoteContent(string $content): void

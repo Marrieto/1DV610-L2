@@ -81,9 +81,17 @@ class POST
     {
         return $_POST[$this->viewNames->getAddNoteContent()];
     }
-    public function getRemoveNoteId(): string
+    public function getRemoveNoteId(): int
     {
-        return $_POST[$this->viewNames->getRemoveNoteId()];
+        if (isset($_POST[$this->viewNames->getRemoveNoteId()]) && !empty($_POST[$this->viewNames->getRemoveNoteId()]))
+        {
+            return $_POST[$this->viewNames->getRemoveNoteId()];
+        }
+        else
+        {
+            return 0;
+        }
+        
     }
 
 }
