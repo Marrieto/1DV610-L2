@@ -3,8 +3,14 @@
 class ResponseObject
 {
 
-    private $WasSuccessful = false;
+    private $Successful = false;
     private $Message = "";
+
+    public function __construct()
+    {
+        $this->Successful = false;
+        $this->Message = "";
+    }
 
     public function wasSuccessful(): bool
     {

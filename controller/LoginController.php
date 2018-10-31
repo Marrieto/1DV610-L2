@@ -86,7 +86,7 @@ class LoginController
     public function tryToLogin(): ResponseObject
     {
         $response = new ResponseObject();
-        $response->setMessage("");
+        // $response->setMessage("");
 
         $this->Credentials->fetchCredentials();
 
