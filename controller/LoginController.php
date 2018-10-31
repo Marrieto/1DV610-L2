@@ -23,11 +23,19 @@ class LoginController
 
     public function render(ResponseObject $statusFromMain): void
     {
+        $renderObject = new ResponseObject();
         $this->Credentials->fetchCredentials();
-        $response = $this->checkIfLoggedIn();
+        // $renderObject = $this->checkIfLoggedIn();
+        $renderObject->setSuccessful($this->checkIfLoggedIn());
         $noteArray = array();
 
-        if ($statusFromMain->wasSuccessful())
+        if ($statusFromMain->getMessage() != "")
+        {
+            $renderObject->setMessage($statusFromMain->getMessage());
+        }
+
+        // if ($statusFromMain->wasSuccessful())
+        if ($renderObject->wasSuccessful())
         {
             $noteArray = $this->LoginModel->getNotesIfExist($this->Credentials->getUsername());
         }
@@ -38,31 +46,27 @@ class LoginController
         }
         
 
-        if ($statusFromMain->getMessage() != "")
-        {
-            $response->setMessage($statusFromMain->getMessage());
-        }
 
-        $html = $this->LoginView->returnHTML($response, $noteArray);
 
-        $this->LayoutView->render($response, $html);
+        $html = $this->LoginView->returnHTML($renderObject, $noteArray);
+
+        $this->LayoutView->render($renderObject, $html);
     }
 
-    private function checkIfLoggedIn(): ResponseObject
+    private function checkIfLoggedIn(): bool
     {
-        $response = new ResponseObject();
-
-        if ($this->Session->checkIfLoggedInBySession())
-        {
-            $response->setSuccessful(true);
-        }
-
-        if (!$response->wasSuccessful() && $this->Cookies->checkIfLoggedInByCookies($this->Credentials))
-        {
-            $response->setSuccessful(true);
-            $response->setMessage("Welcome back with cookie");
-        }
-        return $response;
+        // $response = new ResponseObject();
+        // if ($this->Session->checkIfLoggedInBySession())
+        // {
+        //     $response->setSuccessful(true);
+        // }
+        // if (!$response->wasSuccessful() && $this->Cookies->checkIfLoggedInByCookies($this->Credentials))
+        // {
+        //     $response->setSuccessful(true);
+        //     $response->setMessage("Welcome back with cookie");
+        // }
+        // return $response;
+        return $this->Session->checkIfLoggedInBySession();
     }
 
     public function login(): void
@@ -131,7 +135,6 @@ class LoginController
             catch (Exception $e)
             {
                 $response->setMessage($e->getMessage());
-                // $response->setSuccessful(false);
             }
             
             return $response;
