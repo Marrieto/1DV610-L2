@@ -17,20 +17,22 @@ class LoginModel
         $this->Session = new Session();
     }
 
-    public function validateCredentialsToDB(Credentials $creds): ResponseObject
+    // public function validateCredentialsToDB(Credentials $creds): ResponseObject
+    public function validateCredentialsToDB(Credentials $creds): void
     {
-        $response = new ResponseObject;
+        // $response = new ResponseObject;
 
-        if ($this->db->authenticate($creds)) {
-            $response->setSuccessful(true);
-            $response->setMessage("");
-            return $response;
+        if (!$this->db->authenticate($creds)) {
+            throw new Exception('Wrong name or password!');
+            // $response->setSuccessful(true);
+            // $response->setMessage("");
+            // return $response;
         }
 
-        $response->setSuccessful(false);
-        $response->setMessage("Wrong name or password");
+        // $response->setSuccessful(false);
+        // $response->setMessage("Wrong name or password");
 
-        return $response;
+        // return $response;
     }
 
     public function login(Credentials $credentials): void

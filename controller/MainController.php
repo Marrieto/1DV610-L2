@@ -55,11 +55,6 @@ class MainController
         {
             $response = $this->LoginController->tryToLogin();
 
-            if ($response->wasSuccessful())
-            {
-                $this->LoginController->Login();
-            }
-
             $this->LoginController->render($response);
         }
         else if ($this->POST->userTriedToLogout())
@@ -71,11 +66,11 @@ class MainController
         else if ($this->GET->userWantToRegister())
         {
             $emptyResponse = new ResponseObject();
+
             $this->RegisterController->render($emptyResponse);
         }
         else if ($this->POST->userWantsToAddOrRemoveNote())
         {
-            // $this->LoginController->removeOrAddNote();
             $response = $this->LoginController->removeOrAddNote();
 
             $this->LoginController->render($response);

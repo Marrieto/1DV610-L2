@@ -86,21 +86,49 @@ class LoginController
     public function tryToLogin(): ResponseObject
     {
         $response = new ResponseObject();
+        $response->setMessage("Welcome");
+
         $this->Credentials->fetchCredentials();
 
-        $response = $this->Credentials->validateCredentialFormat();
-
-        if ($response->wasSuccessful())
+        try 
         {
-            $response = $this->LoginModel->validateCredentialsToDB($this->Credentials);
-
-            if ($response->wasSuccessful() && !$this->Session->checkIfLoggedinBySession())
-            {
-                $response->setMessage("Welcome");
-                $response->setSuccessful(true);
-            }
+            $this->Credentials->validateCredentialFormat();
+            $this->LoginModel->validateCredentialsToDB($this->Credentials);
         }
+        catch (Exception $e)
+        {
+            $response->setSuccessful(false);
+            $response->setMessage($e->getMessage());
+            return $response;
+        }
+        
+        if (!$this->Session->checkIfLoggedInBySession())
+        {
+            $response->setMessage('Welcome');
+            $this->login();
+        }
+
         return $response;
+
+        //$response = $this->Credentials->validateCredentialFormat();
+        // if ($response->wasSuccessful())
+        // {
+        //     // try 
+        //     // {
+        //     //     $this->LoginModel->validateCredentialsToDB($this->Credentials);
+        //     // }
+        //     // catch (Exception $e)
+        //     // {
+        //     //     $response->setSuccesful(false);
+        //     // }
+        //     $response = $this->LoginModel->validateCredentialsToDB($this->Credentials);
+        //     if ($response->wasSuccessful() && !$this->Session->checkIfLoggedinBySession())
+        //     {
+        //         $response->setMessage("Welcome");
+        //         $this->login();
+        //     }
+        // }
+        // return $response;
     }
 
     public function tryToLogout(): ResponseObject
