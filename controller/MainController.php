@@ -42,7 +42,7 @@ class MainController
            
             $response = $this->RegisterController->userTriedToRegister();
 
-            if($response->wasSuccessful())
+            if ($response->wasSuccessful())
             {
                 $this->LoginController->render($response);
             } 
