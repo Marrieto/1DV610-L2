@@ -87,7 +87,7 @@ class ViewVariables
     {
         return self::$removeNote;
     }
-    public function getRemoveNoteContent(): string
+    public function getRemoveNoteId(): string
     {
         return self::$removeNoteContent;
     }

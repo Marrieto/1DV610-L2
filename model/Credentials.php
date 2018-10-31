@@ -31,28 +31,15 @@ class Credentials
         $this->cookies = new Cookies();
     }
 
-    // public function validateCredentialFormat(): ResponseObject
-    public function validateCredentialFormat(): void
+    public function credentialsExist(): void
     {
-        // $returnMessage = new ResponseObject();
-        // var_dump($this);
-
         if (!strlen($this->username) > 0) {
             throw new Exception('Username is missing');
-            // $returnMessage->setSuccessful(false);
-            // $returnMessage->setMessage("Username is missing");
-            // return $returnMessage;
         }
 
         if (!strlen($this->password) > 0) {
             throw new Exception('Password is missing');
-            // $returnMessage->setSuccessful(false);
-            // $returnMessage->setMessage("Password is missing");
-            // return $returnMessage;
-        } //else {
-        //     $returnMessage->setSuccessful(true);
-        //     return $returnMessage;
-        // }
+        } 
     }
     
     public function fetchCredentials(): void 

@@ -142,16 +142,34 @@ class Database
             throw new Exception('Database error: Could not add note into database');
         }
     }
+
+    public function findNoteUser(int $idToFind): string
+    {
+        $qry = "SELECT `username` FROM `notes` WHERE `id`=?";
+        $prepared = $this->Connection->prepare($qry);
+        $prepared->bind_param("i", $idToFind);
+        $prepared->execute();
+
+        $prepared->bind_result($resultUser);
+        $prepared->fetch();
+
+        if ($resultUser == null)
+        {
+            $resultUser = "";
+        }
+
+        return $resultUser;
+    }
     
-    public function removeNote(int $idToBeRemoved): bool
+    public function removeNote(int $idToBeRemoved): void
     {
         $qry = "DELETE FROM `Users`.`notes` WHERE `notes`.`id` =" . $idToBeRemoved;
 
-        if ($this->Connection->query($qry) == true) {
-            return true;
-        } else {
-            return false;
+        if ($this->Connection->query($qry) == null) 
+        {
+            throw new Exception('Remove note error: no note with that id found.');
         }
+
     }
 
 }

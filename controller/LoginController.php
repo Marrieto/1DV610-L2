@@ -25,7 +25,7 @@ class LoginController
     {
         $renderObject = new ResponseObject();
         $this->Credentials->fetchCredentials();
-        // $renderObject = $this->checkIfLoggedIn();
+    
         $renderObject->setSuccessful($this->checkIfLoggedIn());
         $noteArray = array();
 
@@ -34,7 +34,6 @@ class LoginController
             $renderObject->setMessage($statusFromMain->getMessage());
         }
 
-        // if ($statusFromMain->wasSuccessful())
         if ($renderObject->wasSuccessful())
         {
             $noteArray = $this->LoginModel->getNotesIfExist($this->Credentials->getUsername());
@@ -55,17 +54,6 @@ class LoginController
 
     private function checkIfLoggedIn(): bool
     {
-        // $response = new ResponseObject();
-        // if ($this->Session->checkIfLoggedInBySession())
-        // {
-        //     $response->setSuccessful(true);
-        // }
-        // if (!$response->wasSuccessful() && $this->Cookies->checkIfLoggedInByCookies($this->Credentials))
-        // {
-        //     $response->setSuccessful(true);
-        //     $response->setMessage("Welcome back with cookie");
-        // }
-        // return $response;
         return $this->Session->checkIfLoggedInBySession();
     }
 
@@ -86,13 +74,12 @@ class LoginController
     public function tryToLogin(): ResponseObject
     {
         $response = new ResponseObject();
-        // $response->setMessage("");
 
         $this->Credentials->fetchCredentials();
 
         try 
         {
-            $this->Credentials->validateCredentialFormat();
+            $this->Credentials->credentialsExist();
             $this->LoginModel->validateCredentialsToDB($this->Credentials);
         }
         catch (Exception $e)
@@ -110,25 +97,6 @@ class LoginController
 
         return $response;
 
-        //$response = $this->Credentials->validateCredentialFormat();
-        // if ($response->wasSuccessful())
-        // {
-        //     // try 
-        //     // {
-        //     //     $this->LoginModel->validateCredentialsToDB($this->Credentials);
-        //     // }
-        //     // catch (Exception $e)
-        //     // {
-        //     //     $response->setSuccesful(false);
-        //     // }
-        //     $response = $this->LoginModel->validateCredentialsToDB($this->Credentials);
-        //     if ($response->wasSuccessful() && !$this->Session->checkIfLoggedinBySession())
-        //     {
-        //         $response->setMessage("Welcome");
-        //         $this->login();
-        //     }
-        // }
-        // return $response;
     }
 
     public function tryToLogout(): ResponseObject
@@ -152,13 +120,14 @@ class LoginController
         if ($this->POST->userWantsToAddNote())
         {
             $noteTextToBeAdded = $this->POST->getAddNoteContent();
-            $noteUserToBeAdded = $this->Credentials->getUsernameIfExist();
+            // $noteUserToBeAdded = $this->Credentials->getUsernameIfExist();
+
             $response->setMessage("Note added.");
             $response->setSuccessful(true);
 
             try 
             {
-                $this->LoginModel->addNote($noteTextToBeAdded, $noteUserToBeAdded);
+                $this->LoginModel->addNote($noteTextToBeAdded, $username);
             }
             catch (Exception $e)
             {
@@ -166,16 +135,23 @@ class LoginController
             }
             
             return $response;
-            // $this->render($response);
         } 
         else 
         {
-
-            $noteIdToBeRemoved = $this->POST->getRemoveNoteContent();
-            $this->LoginModel->removeNote($noteIdToBeRemoved);
-            $response->setSuccessful(true);
-            $response->setMessage("Note deleted.");
-            $this->render($response);
+            $noteIdToBeRemoved = $this->POST->getRemoveNoteId();
+            //$noteUserThatRemoves = $this->Credentials->getUsernameIfExist();
+            try
+            {
+                $response = $this->LoginModel->removeNote($noteIdToBeRemoved, $username);
+            }
+            catch(Exception $e)
+            {
+                echo $e->getMessage();
+            }
+            // $response->setSuccessful(true);
+            // $response->setMessage("Note deleted.");
+            // $this->render($response);
+            return $response;
         }
     }
 

@@ -71,7 +71,7 @@ class LoginView
             </form>
         <br>
             <form method="post" >
-                <input type="text" id="' . $this->viewNames->getRemoveNoteContent() . '" name="' . $this->viewNames->getRemoveNoteContent() . '" placeholder="note content"/>
+                <input type="text" id="' . $this->viewNames->getRemoveNoteId() . '" name="' . $this->viewNames->getRemoveNoteId() . '" placeholder="note content"/>
                 <input type="submit" name="' . $this->viewNames->getRemoveNote() . '" value="Remove note with id" />
             </form>
         <br>

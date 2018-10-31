@@ -17,22 +17,13 @@ class LoginModel
         $this->Session = new Session();
     }
 
-    // public function validateCredentialsToDB(Credentials $creds): ResponseObject
     public function validateCredentialsToDB(Credentials $creds): void
     {
-        // $response = new ResponseObject;
 
         if (!$this->db->authenticate($creds)) {
             throw new Exception('Wrong name or password');
-            // $response->setSuccessful(true);
-            // $response->setMessage("");
-            // return $response;
         }
 
-        // $response->setSuccessful(false);
-        // $response->setMessage("Wrong name or password");
-
-        // return $response;
     }
 
     public function login(Credentials $credentials): void
@@ -90,9 +81,28 @@ class LoginModel
         }
     }
 
-    public function removeNote(int $idToBeRemoved): void
+    public function removeNote(int $idToBeRemoved, string $username): ResponseObject
     {
-        $this->db->removeNote($idToBeRemoved);
+        $response = new ResponseObject();
+        $noteUser = $this->db->findNoteUser($idToBeRemoved);
+
+        try
+        {
+            $this->checkIfUserMatches($username, $noteUser);
+            $this->db->removeNote($idToBeRemoved);
+        }
+        catch (Exception $e)
+        {
+            $response->setMessage($e->getMessage());
+            $response->setSuccessful(false);
+            return $response;
+        }
+
+        $response->setMessage('Note deleted.');
+        $response->setSuccessful(true);
+
+        return $response;
+        // $this->db->removeNote($idToBeRemoved);
     }
 
     private function validateNoteContent(string $content): void
@@ -108,6 +118,14 @@ class LoginModel
         if (strip_tags($content) !== $content)
         {
             throw new Exception('Code is not allowed to be subbmitted to a note!');
+        }
+    }
+
+    private function checkIfUserMatches($username1, $username2)
+    {
+        if($username1 !== $username2)
+        {
+            throw new Exception('Remove note error: no note with that ID found.');
         }
     }
 
