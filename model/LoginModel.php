@@ -23,7 +23,7 @@ class LoginModel
         // $response = new ResponseObject;
 
         if (!$this->db->authenticate($creds)) {
-            throw new Exception('Wrong name or password!');
+            throw new Exception('Wrong name or password');
             // $response->setSuccessful(true);
             // $response->setMessage("");
             // return $response;
