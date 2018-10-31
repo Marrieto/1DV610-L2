@@ -22,7 +22,8 @@ class RegisterController
     public function render(ResponseObject $statusFromMain): void
     {
         $ResponseObject = new ResponseObject();
-        $ResponseObject->setSuccessful($this->Session->checkIfLoggedInBySession());
+        $isLoggedIn = $this->Session->checkIfLoggedInBySession();
+        $ResponseObject->setSuccessful($isLoggedIn);
         $ResponseObject->setMessage($statusFromMain->getMessage());
 
         $html = $this->RegisterView->returnHTML($ResponseObject);
@@ -34,6 +35,7 @@ class RegisterController
         $response = new ResponseObject();
         $response->setSuccessful(true);
         $response->setMessage('Registered new user.');
+
         $this->Credentials->fetchCredentials();
         
         try 

@@ -12,10 +12,12 @@ class LoginController
         $this->LoginView = $v;
         $this->LayoutView = $lv;
         $this->LoginModel = $lm;
+
         $this->Session = new Session();
         $this->POST = new POST();
         $this->Credentials = new Credentials();
         $this->Cookies = new Cookies();
+
         Session_start();
     }
 
@@ -77,7 +79,7 @@ class LoginController
         $this->Cookies->removeCookies();
     }
 
-    public function userTriedToLogin(): ResponseObject
+    public function tryToLogin(): ResponseObject
     {
         $response = new ResponseObject();
         $this->Credentials->fetchCredentials();
@@ -97,7 +99,20 @@ class LoginController
         return $response;
     }
 
-    public function removeOrAddNote(): void
+    public function tryToLogout(): ResponseObject
+    {
+        $response = new ResponseObject();
+
+        if ($this->Session->checkIfLoggedInBySession())
+        {
+            $response->setMessage('Bye bye!');
+            $this->logout();
+        }
+
+        return $response;
+    }
+
+    public function removeOrAddNote(): ResponseObject
     {
         $response = new ResponseObject();
         $username = $this->Credentials->getUsernameIfExist();
@@ -106,12 +121,21 @@ class LoginController
         {
             $noteTextToBeAdded = $this->POST->getAddNoteContent();
             $noteUserToBeAdded = $this->Credentials->getUsernameIfExist();
-
-            $this->LoginModel->addNote($noteTextToBeAdded, $noteUserToBeAdded);
-            
             $response->setMessage("Note added.");
             $response->setSuccessful(true);
-            $this->render($response);
+
+            try 
+            {
+                $this->LoginModel->addNote($noteTextToBeAdded, $noteUserToBeAdded);
+            }
+            catch (Exception $e)
+            {
+                $response->setMessage($e->getMessage());
+                // $response->setSuccessful(false);
+            }
+            
+            return $response;
+            // $this->render($response);
         } 
         else 
         {

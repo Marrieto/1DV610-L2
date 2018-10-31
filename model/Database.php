@@ -132,15 +132,14 @@ class Database
         
     }
 
-    public function addNote(string $content, string $username): bool
+    public function addNote(string $content, string $username): void
     {
         $qry = "INSERT INTO notes (username, notestring)
         VALUES ('" . $username . "',  '" . $content . "')";
 
-        if ($this->Connection->query($qry) == true) {
-            return true;
-        } else {
-            return false;
+        if ($this->Connection->query($qry) !== true) 
+        {
+            throw new Exception('Database error: Could not add note into database');
         }
     }
     

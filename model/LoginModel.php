@@ -77,11 +77,36 @@ class LoginModel
 
     public function addNote(string $content, string $username): void
     {
-        $this->db->addNote($content, $username);
+        try 
+        {
+            $this->validateNoteContent($content);
+            $this->db->addNote($content, $username);
+        }
+        catch (Exception $e)
+        {
+            throw new Exception($e->getMessage());
+        }
     }
+
     public function removeNote(int $idToBeRemoved): void
     {
         $this->db->removeNote($idToBeRemoved);
+    }
+
+    private function validateNoteContent(string $content): void
+    {
+        if (strlen($content) == 0) 
+        {
+            throw new Exception('Cannot add an empty note!');
+        }
+        if (strlen($content) > 500)
+        {
+            throw new Exception('Note cannot be longer than 500 characters!');
+        }
+        if (strip_tags($content) !== $content)
+        {
+            throw new Exception('Code is not allowed to be subbmitted to a note!');
+        }
     }
 
 }

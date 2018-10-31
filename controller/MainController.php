@@ -24,9 +24,10 @@ class MainController
         $this->LayoutView = $lv;
         $this->LoginModel = $lm;
         $this->RegisterView = $rv;
+
         $this->Config = new Config();
         $this->Database = new Database($this->Config);
-        $this->LoginController = new LoginController($this->LoginView, $this->DateTimeView, $this->LayoutView, $this->LoginModel);
+        $this->LoginController = new LoginController($this->LoginView, $this->LayoutView, $this->LoginModel);
         $this->RegisterController = new RegisterController($this->LayoutView, $this->RegisterView);
         $this->POST = new POST();
         $this->GET = new GET();
@@ -52,7 +53,7 @@ class MainController
         } 
         else if ($this->POST->userTriedToLogin())
         {
-            $response = $this->LoginController->userTriedToLogin();
+            $response = $this->LoginController->tryToLogin();
 
             if ($response->wasSuccessful())
             {
@@ -63,29 +64,26 @@ class MainController
         }
         else if ($this->POST->userTriedToLogout())
         {
-            $logoutResponse = new ResponseObject();
+            $response = $this->LoginController->tryToLogout();
 
-            if ($this->session->checkIfLoggedInBySession())
-            {
-                $logoutResponse->setMessage("Bye bye!");
-                $this->LoginController->logout();
-            }
-
-            $this->LoginController->render($logoutResponse);
+            $this->LoginController->render($response);
         }
         else if ($this->GET->userWantToRegister())
         {
-            $emptyStatus = new ResponseObject();
-            $this->RegisterController->render($emptyStatus);
+            $emptyResponse = new ResponseObject();
+            $this->RegisterController->render($emptyResponse);
         }
         else if ($this->POST->userWantsToAddOrRemoveNote())
         {
-            $this->LoginController->removeOrAddNote();
+            // $this->LoginController->removeOrAddNote();
+            $response = $this->LoginController->removeOrAddNote();
+
+            $this->LoginController->render($response);
         }
         else
         {
-            $emptyStatus = new ResponseObject();
-            $this->LoginController->render($emptyStatus);
+            $emptyResponse = new ResponseObject();
+            $this->LoginController->render($emptyResponse);
         }
     }
 
