@@ -102,7 +102,6 @@ class LoginModel
         $response->setSuccessful(true);
 
         return $response;
-        // $this->db->removeNote($idToBeRemoved);
     }
 
     private function validateNoteContent(string $content): void

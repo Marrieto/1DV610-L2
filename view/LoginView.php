@@ -66,12 +66,12 @@ class LoginView
         $returningHTML = '
         <br>
             <form method="post" >
-                    <input type="text" id="' . $this->viewNames->getAddNoteContent() . '" name="' . $this->viewNames->getAddNoteContent() . '" placeholder="note content"/>
+                    <textarea type="text" id="' . $this->viewNames->getAddNoteContent() . '" name="' . $this->viewNames->getAddNoteContent() . '" placeholder="Note content. Maximum 500 characters."></textarea>
                     <input type="submit" name="' . $this->viewNames->getAddNote() . '" value="Add note" />
             </form>
         <br>
             <form method="post" >
-                <input type="text" id="' . $this->viewNames->getRemoveNoteId() . '" name="' . $this->viewNames->getRemoveNoteId() . '" placeholder="note content"/>
+                <input type="text" id="' . $this->viewNames->getRemoveNoteId() . '" name="' . $this->viewNames->getRemoveNoteId() . '" placeholder="Note id to delete" maxlength="4"/>
                 <input type="submit" name="' . $this->viewNames->getRemoveNote() . '" value="Remove note with id" />
             </form>
         <br>
