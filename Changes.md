@@ -1,6 +1,12 @@
 
+
 ## Updates and changes
 
-I did many changes since my last assignment failed. I continuously
+I did many changes since my last assignment failed. I continuously improved the names of the variables and functions to improve understandability. I cannot list all of these. However, in the list below I'll list bigger changes made since the last submission:
+
+ - [ ] Time is properly displayed with hours and minutes
+**calculateDateAndTime** in **TimeModel** now displays the time with the hh:mm format.
+ - [ ] All functions are now withing a class
+E.g the **TimeModel** is now in its own class.
  
- The test cases created for the use cases can be found [here](https://github.com/Marrieto/1DV610-L2/blob/master/TestCases.md). However, not all of these tests are succeeding.
+
