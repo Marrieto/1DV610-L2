@@ -1,8 +1,9 @@
 
 
+
 ## Updates and changes
 
-I did many changes since my last assignment failed. I continuously improved the names of the variables and functions to improve understandability. I cannot list all of these. However, in the list below I'll list bigger changes made since the last submission:
+I did many changes since my last assignment failed. I continuously improved the names of the variables and functions to improve understandability. I cannot list all of these. However, in the list below I'll list bigger changes made since the last submission. There is probably some other changes that I've forgotten about, but these ones are the most important:
 
  - [x] Time is properly displayed with hours and minutes
 **calculateDateAndTime** in **TimeModel** now displays the time with the hh:mm format.
@@ -19,7 +20,7 @@ If the user tries to delete another users' notes, or removing a note that doesn'
   - [x] Changes name on **StatusMessage** class
 I changed the name of **StatusMessage** to **ResponseObject**, to make it clearer that it is a object containing a response from different operations.
   - [x] Removed dead and unreachable code
-
+  
   - [x] Exceptions for increased code readability and understandability
 I started to throw exceptions in many places instead of linking if-statement after if-statement, e.g. **userTriedToRegister()** in **RegisterController.php**.
 
