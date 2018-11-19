@@ -1,3 +1,4 @@
+
 # 1DV610 - Workshop 3
 
 An assignment in the course **Introduction to software quality**
@@ -7,6 +8,9 @@ The project is currently hosted on [DigitalOcean](http://159.89.2.45/). In the [
 
 ### Status
 For the first hand in I implemented the use of session, (started with cookies)  and a database. That's where I stopped. There is still some work that could be done on the second assignment, the use of cookies and cookie safety, more specific the test cases 3.3, 3.4, 3.6, 3.7 and 3.8 .
+
+### Changes
+I've made some changes since my last submission. I tried to summarize most of them [here](https://github.com/Marrieto/1DV610-L2/blob/master/Changes.md). I also updated the test cases since my last submission.
 
 ### How to run the code
 To be able to run the code, you must first install a stack with Apache, MySQL and PHP. On my server I'm running a LAMP stack.
@@ -39,4 +43,4 @@ The use cases are described in more detail below.
 3. The system deletes the note from the database
 4. The message _Note deleted._ is displayed on the screen
  
- The test cases created for the use cases can be found [here](https://github.com/Marrieto/1DV610-L2/blob/master/TestCases.md). However, not all of these tests are succeeding.
+ The test cases created for the use cases can be found [here](https://github.com/Marrieto/1DV610-L2/blob/master/TestCases.md). 
