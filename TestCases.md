@@ -66,7 +66,7 @@ A note with ID is added in the database.
 1. A message with "Note deleted." is displayed.
 2. The note is removed from the list.
 #### Status
-_Failed_
+_Success_
 ## Test case 3.2 Delete a note with wrong id
 #### pre-requisites
 A note with ID is added in the database.
