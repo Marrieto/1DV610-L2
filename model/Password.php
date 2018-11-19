@@ -7,7 +7,7 @@ class Password {
 
   public function __construct(string $firstPassword, string $secondPassword)
   {
-    if (!passwordsMatch($firstPassword, $secondPassword))
+    if (!$this->passwordsMatch($firstPassword, $secondPassword))
     {
       throw new Exception("Passwords do not match.");
     }

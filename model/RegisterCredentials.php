@@ -9,7 +9,7 @@ class RegisterCredentials {
   public function __construct(string $username, string $firstPassword, string $secondPassword)
   {
 
-    if (!passwordsMatch($firstPassword, $secondPassword))
+    if (!$this->passwordsMatch($firstPassword, $secondPassword))
     {
       throw new Exception("Passwords do not match.");
     }
@@ -24,7 +24,7 @@ class RegisterCredentials {
       throw new Exception("Username has too few characters, at least 3 characters.");
     }
 
-    if (!usesValidCharacters($username))
+    if (!$this->usesValidCharacters($username))
     {
       throw new Exception("Username contains invalid characters.");
     }
